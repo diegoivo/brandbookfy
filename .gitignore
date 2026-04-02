@@ -1,0 +1,14 @@
+# Private work — never commit
+evals/
+brandbooks/
+docs/
+marketing/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
