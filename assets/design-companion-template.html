@@ -1,0 +1,1434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#6366f1">
+  <title>Brandbook — Design System</title>
+
+  <!-- Preconnect to Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Default fonts — replace during brainstorming -->
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================
+       DESIGN TOKENS — Update these during brainstorming
+       ============================================ */
+    :root {
+      /* Core */
+      --color-primary-light: #818cf8;
+      --color-primary: #6366f1;
+      --color-primary-dark: #4f46e5;
+
+      /* Accents */
+      --color-warm: #d97706;
+      --color-warm-light: #f59e0b;
+      --color-cool: #0d9488;
+      --color-cool-light: #14b8a6;
+
+      /* Semantic */
+      --color-success: #16a34a;
+      --color-warning: #d97706;
+      --color-error: #dc2626;
+      --color-info: #2563eb;
+
+      /* Surfaces — Light */
+      --surface-page: #faf8fc;
+      --surface-card: #ffffff;
+      --surface-elevated: #f3f0f7;
+      --surface-border: #e5e1ec;
+
+      /* Surfaces — Dark */
+      --surface-dark-deep: #0b0514;
+      --surface-dark-base: #110a1f;
+      --surface-dark-elevated: #1a1029;
+      --surface-dark-border: #2d2140;
+
+      /* Text — Light */
+      --text-primary: #1a1025;
+      --text-secondary: #564b66;
+      --text-tertiary: #8a7f99;
+      --text-disabled: #b8b0c4;
+
+      /* Text — Dark */
+      --text-dark-primary: #f0ecf5;
+      --text-dark-secondary: #b8b0c4;
+      --text-dark-tertiary: #8a7f99;
+      --text-dark-disabled: #564b66;
+
+      /* Typography */
+      --font-display: 'Instrument Serif', Georgia, 'Times New Roman', serif;
+      --font-heading: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --font-body: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+
+      /* Spacing */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2rem;
+      --space-2xl: 3rem;
+      --space-3xl: 4rem;
+      --space-4xl: 6rem;
+
+      /* Radii */
+      --radius-sm: 0.25rem;
+      --radius-md: 0.5rem;
+      --radius-lg: 0.75rem;
+      --radius-xl: 1rem;
+      --radius-full: 9999px;
+
+      /* Layout */
+      --sidebar-width: 240px;
+      --content-max: 960px;
+    }
+
+    /* ============================================
+       RESET & BASE
+       ============================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: clamp(15px, 1vw + 12px, 18px);
+      scroll-behavior: smooth;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    body {
+      font-family: var(--font-body);
+      font-weight: 400;
+      line-height: 1.6;
+      color: var(--text-primary);
+      background-color: var(--surface-page);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+
+    /* Noise texture overlay */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.03;
+      z-index: 9999;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* ============================================
+       SKIP LINK
+       ============================================ */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: var(--space-md);
+      padding: var(--space-sm) var(--space-md);
+      background: var(--color-primary);
+      color: #fff;
+      border-radius: var(--radius-md);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      text-decoration: none;
+      z-index: 10000;
+      transition: top 0.2s;
+    }
+
+    .skip-link:focus {
+      top: var(--space-md);
+    }
+
+    /* ============================================
+       FOCUS STYLES
+       ============================================ */
+    :focus-visible {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 2px;
+    }
+
+    /* ============================================
+       LAYOUT
+       ============================================ */
+    .layout {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* ============================================
+       SIDEBAR — own dark chrome, independent from brand content
+       ============================================ */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: var(--sidebar-width);
+      height: 100vh;
+      padding: var(--space-xl) var(--space-lg);
+      background: var(--surface-dark-base);
+      color: var(--text-dark-primary);
+      overflow-y: auto;
+      z-index: 100;
+      border-right: 1px solid var(--surface-dark-border);
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Logo — fluid gradient wordmark in serif */
+    .sidebar-logo {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: 1.6rem;
+      letter-spacing: -0.02em;
+      margin-bottom: var(--space-2xl);
+      background: linear-gradient(135deg, var(--color-primary-light), var(--color-primary-dark));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .sidebar-nav {
+      list-style: none;
+    }
+
+    .sidebar-nav li {
+      margin-bottom: var(--space-xs);
+    }
+
+    .sidebar-nav a {
+      display: block;
+      padding: var(--space-sm) var(--space-md);
+      color: var(--text-dark-tertiary);
+      text-decoration: none;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.02em;
+      border-radius: var(--radius-md);
+      transition: color 0.15s;
+    }
+
+    .sidebar-nav a:hover,
+    .sidebar-nav a:focus-visible {
+      color: var(--text-dark-primary);
+    }
+
+    /* Active section — scroll-driven */
+    .sidebar-nav a.active {
+      color: var(--text-dark-primary);
+      background: var(--surface-dark-border);
+      border-radius: var(--radius-md) 0 0 var(--radius-md);
+      margin-right: calc(var(--space-lg) * -1);
+      padding-right: calc(var(--space-md) + var(--space-lg));
+    }
+
+    .sidebar-nav .section-number {
+      color: var(--color-primary-light);
+      margin-right: var(--space-sm);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .sidebar-credit {
+      margin-top: auto;
+      padding-top: var(--space-lg);
+    }
+
+    .sidebar-credit a {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: var(--text-dark-disabled);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: color 0.15s;
+    }
+
+    .sidebar-credit a:hover {
+      color: var(--text-dark-tertiary);
+    }
+
+    /* ============================================
+       CONTENT — uses brand tokens, never sidebar's dark
+       ============================================ */
+    .content {
+      margin-left: var(--sidebar-width);
+      flex: 1;
+      min-width: 0;
+    }
+
+    /* ============================================
+       SECTIONS — alternating rhythm via elevated bg
+       ============================================ */
+    section {
+      padding: var(--space-4xl) var(--space-2xl);
+      max-width: var(--content-max);
+      margin: 0 auto;
+      color: var(--text-primary);
+    }
+
+    /* Alternating section — uses brand's elevated surface */
+    .section-alt {
+      background: var(--surface-elevated);
+      max-width: none;
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    .section-alt > .section-inner {
+      max-width: var(--content-max);
+      margin: 0 auto;
+      padding: 0 var(--space-2xl);
+    }
+
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-primary-dark);
+      margin-bottom: var(--space-sm);
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 2.441rem;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: var(--space-lg);
+      color: var(--text-primary);
+    }
+
+    .section-description {
+      color: var(--text-secondary);
+      max-width: 60ch;
+      margin-bottom: var(--space-2xl);
+    }
+
+    /* ============================================
+       HERO
+       ============================================ */
+    .hero {
+      padding: var(--space-4xl) var(--space-2xl);
+      max-width: var(--content-max);
+      margin: 0 auto;
+      min-height: 50vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+      padding: var(--space-xs) var(--space-md);
+      background: var(--surface-elevated);
+      border-radius: var(--radius-full);
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--color-primary-dark);
+      margin-bottom: var(--space-xl);
+      width: fit-content;
+    }
+
+    .hero-badge .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--color-primary);
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: 3.815rem;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: var(--space-lg);
+      color: var(--text-primary);
+    }
+
+    .hero-wordmark {
+      font-family: var(--font-heading);
+      font-weight: 800;
+    }
+
+    /* Identity element highlight */
+    .identity-element {
+      color: var(--color-primary);
+    }
+
+    .hero-subtitle {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      max-width: 50ch;
+    }
+
+    /* ============================================
+       01 — ARCHETYPE
+       ============================================ */
+    .archetype-card {
+      background: var(--surface-card);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-2xl);
+      margin-bottom: var(--space-xl);
+    }
+
+    .archetype-name {
+      font-family: var(--font-display);
+      font-size: 1.953rem;
+      margin-bottom: var(--space-sm);
+      color: var(--text-primary);
+    }
+
+    .traits {
+      display: flex;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+      margin-bottom: var(--space-lg);
+    }
+
+    .trait {
+      padding: var(--space-xs) var(--space-md);
+      background: var(--surface-elevated);
+      border-radius: var(--radius-full);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--color-primary-dark);
+    }
+
+    /* ============================================
+       02 — WORDMARK
+       ============================================ */
+    .wordmark-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--space-lg);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .wordmark-variant {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-3xl) var(--space-xl);
+      border-radius: var(--radius-lg);
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 2rem;
+      letter-spacing: -0.02em;
+    }
+
+    .wordmark-on-light {
+      background: var(--surface-card);
+      border: 1px solid var(--surface-border);
+      color: var(--text-primary);
+    }
+
+    .wordmark-on-dark {
+      background: var(--surface-dark-base);
+      color: var(--text-dark-primary);
+    }
+
+    .wordmark-on-brand {
+      background: var(--color-primary);
+      color: #ffffff;
+    }
+
+    /* ============================================
+       03 — COLOR PALETTE
+       ============================================ */
+    .palette-group {
+      margin-bottom: var(--space-2xl);
+    }
+
+    .palette-group-title {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 1.25rem;
+      margin-bottom: var(--space-md);
+      color: var(--text-primary);
+    }
+
+    .swatches {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: var(--space-md);
+    }
+
+    .swatch {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--surface-border);
+    }
+
+    .swatch-color {
+      height: 80px;
+      display: flex;
+      align-items: flex-end;
+      padding: var(--space-sm);
+    }
+
+    .swatch-info {
+      padding: var(--space-sm) var(--space-md);
+      background: var(--surface-card);
+    }
+
+    .swatch-name {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 0.8rem;
+      color: var(--text-primary);
+    }
+
+    .swatch-hex {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-tertiary);
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* ============================================
+       04 — TYPOGRAPHY
+       ============================================ */
+    .type-specimen {
+      margin-bottom: var(--space-2xl);
+      padding: var(--space-2xl);
+      background: var(--surface-card);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius-lg);
+    }
+
+    .type-specimen-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-primary-dark);
+      margin-bottom: var(--space-md);
+    }
+
+    .type-specimen-sample {
+      margin-bottom: var(--space-md);
+      color: var(--text-primary);
+    }
+
+    .type-specimen-meta {
+      display: flex;
+      gap: var(--space-lg);
+      flex-wrap: wrap;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-tertiary);
+    }
+
+    .type-specimen-meta dt {
+      color: var(--text-secondary);
+    }
+
+    .type-specimen-meta dd {
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* ============================================
+       05 — COMPONENTS
+       ============================================ */
+    .component-row {
+      display: flex;
+      gap: var(--space-md);
+      flex-wrap: wrap;
+      align-items: center;
+      margin-bottom: var(--space-xl);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-sm) var(--space-lg);
+      border-radius: var(--radius-md);
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 0.875rem;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.1s, box-shadow 0.1s;
+      text-decoration: none;
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+    .btn:active { transform: translateY(0); }
+
+    .btn-primary {
+      background: var(--color-primary);
+      color: #ffffff;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.08);
+    }
+    .btn-primary:hover {
+      background: var(--color-primary-dark);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+    }
+
+    .btn-secondary {
+      background: var(--surface-elevated);
+      color: var(--text-primary);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--color-primary);
+      border: 1.5px solid var(--color-primary);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-secondary);
+    }
+    .btn-ghost:hover {
+      background: var(--surface-elevated);
+      color: var(--text-primary);
+    }
+
+    .btn-destructive {
+      background: var(--color-error);
+      color: #ffffff;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--surface-card);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+
+    .card-interactive:hover {
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      transform: translateY(-2px);
+    }
+
+    .card-featured {
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 1px var(--color-primary);
+    }
+
+    .card-title {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-bottom: var(--space-sm);
+      color: var(--text-primary);
+    }
+
+    .card-text {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+    }
+
+    /* Inputs */
+    .input-group {
+      margin-bottom: var(--space-lg);
+      max-width: 400px;
+    }
+
+    .input-label {
+      display: block;
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 0.8rem;
+      margin-bottom: var(--space-xs);
+      color: var(--text-primary);
+    }
+
+    .input {
+      width: 100%;
+      padding: var(--space-sm) var(--space-md);
+      border: 1.5px solid var(--surface-border);
+      border-radius: var(--radius-md);
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      color: var(--text-primary);
+      background: var(--surface-card);
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    .input:focus {
+      outline: none;
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 20%, transparent);
+    }
+
+    .input-error { border-color: var(--color-error); }
+    .input-error:focus { box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-error) 20%, transparent); }
+    .input:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .input-hint {
+      font-size: 0.75rem;
+      margin-top: var(--space-xs);
+      color: var(--text-tertiary);
+    }
+
+    .input-error-msg {
+      font-size: 0.75rem;
+      margin-top: var(--space-xs);
+      color: var(--color-error);
+    }
+
+    /* Tags */
+    .tags {
+      display: flex;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+    }
+
+    .tag-primary { background: color-mix(in srgb, var(--color-primary) 15%, transparent); color: var(--color-primary-dark); }
+    .tag-success { background: color-mix(in srgb, var(--color-success) 15%, transparent); color: var(--color-success); }
+    .tag-warning { background: color-mix(in srgb, var(--color-warning) 15%, transparent); color: var(--color-warning); }
+    .tag-error   { background: color-mix(in srgb, var(--color-error) 15%, transparent);   color: var(--color-error); }
+    .tag-info    { background: color-mix(in srgb, var(--color-info) 15%, transparent);    color: var(--color-info); }
+
+    /* ============================================
+       06 — DON'T RULES
+       ============================================ */
+    .dont-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--space-lg);
+    }
+
+    .dont-card {
+      border: 1.5px solid var(--color-error);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      background: color-mix(in srgb, var(--color-error) 3%, var(--surface-card));
+    }
+
+    .dont-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-error);
+      margin-bottom: var(--space-md);
+    }
+
+    .dont-example {
+      padding: var(--space-lg);
+      background: var(--surface-elevated);
+      border-radius: var(--radius-md);
+      margin-bottom: var(--space-md);
+      text-align: center;
+    }
+
+    .dont-text {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+
+    /* ============================================
+       DARK MODE PREVIEW PANELS (within components)
+       ============================================ */
+    .mode-preview {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-lg);
+      margin-bottom: var(--space-xl);
+    }
+
+    .mode-preview-panel {
+      padding: var(--space-xl);
+      border-radius: var(--radius-lg);
+    }
+
+    .mode-preview-light {
+      background: var(--surface-page);
+      color: var(--text-primary);
+      border: 1px solid var(--surface-border);
+    }
+
+    .mode-preview-dark {
+      background: var(--surface-dark-base);
+      color: var(--text-dark-primary);
+      border: 1px solid var(--surface-dark-border);
+    }
+
+    .mode-label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: var(--space-md);
+      opacity: 0.6;
+    }
+
+    /* ============================================
+       COMPARISON PANELS (for brainstorming A/B/C)
+       ============================================ */
+    .comparison {
+      padding: var(--space-2xl);
+      background: var(--surface-elevated);
+      border-radius: var(--radius-lg);
+      margin-bottom: var(--space-2xl);
+      border: 2px dashed var(--color-primary);
+    }
+
+    .comparison-title {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 1.25rem;
+      margin-bottom: var(--space-lg);
+      color: var(--color-primary);
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: var(--space-lg);
+    }
+
+    .option {
+      padding: var(--space-xl);
+      background: var(--surface-card);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--surface-border);
+      text-align: center;
+    }
+
+    .option-label {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      color: #ffffff;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 0.875rem;
+      margin-bottom: var(--space-md);
+    }
+
+    /* ============================================
+       DARK MODE (auto via prefers-color-scheme)
+       ============================================ */
+    @media (prefers-color-scheme: dark) {
+      body {
+        color: var(--text-dark-primary);
+        background-color: var(--surface-dark-base);
+      }
+
+      section { color: var(--text-dark-primary); }
+      .section-title { color: var(--text-dark-primary); }
+      .section-label { color: var(--color-primary-light); }
+      .section-description { color: var(--text-dark-secondary); }
+      .section-alt { background: var(--surface-dark-elevated); }
+
+      .hero-badge { background: var(--surface-dark-elevated); color: var(--color-primary-light); }
+      .hero-title { color: var(--text-dark-primary); }
+      .hero-subtitle { color: var(--text-dark-secondary); }
+
+      .archetype-card { background: var(--surface-dark-elevated); border-color: var(--surface-dark-border); }
+      .archetype-name { color: var(--text-dark-primary); }
+      .trait { background: var(--surface-dark-deep); color: var(--color-primary-light); }
+
+      .palette-group-title { color: var(--text-dark-primary); }
+      .swatch-info { background: var(--surface-dark-elevated); }
+      .swatch-name { color: var(--text-dark-primary); }
+      .swatch { border-color: var(--surface-dark-border); }
+      .swatch-hex { color: var(--text-dark-tertiary); }
+
+      .type-specimen { background: var(--surface-dark-elevated); border-color: var(--surface-dark-border); }
+      .type-specimen-sample { color: var(--text-dark-primary); }
+      .type-specimen-label { color: var(--color-primary-light); }
+
+      .card { background: var(--surface-dark-elevated); border-color: var(--surface-dark-border); }
+      .card-title { color: var(--text-dark-primary); }
+      .card-text { color: var(--text-dark-secondary); }
+
+      .input { background: var(--surface-dark-elevated); border-color: var(--surface-dark-border); color: var(--text-dark-primary); }
+      .input-label { color: var(--text-dark-primary); }
+      .input-hint { color: var(--text-dark-tertiary); }
+
+      .btn-secondary { background: var(--surface-dark-elevated); color: var(--text-dark-primary); }
+      .btn-ghost { color: var(--text-dark-secondary); }
+      .btn-ghost:hover { background: var(--surface-dark-elevated); color: var(--text-dark-primary); }
+
+      .dont-card { background: color-mix(in srgb, var(--color-error) 5%, var(--surface-dark-elevated)); }
+      .dont-text { color: var(--text-dark-secondary); }
+      .dont-example { background: var(--surface-dark-deep); }
+
+      .comparison { background: var(--surface-dark-elevated); }
+      .option { background: var(--surface-dark-deep); border-color: var(--surface-dark-border); }
+
+      /* Swap the light/dark preview panels — dark is native, light becomes explicit */
+      .mode-preview-light {
+        background: var(--surface-page);
+        color: var(--text-primary);
+        border-color: var(--surface-border);
+      }
+    }
+
+    /* ============================================
+       RESPONSIVE
+       ============================================ */
+    @media (max-width: 768px) {
+      .sidebar { display: none; }
+      .content { margin-left: 0; }
+      .hero-title { font-size: 2.441rem; }
+      .mode-preview { grid-template-columns: 1fr; }
+      .wordmark-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ============================================
+       PRINT
+       ============================================ */
+    @media print {
+      .sidebar { display: none; }
+      .content { margin-left: 0; }
+      .skip-link { display: none; }
+      body { background: #fff; color: #000; }
+      body::after { display: none; }
+      .section-alt { background: #f5f5f5; color: #000; }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <div class="layout">
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar" aria-label="Brandbook sections">
+      <div class="sidebar-logo" aria-label="Brandbook">Brandbook</div>
+      <ul class="sidebar-nav" role="list">
+        <li><a href="#cover" class="active"><span class="section-number">00</span> Cover</a></li>
+        <li><a href="#archetype"><span class="section-number">01</span> Archetype</a></li>
+        <li><a href="#wordmark"><span class="section-number">02</span> Wordmark</a></li>
+        <li><a href="#colors"><span class="section-number">03</span> Colors</a></li>
+        <li><a href="#typography"><span class="section-number">04</span> Typography</a></li>
+        <li><a href="#components"><span class="section-number">05</span> Components</a></li>
+        <li><a href="#dont"><span class="section-number">06</span> Don't</a></li>
+      </ul>
+      <div class="sidebar-credit">
+        <a href="https://x.com/diegoivo" target="_blank" rel="noopener noreferrer">Created by @diegoivo</a>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="content" id="main">
+      <!-- 00 — Cover -->
+      <section id="cover" class="hero">
+        <div class="hero-badge">
+          <span class="dot"></span>
+          Brand Companion
+        </div>
+        <h1 class="hero-title">
+          <span class="hero-wordmark">Brand<span class="identity-element">Name</span></span>
+        </h1>
+        <p class="hero-subtitle">
+          Your brand identity is taking shape. This companion updates live as decisions are made during discovery.
+        </p>
+      </section>
+
+      <!-- 01 — Archetype -->
+      <section id="archetype">
+        <p class="section-label">01 — Archetype</p>
+        <h2 class="section-title">Brand Personality</h2>
+        <p class="section-description">
+          The archetype defines the emotional tone, voice, and visual direction of the brand.
+        </p>
+
+        <div class="archetype-card">
+          <h3 class="archetype-name">The Magician</h3>
+          <div class="traits">
+            <span class="trait">Visionary</span>
+            <span class="trait">Transformative</span>
+            <span class="trait">Charismatic</span>
+            <span class="trait">Imaginative</span>
+          </div>
+          <p class="section-description" style="margin-bottom: 0;">
+            Brands that embody the Magician archetype make the impossible feel achievable.
+            They transform complexity into clarity and inspire their audience to see new possibilities.
+          </p>
+        </div>
+      </section>
+
+      <!-- 02 — Wordmark -->
+      <div class="section-alt">
+        <section id="wordmark">
+          <div class="section-inner">
+            <p class="section-label">02 — Logo & Wordmark</p>
+            <h2 class="section-title">Wordmark Variants</h2>
+            <p class="section-description">
+              The wordmark is the primary brand identifier. It uses the display typeface with the identity element highlighted in the brand color.
+            </p>
+
+            <div class="wordmark-grid">
+              <div class="wordmark-variant wordmark-on-light">
+                Brand<span class="identity-element">Name</span>
+              </div>
+              <div class="wordmark-variant wordmark-on-dark">
+                Brand<span class="identity-element">Name</span>
+              </div>
+              <div class="wordmark-variant wordmark-on-brand">
+                BrandName
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- 03 — Colors -->
+      <section id="colors">
+        <p class="section-label">03 — Color Palette</p>
+        <h2 class="section-title">Color System</h2>
+        <p class="section-description">
+          A comprehensive palette with core brand colors, warm and cool accents, semantic states, and surface scales for both light and dark modes.
+        </p>
+
+        <!-- Core -->
+        <div class="palette-group">
+          <h3 class="palette-group-title">Core</h3>
+          <div class="swatches">
+            <div class="swatch">
+              <div class="swatch-color" style="background: var(--color-primary-light);"></div>
+              <div class="swatch-info">
+                <div class="swatch-name">Primary Light</div>
+                <div class="swatch-hex">#818cf8</div>
+              </div>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background: var(--color-primary);"></div>
+              <div class="swatch-info">
+                <div class="swatch-name">Primary</div>
+                <div class="swatch-hex">#6366f1</div>
+              </div>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background: var(--color-primary-dark);"></div>
+              <div class="swatch-info">
+                <div class="swatch-name">Primary Dark</div>
+                <div class="swatch-hex">#4f46e5</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Accents -->
+        <div class="palette-group">
+          <h3 class="palette-group-title">Accents</h3>
+          <div class="swatches">
+            <div class="swatch">
+              <div class="swatch-color" style="background: var(--color-warm);"></div>
+              <div class="swatch-info">
+                <div class="swatch-name">Warm</div>
+                <div class="swatch-hex">#d97706</div>
+              </div>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background: var(--color-warm-light);"></div>
+              <div class="swatch-info">
+                <div class="swatch-name">Warm Light</div>
+                <div class="swatch-hex">#f59e0b</div>
+              </div>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background: var(--color-cool);"></div>
+              <div class="swatch-info">
+                <div class="swatch-name">Cool</div>
+                <div class="swatch-hex">#0d9488</div>
+              </div>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background: var(--color-cool-light);"></div>
+              <div class="swatch-info">
+                <div class="swatch-name">Cool Light</div>
+                <div class="swatch-hex">#14b8a6</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Semantic -->
+        <div class="palette-group">
+          <h3 class="palette-group-title">Semantic</h3>
+          <div class="swatches">
+            <div class="swatch">
+              <div class="swatch-color" style="background: var(--color-success);"></div>
+              <div class="swatch-info">
+                <div class="swatch-name">Success</div>
+                <div class="swatch-hex">#16a34a</div>
+              </div>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background: var(--color-warning);"></div>
+              <div class="swatch-info">
+                <div class="swatch-name">Warning</div>
+                <div class="swatch-hex">#d97706</div>
+              </div>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background: var(--color-error);"></div>
+              <div class="swatch-info">
+                <div class="swatch-name">Error</div>
+                <div class="swatch-hex">#dc2626</div>
+              </div>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background: var(--color-info);"></div>
+              <div class="swatch-info">
+                <div class="swatch-name">Info</div>
+                <div class="swatch-hex">#2563eb</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Surfaces — Light/Dark side by side -->
+        <div class="palette-group">
+          <h3 class="palette-group-title">Surfaces</h3>
+          <div class="mode-preview">
+            <div class="mode-preview-panel mode-preview-light">
+              <div class="mode-label">Light Mode</div>
+              <div class="swatches" style="grid-template-columns: 1fr;">
+                <div class="swatch">
+                  <div class="swatch-color" style="background: var(--surface-page); border: 1px solid var(--surface-border);"></div>
+                  <div class="swatch-info"><div class="swatch-name">Page</div><div class="swatch-hex">#faf8fc</div></div>
+                </div>
+                <div class="swatch">
+                  <div class="swatch-color" style="background: var(--surface-card); border: 1px solid var(--surface-border);"></div>
+                  <div class="swatch-info"><div class="swatch-name">Card</div><div class="swatch-hex">#ffffff</div></div>
+                </div>
+                <div class="swatch">
+                  <div class="swatch-color" style="background: var(--surface-elevated);"></div>
+                  <div class="swatch-info"><div class="swatch-name">Elevated</div><div class="swatch-hex">#f3f0f7</div></div>
+                </div>
+              </div>
+            </div>
+            <div class="mode-preview-panel mode-preview-dark">
+              <div class="mode-label">Dark Mode</div>
+              <div class="swatches" style="grid-template-columns: 1fr;">
+                <div class="swatch" style="border-color: var(--surface-dark-border);">
+                  <div class="swatch-color" style="background: var(--surface-dark-deep);"></div>
+                  <div class="swatch-info" style="background: var(--surface-dark-elevated);"><div class="swatch-name" style="color: var(--text-dark-primary);">Deep</div><div class="swatch-hex" style="color: var(--text-dark-tertiary);">#0b0514</div></div>
+                </div>
+                <div class="swatch" style="border-color: var(--surface-dark-border);">
+                  <div class="swatch-color" style="background: var(--surface-dark-base);"></div>
+                  <div class="swatch-info" style="background: var(--surface-dark-elevated);"><div class="swatch-name" style="color: var(--text-dark-primary);">Base</div><div class="swatch-hex" style="color: var(--text-dark-tertiary);">#110a1f</div></div>
+                </div>
+                <div class="swatch" style="border-color: var(--surface-dark-border);">
+                  <div class="swatch-color" style="background: var(--surface-dark-elevated);"></div>
+                  <div class="swatch-info" style="background: var(--surface-dark-elevated);"><div class="swatch-name" style="color: var(--text-dark-primary);">Elevated</div><div class="swatch-hex" style="color: var(--text-dark-tertiary);">#1a1029</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 04 — Typography -->
+      <div class="section-alt">
+        <section id="typography">
+          <div class="section-inner">
+            <p class="section-label">04 — Typography</p>
+            <h2 class="section-title">Type System</h2>
+            <p class="section-description">
+              A carefully selected type system with display, heading, body, and monospace fonts that reflect the brand personality.
+            </p>
+
+            <!-- Display -->
+            <div class="type-specimen">
+              <div class="type-specimen-label">Display</div>
+              <div class="type-specimen-sample" style="font-family: var(--font-display); font-size: 3.052rem; line-height: 1.1; letter-spacing: -0.02em;">
+                The quick brown fox jumps over the lazy dog
+              </div>
+              <dl class="type-specimen-meta">
+                <div><dt>Family</dt><dd>Instrument Serif</dd></div>
+                <div><dt>Weight</dt><dd>400</dd></div>
+                <div><dt>Tracking</dt><dd>-0.02em</dd></div>
+                <div><dt>Line height</dt><dd>1.1</dd></div>
+              </dl>
+            </div>
+
+            <!-- Heading -->
+            <div class="type-specimen">
+              <div class="type-specimen-label">Heading</div>
+              <div class="type-specimen-sample" style="font-family: var(--font-heading); font-weight: 700; font-size: 1.953rem; line-height: 1.2; letter-spacing: -0.01em;">
+                The quick brown fox jumps over the lazy dog
+              </div>
+              <dl class="type-specimen-meta">
+                <div><dt>Family</dt><dd>Plus Jakarta Sans</dd></div>
+                <div><dt>Weight</dt><dd>500–800</dd></div>
+                <div><dt>Tracking</dt><dd>-0.01em</dd></div>
+                <div><dt>Line height</dt><dd>1.2</dd></div>
+              </dl>
+            </div>
+
+            <!-- Body -->
+            <div class="type-specimen">
+              <div class="type-specimen-label">Body</div>
+              <div class="type-specimen-sample" style="font-family: var(--font-body); font-size: 1rem; line-height: 1.6;">
+                The quick brown fox jumps over the lazy dog. Pack my box with five dozen liquor jugs. How vexingly quick daft zebras jump. The five boxing wizards jump quickly.
+              </div>
+              <dl class="type-specimen-meta">
+                <div><dt>Family</dt><dd>Plus Jakarta Sans</dd></div>
+                <div><dt>Weight</dt><dd>400</dd></div>
+                <div><dt>Tracking</dt><dd>0</dd></div>
+                <div><dt>Line height</dt><dd>1.6</dd></div>
+              </dl>
+            </div>
+
+            <!-- Mono -->
+            <div class="type-specimen">
+              <div class="type-specimen-label">Mono</div>
+              <div class="type-specimen-sample" style="font-family: var(--font-mono); font-size: 0.875rem; line-height: 1.5;">
+                const brand = { name: "BrandName", archetype: "Magician" };<br>
+                font-variant-numeric: tabular-nums;
+              </div>
+              <dl class="type-specimen-meta">
+                <div><dt>Family</dt><dd>JetBrains Mono</dd></div>
+                <div><dt>Weight</dt><dd>400</dd></div>
+                <div><dt>Use</dt><dd>Labels, metadata, code</dd></div>
+              </dl>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- 05 — Components -->
+      <section id="components">
+        <p class="section-label">05 — Components</p>
+        <h2 class="section-title">UI Components</h2>
+        <p class="section-description">
+          Core components styled with the brand system, shown in both light and dark modes.
+        </p>
+
+        <!-- Buttons -->
+        <h3 class="palette-group-title">Buttons</h3>
+        <div class="mode-preview">
+          <div class="mode-preview-panel mode-preview-light">
+            <div class="mode-label">Light Mode</div>
+            <div class="component-row">
+              <button type="button" class="btn btn-primary">Primary</button>
+              <button type="button" class="btn btn-secondary">Secondary</button>
+              <button type="button" class="btn btn-outline">Outline</button>
+              <button type="button" class="btn btn-ghost">Ghost</button>
+              <button type="button" class="btn btn-destructive">Delete</button>
+            </div>
+          </div>
+          <div class="mode-preview-panel mode-preview-dark">
+            <div class="mode-label">Dark Mode</div>
+            <div class="component-row">
+              <button type="button" class="btn btn-primary">Primary</button>
+              <button type="button" class="btn btn-secondary" style="background: var(--surface-dark-elevated); color: var(--text-dark-primary);">Secondary</button>
+              <button type="button" class="btn btn-outline" style="color: var(--color-primary-light); border-color: var(--color-primary-light);">Outline</button>
+              <button type="button" class="btn btn-ghost" style="color: var(--text-dark-secondary);">Ghost</button>
+              <button type="button" class="btn btn-destructive">Delete</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cards -->
+        <h3 class="palette-group-title" style="margin-top: var(--space-2xl);">Cards</h3>
+        <div class="mode-preview">
+          <div class="mode-preview-panel mode-preview-light">
+            <div class="mode-label">Light Mode</div>
+            <div class="card card-interactive" style="margin-bottom: var(--space-md);">
+              <h4 class="card-title">Interactive Card</h4>
+              <p class="card-text">Hover to see the elevation effect. Cards use the surface-card token with a subtle border.</p>
+            </div>
+            <div class="card card-featured">
+              <h4 class="card-title">Featured Card</h4>
+              <p class="card-text">Highlighted with the primary color border to draw attention.</p>
+            </div>
+          </div>
+          <div class="mode-preview-panel mode-preview-dark">
+            <div class="mode-label">Dark Mode</div>
+            <div class="card card-interactive" style="margin-bottom: var(--space-md); background: var(--surface-dark-elevated); border-color: var(--surface-dark-border);">
+              <h4 class="card-title" style="color: var(--text-dark-primary);">Interactive Card</h4>
+              <p class="card-text" style="color: var(--text-dark-secondary);">Hover to see the elevation effect. Cards use the surface-card token with a subtle border.</p>
+            </div>
+            <div class="card card-featured" style="background: var(--surface-dark-elevated); border-color: var(--color-primary-light);">
+              <h4 class="card-title" style="color: var(--text-dark-primary);">Featured Card</h4>
+              <p class="card-text" style="color: var(--text-dark-secondary);">Highlighted with the primary color border to draw attention.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Inputs -->
+        <h3 class="palette-group-title" style="margin-top: var(--space-2xl);">Inputs</h3>
+        <div class="mode-preview">
+          <div class="mode-preview-panel mode-preview-light">
+            <div class="mode-label">Light Mode</div>
+            <div class="input-group">
+              <label for="input-default" class="input-label">Label</label>
+              <input type="text" id="input-default" name="default" class="input" placeholder="Placeholder text" autocomplete="off">
+              <p class="input-hint">Helper text goes here</p>
+            </div>
+            <div class="input-group">
+              <label for="input-err" class="input-label">With Error</label>
+              <input type="text" id="input-err" name="error" class="input input-error" value="Invalid value" autocomplete="off">
+              <p class="input-error-msg">This field is required</p>
+            </div>
+            <div class="input-group">
+              <label for="input-dis" class="input-label">Disabled</label>
+              <input type="text" id="input-dis" name="disabled" class="input" disabled value="Cannot edit" autocomplete="off">
+            </div>
+          </div>
+          <div class="mode-preview-panel mode-preview-dark">
+            <div class="mode-label">Dark Mode</div>
+            <div class="input-group">
+              <label for="input-dark-default" class="input-label" style="color: var(--text-dark-primary);">Label</label>
+              <input type="text" id="input-dark-default" name="dark-default" class="input" style="background: var(--surface-dark-elevated); border-color: var(--surface-dark-border); color: var(--text-dark-primary);" placeholder="Placeholder text" autocomplete="off">
+              <p class="input-hint" style="color: var(--text-dark-tertiary);">Helper text goes here</p>
+            </div>
+            <div class="input-group">
+              <label for="input-dark-err" class="input-label" style="color: var(--text-dark-primary);">With Error</label>
+              <input type="text" id="input-dark-err" name="dark-error" class="input input-error" style="background: var(--surface-dark-elevated); color: var(--text-dark-primary);" value="Invalid value" autocomplete="off">
+              <p class="input-error-msg">This field is required</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tags -->
+        <h3 class="palette-group-title" style="margin-top: var(--space-2xl);">Tags & Badges</h3>
+        <div class="mode-preview">
+          <div class="mode-preview-panel mode-preview-light">
+            <div class="mode-label">Light Mode</div>
+            <div class="tags">
+              <span class="tag tag-primary">Primary</span>
+              <span class="tag tag-success">Success</span>
+              <span class="tag tag-warning">Warning</span>
+              <span class="tag tag-error">Error</span>
+              <span class="tag tag-info">Info</span>
+            </div>
+          </div>
+          <div class="mode-preview-panel mode-preview-dark">
+            <div class="mode-label">Dark Mode</div>
+            <div class="tags">
+              <span class="tag tag-primary">Primary</span>
+              <span class="tag tag-success">Success</span>
+              <span class="tag tag-warning">Warning</span>
+              <span class="tag tag-error">Error</span>
+              <span class="tag tag-info">Info</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 06 — Don't -->
+      <div class="section-alt">
+        <section id="dont">
+          <div class="section-inner">
+            <p class="section-label">06 — Don't</p>
+            <h2 class="section-title">Negative Rules</h2>
+            <p class="section-description">
+              These are explicit violations of the brand system. Never do any of these.
+            </p>
+
+            <div class="dont-grid">
+              <div class="dont-card">
+                <div class="dont-label">Don't</div>
+                <div class="dont-example">
+                  <span style="font-family: var(--font-heading); font-weight: 800; font-size: 1.5rem; transform: scaleX(1.3); display: inline-block; color: var(--text-primary);">BrandName</span>
+                </div>
+                <p class="dont-text">Never stretch or distort the wordmark. Always use it at its original proportions.</p>
+              </div>
+
+              <div class="dont-card">
+                <div class="dont-label">Don't</div>
+                <div class="dont-example">
+                  <span style="font-family: var(--font-heading); font-weight: 800; font-size: 1.5rem; background: linear-gradient(135deg, var(--color-primary), var(--color-warm)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">BrandName</span>
+                </div>
+                <p class="dont-text">Never apply gradients to the wordmark. The logo must always use flat, solid colors.</p>
+              </div>
+
+              <div class="dont-card">
+                <div class="dont-label">Don't</div>
+                <div class="dont-example">
+                  <span style="font-family: Arial, sans-serif; font-weight: bold; font-size: 1.5rem; color: var(--text-primary);">BrandName</span>
+                </div>
+                <p class="dont-text">Never use unapproved fonts. The wordmark must always use the designated display typeface.</p>
+              </div>
+
+              <div class="dont-card">
+                <div class="dont-label">Don't</div>
+                <div class="dont-example">
+                  <span style="font-family: var(--font-body); font-size: 10px; color: var(--text-primary);">This text is too small to read comfortably on screens.</span>
+                </div>
+                <p class="dont-text">Never set body text below 14px (0.875rem). Readability is non-negotiable.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Footer -->
+      <footer style="padding: var(--space-2xl); text-align: center;">
+        <p style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-tertiary);">
+          Generated with Brandbookfy &middot; <span style="font-variant-numeric: tabular-nums;">2026</span>
+        </p>
+      </footer>
+    </main>
+  </div>
+
+  <!-- Scroll-based active section highlighting -->
+  <script>
+    (function () {
+      var navLinks = document.querySelectorAll('.sidebar-nav a');
+      var sections = document.querySelectorAll('section[id]');
+
+      if (!sections.length || !navLinks.length) return;
+
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            navLinks.forEach(function (link) { link.classList.remove('active'); });
+            var active = document.querySelector('.sidebar-nav a[href="#' + entry.target.id + '"]');
+            if (active) active.classList.add('active');
+          }
+        });
+      }, {
+        rootMargin: '-20% 0px -70% 0px',
+        threshold: 0
+      });
+
+      sections.forEach(function (section) { observer.observe(section); });
+    })();
+  </script>
+</body>
+</html>
