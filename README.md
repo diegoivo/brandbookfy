@@ -18,13 +18,13 @@ Type `/brandbookfy` in any Claude Code session and it interviews you about your 
 
 Three brandbooks generated with Brandbookfy — same skill, completely different results:
 
-| Maison. | VAULTKEY | stillpoint |
-|---------|----------|------------|
+| [Maison.](examples/maison-luxury-realestate.html) | [VAULTKEY](examples/vaultkey-cybersecurity.html) | [stillpoint](examples/stillpoint-wellness.html) |
+|:---:|:---:|:---:|
+| ![Maison.](assets/screenshots/maison-luxury-realestate.png) | ![VAULTKEY](assets/screenshots/vaultkey-cybersecurity.png) | ![stillpoint](assets/screenshots/stillpoint-wellness.png) |
 | Luxury real estate | Cybersecurity | Meditation app |
-| Charcoal + gold | Terminal green on black | Warm stone + olive |
-| Editorial serif | Mono-heavy, dark-first | Airy serif, calm |
+| Charcoal + gold, editorial serif | Terminal green on black, mono-heavy | Warm stone + olive, airy serif |
 
-> Open the HTML files in `examples/` to see them live.
+> Click the brand name to open the full HTML brandbook.
 
 ## Install
 
