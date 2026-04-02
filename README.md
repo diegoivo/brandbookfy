@@ -18,13 +18,13 @@ Type `/brandbookfy` in any Claude Code session and it interviews you about your 
 
 Three brandbooks generated with Brandbookfy — same skill, completely different results:
 
-| [Maison.](examples/maison-luxury-realestate.html) | [VAULTKEY](examples/vaultkey-cybersecurity.html) | [PixelForge](examples/pixelforge-indie-games.html) |
+| [Maison.](https://diegoivo.github.io/brandbookfy/examples/maison-luxury-realestate.html) | [VAULTKEY](https://diegoivo.github.io/brandbookfy/examples/vaultkey-cybersecurity.html) | [PixelForge](https://diegoivo.github.io/brandbookfy/examples/pixelforge-indie-games.html) |
 |:---:|:---:|:---:|
 | ![Maison.](assets/screenshots/maison-luxury-realestate.png) | ![VAULTKEY](assets/screenshots/vaultkey-cybersecurity.png) | ![PixelForge](assets/screenshots/pixelforge-indie-games.png) |
 | Luxury real estate | Cybersecurity | Indie game studio |
 | Charcoal + gold, Cormorant serif | Terminal green on black, Cabinet Grotesk | Electric magenta + cyan, Unbounded |
 
-> Click the brand name to open the full HTML brandbook.
+> Click the brand name to open the live brandbook.
 
 ### All examples generated during testing
 
