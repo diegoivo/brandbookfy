@@ -1,0 +1,2042 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#00e639">
+  <title>VAULTKEY — Brand Guidelines</title>
+
+  <!-- Preconnect to font CDNs -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+  <!-- JetBrains Mono from Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Cabinet Grotesk + Satoshi from Fontshare -->
+  <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@100,200,300,400,500,600,700,800,900&f[]=satoshi@300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================
+       DESIGN TOKENS — VAULTKEY
+       ============================================ */
+    :root {
+      /* Core — electric green terminal palette */
+      --color-primary-light: #4dff7a;
+      --color-primary: #00e639;
+      --color-primary-dark: #00b32d;
+
+      /* Accents */
+      --color-warm: #c49a1a;
+      --color-warm-light: #e6b422;
+      --color-cool: #00a8cc;
+      --color-cool-light: #33c4e0;
+
+      /* Semantic */
+      --color-success: #22c55e;
+      --color-warning: #d97706;
+      --color-error: #e53e3e;
+      --color-info: #3b82f6;
+
+      /* Surfaces — Light */
+      --surface-page: #f3f5f4;
+      --surface-card: #f8faf9;
+      --surface-elevated: #e8ece9;
+      --surface-border: #cdd5cf;
+
+      /* Surfaces — Dark (PRIMARY — dark-first brand) */
+      --surface-dark-deep: #040a06;
+      --surface-dark-base: #0a120c;
+      --surface-dark-elevated: #121e15;
+      --surface-dark-border: #1e3223;
+
+      /* Text — Light */
+      --text-primary: #0a1a0e;
+      --text-secondary: #3d5242;
+      --text-tertiary: #6b8570;
+      --text-disabled: #9aaa9e;
+
+      /* Text — Dark */
+      --text-dark-primary: #e8f5ea;
+      --text-dark-secondary: #a3c4a8;
+      --text-dark-tertiary: #6b8570;
+      --text-dark-disabled: #3d5242;
+
+      /* Typography */
+      --font-display: 'Cabinet Grotesk', 'Satoshi', system-ui, -apple-system, sans-serif;
+      --font-heading: 'Cabinet Grotesk', 'Satoshi', system-ui, -apple-system, sans-serif;
+      --font-body: 'Satoshi', 'Cabinet Grotesk', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+
+      /* Spacing */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2rem;
+      --space-2xl: 3rem;
+      --space-3xl: 4rem;
+      --space-4xl: 6rem;
+
+      /* Radii — sharp for Hero + Outlaw */
+      --radius-sm: 2px;
+      --radius-md: 4px;
+      --radius-lg: 6px;
+      --radius-xl: 8px;
+      --radius-full: 9999px;
+
+      /* Layout */
+      --sidebar-width: 240px;
+      --content-max: 960px;
+    }
+
+    /* ============================================
+       RESET & BASE
+       ============================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: clamp(15px, 1vw + 12px, 18px);
+      scroll-behavior: smooth;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    body {
+      font-family: var(--font-body);
+      font-weight: 400;
+      line-height: 1.6;
+      color: var(--text-dark-primary);
+      background-color: var(--surface-dark-base);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+
+    /* Noise texture overlay */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.04;
+      z-index: 9999;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* ============================================
+       SKIP LINK
+       ============================================ */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: var(--space-md);
+      padding: var(--space-sm) var(--space-md);
+      background: var(--color-primary);
+      color: var(--surface-dark-deep);
+      border-radius: var(--radius-md);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-decoration: none;
+      z-index: 10000;
+      transition: top 0.2s;
+    }
+
+    .skip-link:focus {
+      top: var(--space-md);
+    }
+
+    /* ============================================
+       FOCUS STYLES
+       ============================================ */
+    :focus-visible {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 2px;
+    }
+
+    /* ============================================
+       LAYOUT
+       ============================================ */
+    .layout {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* ============================================
+       SIDEBAR — own dark chrome
+       ============================================ */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: var(--sidebar-width);
+      height: 100vh;
+      padding: var(--space-xl) var(--space-lg);
+      background: #030806;
+      color: var(--text-dark-primary);
+      overflow-y: auto;
+      z-index: 100;
+      border-right: 1px solid var(--surface-dark-border);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar-logo {
+      font-family: var(--font-mono);
+      font-weight: 600;
+      font-size: 1.2rem;
+      letter-spacing: 0.05em;
+      margin-bottom: var(--space-2xl);
+      background: linear-gradient(135deg, var(--color-primary-light), var(--color-primary-dark));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-transform: uppercase;
+    }
+
+    .sidebar-nav {
+      list-style: none;
+    }
+
+    .sidebar-nav li {
+      margin-bottom: var(--space-xs);
+    }
+
+    .sidebar-nav a {
+      display: block;
+      padding: var(--space-sm) var(--space-md);
+      color: var(--text-dark-tertiary);
+      text-decoration: none;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.02em;
+      border-radius: var(--radius-md);
+      transition: color 0.15s;
+    }
+
+    .sidebar-nav a:hover,
+    .sidebar-nav a:focus-visible {
+      color: var(--text-dark-primary);
+    }
+
+    .sidebar-nav a.active {
+      color: var(--color-primary);
+      background: var(--surface-dark-border);
+      border-radius: var(--radius-md) 0 0 var(--radius-md);
+      margin-right: calc(var(--space-lg) * -1);
+      padding-right: calc(var(--space-md) + var(--space-lg));
+    }
+
+    .sidebar-nav .section-number {
+      color: var(--color-primary);
+      margin-right: var(--space-sm);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .sidebar-credit {
+      margin-top: auto;
+      padding-top: var(--space-lg);
+    }
+
+    .sidebar-credit a {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: var(--text-dark-disabled);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: color 0.15s;
+    }
+
+    .sidebar-credit a:hover {
+      color: var(--text-dark-tertiary);
+    }
+
+    /* ============================================
+       CONTENT — dark-first brand
+       ============================================ */
+    .content {
+      margin-left: var(--sidebar-width);
+      flex: 1;
+      min-width: 0;
+    }
+
+    /* ============================================
+       SECTIONS
+       ============================================ */
+    section {
+      padding: var(--space-4xl) var(--space-2xl);
+      max-width: var(--content-max);
+      margin: 0 auto;
+      color: var(--text-dark-primary);
+    }
+
+    .section-alt {
+      background: var(--surface-dark-elevated);
+      max-width: none;
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    .section-alt > .section-inner {
+      max-width: var(--content-max);
+      margin: 0 auto;
+      padding: 0 var(--space-2xl);
+    }
+
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      margin-bottom: var(--space-sm);
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 2.441rem;
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      margin-bottom: var(--space-lg);
+      color: var(--text-dark-primary);
+      text-transform: uppercase;
+    }
+
+    .section-description {
+      color: var(--text-dark-secondary);
+      max-width: 60ch;
+      margin-bottom: var(--space-2xl);
+      line-height: 1.7;
+    }
+
+    /* ============================================
+       HERO / COVER
+       ============================================ */
+    .hero {
+      padding: var(--space-4xl) var(--space-2xl);
+      max-width: var(--content-max);
+      margin: 0 auto;
+      min-height: 50vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+      padding: var(--space-xs) var(--space-md);
+      background: var(--surface-dark-elevated);
+      border: 1px solid var(--surface-dark-border);
+      border-radius: var(--radius-md);
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      margin-bottom: var(--space-xl);
+      width: fit-content;
+    }
+
+    .hero-badge .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      box-shadow: 0 0 6px var(--color-primary);
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: 4.5rem;
+      font-weight: 900;
+      line-height: 1.0;
+      letter-spacing: -0.03em;
+      margin-bottom: var(--space-lg);
+      color: var(--text-dark-primary);
+      text-transform: uppercase;
+    }
+
+    .hero-wordmark {
+      font-family: var(--font-heading);
+      font-weight: 900;
+      display: block;
+    }
+
+    .identity-element {
+      color: var(--color-primary);
+      text-shadow: 0 0 20px rgba(0, 230, 57, 0.3);
+    }
+
+    .hero-subtitle {
+      font-family: var(--font-mono);
+      font-size: 1rem;
+      color: var(--text-dark-secondary);
+      max-width: 55ch;
+      letter-spacing: 0.01em;
+      line-height: 1.7;
+    }
+
+    /* Scanline effect on hero */
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: var(--sidebar-width);
+      right: 0;
+      height: 50vh;
+      background: repeating-linear-gradient(
+        to bottom,
+        transparent,
+        transparent 2px,
+        rgba(0, 230, 57, 0.015) 2px,
+        rgba(0, 230, 57, 0.015) 4px
+      );
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* ============================================
+       01 — ARCHETYPE
+       ============================================ */
+    .archetype-card {
+      background: var(--surface-dark-elevated);
+      border: 1px solid var(--surface-dark-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-2xl);
+      margin-bottom: var(--space-xl);
+    }
+
+    .archetype-name {
+      font-family: var(--font-display);
+      font-size: 1.953rem;
+      font-weight: 800;
+      margin-bottom: var(--space-sm);
+      color: var(--text-dark-primary);
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+    }
+
+    .traits {
+      display: flex;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+      margin-bottom: var(--space-lg);
+    }
+
+    .trait {
+      padding: var(--space-xs) var(--space-md);
+      background: var(--surface-dark-deep);
+      border: 1px solid var(--surface-dark-border);
+      border-radius: var(--radius-md);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--color-primary);
+      letter-spacing: 0.03em;
+    }
+
+    .archetype-description {
+      color: var(--text-dark-secondary);
+      max-width: 60ch;
+      line-height: 1.7;
+    }
+
+    .voice-guidelines {
+      margin-top: var(--space-xl);
+      padding-top: var(--space-xl);
+      border-top: 1px solid var(--surface-dark-border);
+    }
+
+    .voice-title {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      margin-bottom: var(--space-md);
+    }
+
+    .voice-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--space-md);
+    }
+
+    .voice-item {
+      padding: var(--space-md);
+      background: var(--surface-dark-deep);
+      border: 1px solid var(--surface-dark-border);
+      border-radius: var(--radius-md);
+    }
+
+    .voice-item-label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-dark-tertiary);
+      margin-bottom: var(--space-xs);
+    }
+
+    .voice-item-text {
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      color: var(--text-dark-primary);
+      line-height: 1.5;
+    }
+
+    /* ============================================
+       02 — WORDMARK
+       ============================================ */
+    .wordmark-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--space-lg);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .wordmark-variant {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-3xl) var(--space-xl);
+      border-radius: var(--radius-lg);
+      font-family: var(--font-heading);
+      font-weight: 900;
+      font-size: 2rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .wordmark-on-light {
+      background: var(--surface-card);
+      border: 1px solid var(--surface-border);
+      color: var(--text-primary);
+    }
+
+    .wordmark-on-dark {
+      background: var(--surface-dark-deep);
+      border: 1px solid var(--surface-dark-border);
+      color: var(--text-dark-primary);
+    }
+
+    .wordmark-on-brand {
+      background: var(--color-primary);
+      color: var(--surface-dark-deep);
+    }
+
+    .wordmark-label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-dark-tertiary);
+      margin-bottom: var(--space-sm);
+      text-align: center;
+    }
+
+    .wordmark-variant-wrap {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .clearspace {
+      margin-top: var(--space-2xl);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .clearspace-title {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      margin-bottom: var(--space-md);
+    }
+
+    .clearspace-demo {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-2xl);
+      background: var(--surface-dark-deep);
+      border: 1px dashed var(--color-primary);
+      border-radius: var(--radius-lg);
+      position: relative;
+    }
+
+    .clearspace-demo::before {
+      content: 'Cap-height minimum';
+      position: absolute;
+      top: var(--space-xs);
+      right: var(--space-sm);
+      font-family: var(--font-mono);
+      font-size: 0.55rem;
+      color: var(--color-primary);
+      opacity: 0.6;
+      letter-spacing: 0.04em;
+    }
+
+    .clearspace-mark {
+      font-family: var(--font-heading);
+      font-weight: 900;
+      font-size: 1.5rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--text-dark-primary);
+    }
+
+    .clearspace-text {
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      color: var(--text-dark-secondary);
+      margin-top: var(--space-md);
+      max-width: 50ch;
+      line-height: 1.6;
+    }
+
+    /* Do / Don't for wordmark */
+    .do-dont-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-lg);
+      margin-top: var(--space-xl);
+    }
+
+    .do-card, .dont-card-inline {
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+    }
+
+    .do-card {
+      background: color-mix(in srgb, var(--color-success) 5%, var(--surface-dark-elevated));
+      border: 1.5px solid var(--color-success);
+    }
+
+    .dont-card-inline {
+      background: color-mix(in srgb, var(--color-error) 5%, var(--surface-dark-elevated));
+      border: 1.5px solid var(--color-error);
+    }
+
+    .do-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-success);
+      margin-bottom: var(--space-md);
+    }
+
+    .dont-label-inline {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-error);
+      margin-bottom: var(--space-md);
+    }
+
+    .do-example, .dont-example-inline {
+      padding: var(--space-lg);
+      background: var(--surface-dark-deep);
+      border-radius: var(--radius-md);
+      margin-bottom: var(--space-md);
+      text-align: center;
+    }
+
+    .do-text, .dont-text-inline {
+      font-size: 0.875rem;
+      color: var(--text-dark-secondary);
+      line-height: 1.5;
+    }
+
+    /* ============================================
+       03 — COLOR PALETTE
+       ============================================ */
+    .palette-group {
+      margin-bottom: var(--space-2xl);
+    }
+
+    .palette-group-title {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 1.25rem;
+      margin-bottom: var(--space-md);
+      color: var(--text-dark-primary);
+      letter-spacing: -0.01em;
+    }
+
+    .swatches {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: var(--space-md);
+    }
+
+    .swatch {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--surface-dark-border);
+    }
+
+    .swatch-color {
+      height: 80px;
+      display: flex;
+      align-items: flex-end;
+      padding: var(--space-sm);
+    }
+
+    .swatch-contrast {
+      font-family: var(--font-mono);
+      font-size: 0.55rem;
+      font-weight: 500;
+      padding: 2px 6px;
+      border-radius: var(--radius-sm);
+      background: rgba(0, 0, 0, 0.4);
+      color: #e8f5ea;
+      letter-spacing: 0.02em;
+    }
+
+    .swatch-info {
+      padding: var(--space-sm) var(--space-md);
+      background: var(--surface-dark-elevated);
+    }
+
+    .swatch-name {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 0.8rem;
+      color: var(--text-dark-primary);
+    }
+
+    .swatch-hex {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-dark-tertiary);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .swatch-usage {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: var(--text-dark-disabled);
+      margin-top: 2px;
+    }
+
+    /* ============================================
+       04 — TYPOGRAPHY
+       ============================================ */
+    .type-specimen {
+      margin-bottom: var(--space-2xl);
+      padding: var(--space-2xl);
+      background: var(--surface-dark-deep);
+      border: 1px solid var(--surface-dark-border);
+      border-radius: var(--radius-lg);
+    }
+
+    .type-specimen-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      margin-bottom: var(--space-md);
+    }
+
+    .type-specimen-sample {
+      margin-bottom: var(--space-md);
+      color: var(--text-dark-primary);
+    }
+
+    .type-specimen-meta {
+      display: flex;
+      gap: var(--space-lg);
+      flex-wrap: wrap;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-dark-tertiary);
+    }
+
+    .type-specimen-meta dt {
+      color: var(--text-dark-secondary);
+    }
+
+    .type-specimen-meta dd {
+      font-variant-numeric: tabular-nums;
+    }
+
+    .type-scale-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: var(--space-xl);
+    }
+
+    .type-scale-table th,
+    .type-scale-table td {
+      padding: var(--space-sm) var(--space-md);
+      text-align: left;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      border-bottom: 1px solid var(--surface-dark-border);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .type-scale-table th {
+      color: var(--text-dark-tertiary);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-size: 0.65rem;
+    }
+
+    .type-scale-table td {
+      color: var(--text-dark-secondary);
+    }
+
+    .type-scale-table td:first-child {
+      color: var(--text-dark-primary);
+      font-weight: 600;
+    }
+
+    /* ============================================
+       05 — COMPONENTS
+       ============================================ */
+    .component-row {
+      display: flex;
+      gap: var(--space-md);
+      flex-wrap: wrap;
+      align-items: center;
+      margin-bottom: var(--space-xl);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-sm) var(--space-lg);
+      border-radius: var(--radius-md);
+      font-family: var(--font-mono);
+      font-weight: 600;
+      font-size: 0.8rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.1s, box-shadow 0.1s;
+      text-decoration: none;
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+    .btn:active { transform: translateY(0); }
+
+    .btn-primary {
+      background: var(--color-primary);
+      color: var(--surface-dark-deep);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3), 0 0 12px rgba(0, 230, 57, 0.15);
+    }
+    .btn-primary:hover {
+      background: var(--color-primary-light);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 230, 57, 0.2);
+    }
+
+    .btn-secondary {
+      background: var(--surface-dark-elevated);
+      color: var(--text-dark-primary);
+      border: 1px solid var(--surface-dark-border);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--color-primary);
+      border: 1.5px solid var(--color-primary);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-dark-secondary);
+    }
+    .btn-ghost:hover {
+      background: var(--surface-dark-elevated);
+      color: var(--text-dark-primary);
+    }
+
+    .btn-destructive {
+      background: var(--color-error);
+      color: #fff;
+    }
+
+    /* Light mode button overrides */
+    .mode-preview-light .btn-secondary {
+      background: var(--surface-elevated);
+      color: var(--text-primary);
+      border-color: var(--surface-border);
+    }
+
+    .mode-preview-light .btn-outline {
+      color: var(--color-primary-dark);
+      border-color: var(--color-primary-dark);
+    }
+
+    .mode-preview-light .btn-ghost {
+      color: var(--text-secondary);
+    }
+
+    .mode-preview-light .btn-ghost:hover {
+      background: var(--surface-elevated);
+      color: var(--text-primary);
+    }
+
+    .mode-preview-light .btn-primary {
+      background: var(--color-primary-dark);
+      color: #fff;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+    }
+
+    /* Cards */
+    .card {
+      background: var(--surface-dark-elevated);
+      border: 1px solid var(--surface-dark-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+
+    .card-interactive:hover {
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .card-featured {
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 1px var(--color-primary), 0 0 16px rgba(0, 230, 57, 0.08);
+    }
+
+    .card-title {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-bottom: var(--space-sm);
+      color: var(--text-dark-primary);
+    }
+
+    .card-text {
+      color: var(--text-dark-secondary);
+      font-size: 0.875rem;
+      line-height: 1.6;
+    }
+
+    /* Light mode card overrides */
+    .mode-preview-light .card {
+      background: var(--surface-card);
+      border-color: var(--surface-border);
+    }
+
+    .mode-preview-light .card-featured {
+      border-color: var(--color-primary-dark);
+      box-shadow: 0 0 0 1px var(--color-primary-dark);
+    }
+
+    .mode-preview-light .card-title {
+      color: var(--text-primary);
+    }
+
+    .mode-preview-light .card-text {
+      color: var(--text-secondary);
+    }
+
+    /* Inputs */
+    .input-group {
+      margin-bottom: var(--space-lg);
+      max-width: 400px;
+    }
+
+    .input-label {
+      display: block;
+      font-family: var(--font-mono);
+      font-weight: 600;
+      font-size: 0.75rem;
+      margin-bottom: var(--space-xs);
+      color: var(--text-dark-primary);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .input {
+      width: 100%;
+      padding: var(--space-sm) var(--space-md);
+      border: 1.5px solid var(--surface-dark-border);
+      border-radius: var(--radius-md);
+      font-family: var(--font-mono);
+      font-size: 0.875rem;
+      color: var(--text-dark-primary);
+      background: var(--surface-dark-deep);
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    .input::placeholder {
+      color: var(--text-dark-disabled);
+    }
+
+    .input:focus {
+      outline: none;
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(0, 230, 57, 0.15);
+    }
+
+    .input-error { border-color: var(--color-error); }
+    .input-error:focus { box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.15); }
+    .input:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    .input-hint {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      margin-top: var(--space-xs);
+      color: var(--text-dark-tertiary);
+    }
+
+    .input-error-msg {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      margin-top: var(--space-xs);
+      color: var(--color-error);
+    }
+
+    /* Light mode input overrides */
+    .mode-preview-light .input-label {
+      color: var(--text-primary);
+    }
+
+    .mode-preview-light .input {
+      background: var(--surface-card);
+      border-color: var(--surface-border);
+      color: var(--text-primary);
+    }
+
+    .mode-preview-light .input::placeholder {
+      color: var(--text-disabled);
+    }
+
+    .mode-preview-light .input:focus {
+      border-color: var(--color-primary-dark);
+      box-shadow: 0 0 0 3px rgba(0, 179, 45, 0.12);
+    }
+
+    .mode-preview-light .input-hint {
+      color: var(--text-tertiary);
+    }
+
+    /* Tags */
+    .tags {
+      display: flex;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+    }
+
+    .tag-primary { background: rgba(0, 230, 57, 0.12); color: var(--color-primary); }
+    .tag-success { background: rgba(34, 197, 94, 0.12); color: var(--color-success); }
+    .tag-warning { background: rgba(217, 119, 6, 0.12); color: var(--color-warning); }
+    .tag-error   { background: rgba(229, 62, 62, 0.12); color: var(--color-error); }
+    .tag-info    { background: rgba(59, 130, 246, 0.12); color: var(--color-info); }
+
+    /* Light mode tag overrides */
+    .mode-preview-light .tag-primary { background: rgba(0, 179, 45, 0.1); color: var(--color-primary-dark); }
+    .mode-preview-light .tag-success { background: rgba(34, 197, 94, 0.1); color: #16713a; }
+    .mode-preview-light .tag-warning { background: rgba(217, 119, 6, 0.1); color: #92610a; }
+    .mode-preview-light .tag-error   { background: rgba(229, 62, 62, 0.1); color: #b91c1c; }
+    .mode-preview-light .tag-info    { background: rgba(59, 130, 246, 0.1); color: #1e40af; }
+
+    /* ============================================
+       06 — DON'T RULES
+       ============================================ */
+    .dont-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--space-lg);
+    }
+
+    .dont-card {
+      border: 1.5px solid var(--color-error);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      background: color-mix(in srgb, var(--color-error) 4%, var(--surface-dark-elevated));
+    }
+
+    .dont-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-error);
+      margin-bottom: var(--space-md);
+    }
+
+    .dont-example {
+      padding: var(--space-lg);
+      background: var(--surface-dark-deep);
+      border-radius: var(--radius-md);
+      margin-bottom: var(--space-md);
+      text-align: center;
+    }
+
+    .dont-text {
+      font-size: 0.875rem;
+      color: var(--text-dark-secondary);
+      line-height: 1.5;
+    }
+
+    /* ============================================
+       DARK MODE PREVIEW PANELS (within components)
+       ============================================ */
+    .mode-preview {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-lg);
+      margin-bottom: var(--space-xl);
+    }
+
+    .mode-preview-panel {
+      padding: var(--space-xl);
+      border-radius: var(--radius-lg);
+    }
+
+    .mode-preview-light {
+      background: var(--surface-page);
+      color: var(--text-primary);
+      border: 1px solid var(--surface-border);
+    }
+
+    .mode-preview-dark {
+      background: var(--surface-dark-deep);
+      color: var(--text-dark-primary);
+      border: 1px solid var(--surface-dark-border);
+    }
+
+    .mode-label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: var(--space-md);
+      opacity: 0.6;
+    }
+
+    /* ============================================
+       LIGHT MODE (opt-in via prefers-color-scheme)
+       ============================================ */
+    @media (prefers-color-scheme: light) {
+      body {
+        color: var(--text-primary);
+        background-color: var(--surface-page);
+      }
+
+      section { color: var(--text-primary); }
+      .section-title { color: var(--text-primary); }
+      .section-label { color: var(--color-primary-dark); }
+      .section-description { color: var(--text-secondary); }
+      .section-alt { background: var(--surface-elevated); }
+
+      .hero-badge { background: var(--surface-elevated); color: var(--color-primary-dark); border-color: var(--surface-border); }
+      .hero-badge .dot { background: var(--color-primary-dark); box-shadow: 0 0 6px var(--color-primary-dark); }
+      .hero-title { color: var(--text-primary); }
+      .hero-subtitle { color: var(--text-secondary); }
+      .hero::before { background: none; }
+      .identity-element { color: var(--color-primary-dark); text-shadow: none; }
+
+      .archetype-card { background: var(--surface-card); border-color: var(--surface-border); }
+      .archetype-name { color: var(--text-primary); }
+      .trait { background: var(--surface-elevated); color: var(--color-primary-dark); border-color: var(--surface-border); }
+      .archetype-description { color: var(--text-secondary); }
+      .voice-guidelines { border-top-color: var(--surface-border); }
+      .voice-title { color: var(--color-primary-dark); }
+      .voice-item { background: var(--surface-elevated); border-color: var(--surface-border); }
+      .voice-item-label { color: var(--text-tertiary); }
+      .voice-item-text { color: var(--text-primary); }
+
+      .wordmark-on-dark { background: var(--surface-dark-base); color: var(--text-dark-primary); }
+
+      .palette-group-title { color: var(--text-primary); }
+      .swatch { border-color: var(--surface-border); }
+      .swatch-info { background: var(--surface-card); }
+      .swatch-name { color: var(--text-primary); }
+      .swatch-hex { color: var(--text-tertiary); }
+
+      .type-specimen { background: var(--surface-card); border-color: var(--surface-border); }
+      .type-specimen-sample { color: var(--text-primary); }
+      .type-specimen-label { color: var(--color-primary-dark); }
+
+      .card { background: var(--surface-card); border-color: var(--surface-border); }
+      .card-title { color: var(--text-primary); }
+      .card-text { color: var(--text-secondary); }
+
+      .input { background: var(--surface-card); border-color: var(--surface-border); color: var(--text-primary); }
+      .input-label { color: var(--text-primary); }
+      .input-hint { color: var(--text-tertiary); }
+
+      .btn-secondary { background: var(--surface-elevated); color: var(--text-primary); border-color: var(--surface-border); }
+      .btn-ghost { color: var(--text-secondary); }
+      .btn-ghost:hover { background: var(--surface-elevated); color: var(--text-primary); }
+      .btn-primary { background: var(--color-primary-dark); color: #fff; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12); }
+      .btn-outline { color: var(--color-primary-dark); border-color: var(--color-primary-dark); }
+
+      .dont-card { background: color-mix(in srgb, var(--color-error) 3%, var(--surface-card)); }
+      .dont-text { color: var(--text-secondary); }
+      .dont-example { background: var(--surface-elevated); }
+
+      .do-card { background: color-mix(in srgb, var(--color-success) 3%, var(--surface-card)); border-color: var(--color-success); }
+      .dont-card-inline { background: color-mix(in srgb, var(--color-error) 3%, var(--surface-card)); }
+      .do-example, .dont-example-inline { background: var(--surface-elevated); }
+      .do-text, .dont-text-inline { color: var(--text-secondary); }
+
+      .clearspace-demo { background: var(--surface-card); border-color: var(--color-primary-dark); }
+      .clearspace-demo::before { color: var(--color-primary-dark); }
+      .clearspace-mark { color: var(--text-primary); }
+      .clearspace-text { color: var(--text-secondary); }
+
+      .type-scale-table th { color: var(--text-tertiary); }
+      .type-scale-table td { color: var(--text-secondary); border-bottom-color: var(--surface-border); }
+      .type-scale-table td:first-child { color: var(--text-primary); }
+    }
+
+    /* ============================================
+       RESPONSIVE
+       ============================================ */
+    @media (max-width: 768px) {
+      .sidebar { display: none; }
+      .content { margin-left: 0; }
+      .hero-title { font-size: 2.441rem; }
+      .mode-preview { grid-template-columns: 1fr; }
+      .wordmark-grid { grid-template-columns: 1fr; }
+      .do-dont-grid { grid-template-columns: 1fr; }
+      .hero::before { left: 0; }
+    }
+
+    /* ============================================
+       PRINT
+       ============================================ */
+    @media print {
+      .sidebar { display: none; }
+      .content { margin-left: 0; }
+      .skip-link { display: none; }
+      body {
+        background: #fff;
+        color: #1a1a1a;
+      }
+      body::after { display: none; }
+      .hero::before { display: none; }
+      .section-alt { background: #f5f5f5; color: #1a1a1a; }
+      .mode-preview-dark { background: #222; }
+      .section-title { color: #1a1a1a; }
+      .section-description { color: #444; }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <div class="layout">
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar" aria-label="Brandbook sections">
+      <div class="sidebar-logo" aria-label="Brandbook">Brandbook</div>
+      <ul class="sidebar-nav" role="list">
+        <li><a href="#cover" class="active"><span class="section-number">00</span> Cover</a></li>
+        <li><a href="#archetype"><span class="section-number">01</span> Archetype</a></li>
+        <li><a href="#wordmark"><span class="section-number">02</span> Wordmark</a></li>
+        <li><a href="#colors"><span class="section-number">03</span> Colors</a></li>
+        <li><a href="#typography"><span class="section-number">04</span> Typography</a></li>
+        <li><a href="#components"><span class="section-number">05</span> Components</a></li>
+        <li><a href="#dont"><span class="section-number">06</span> Don't</a></li>
+      </ul>
+      <div class="sidebar-credit">
+        <a href="https://x.com/diegoivo" target="_blank" rel="noopener noreferrer">Created by @diegoivo</a>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="content" id="main">
+
+      <!-- 00 — Cover -->
+      <section id="cover" class="hero">
+        <div class="hero-badge">
+          <span class="dot"></span>
+          Brand Guidelines v1.0
+        </div>
+        <h1 class="hero-title">
+          <span class="hero-wordmark">VAULT<span class="identity-element">KEY</span></span>
+        </h1>
+        <p class="hero-subtitle">
+          Zero-trust cybersecurity for enterprise. Every perimeter is a liability. Every identity is a surface. Trust nothing. Verify everything.
+        </p>
+      </section>
+
+      <!-- 01 — Archetype -->
+      <section id="archetype">
+        <p class="section-label">01 — Archetype</p>
+        <h2 class="section-title">Brand Personality</h2>
+        <p class="section-description">
+          VAULTKEY operates at the intersection of mastery and disruption. The brand projects the confidence of a Hero archetype with the edge of an Outlaw. It does not ask for trust. It eliminates the need for it.
+        </p>
+
+        <div class="archetype-card">
+          <h3 class="archetype-name">The Hero + Outlaw</h3>
+          <div class="traits">
+            <span class="trait">Impenetrable</span>
+            <span class="trait">Precise</span>
+            <span class="trait">Disruptive</span>
+            <span class="trait">Commanding</span>
+          </div>
+          <p class="archetype-description">
+            The Hero archetype drives VAULTKEY's core promise: mastery over chaos, the confidence to protect what matters, the competence that CISOs demand. The Outlaw influence injects an edge that says the old perimeter model is dead and VAULTKEY killed it. This is not a brand that reassures. It confronts. It operates in the gap between what legacy systems promised and what they actually deliver.
+          </p>
+
+          <div class="voice-guidelines">
+            <div class="voice-title">Voice Guidelines</div>
+            <div class="voice-grid">
+              <div class="voice-item">
+                <div class="voice-item-label">Tone</div>
+                <div class="voice-item-text">Direct, authoritative, unsentimental. Statements, not suggestions.</div>
+              </div>
+              <div class="voice-item">
+                <div class="voice-item-label">Vocabulary</div>
+                <div class="voice-item-text">Technical precision over marketing abstraction. Zero-trust, not "enhanced security."</div>
+              </div>
+              <div class="voice-item">
+                <div class="voice-item-label">Cadence</div>
+                <div class="voice-item-text">Short sentences. Declarative. Occasional fragments for impact.</div>
+              </div>
+              <div class="voice-item">
+                <div class="voice-item-label">Never</div>
+                <div class="voice-item-text">Never use "we make it easy." Never soften the message. Never promise 100% security.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 02 — Wordmark -->
+      <div class="section-alt">
+        <section id="wordmark">
+          <div class="section-inner">
+            <p class="section-label">02 — Logo & Wordmark</p>
+            <h2 class="section-title">Identity System</h2>
+            <p class="section-description">
+              The VAULTKEY wordmark is a typographic mark set in Cabinet Grotesk Black. "VAULT" carries the weight. "KEY" is set in the primary green to signify the access control layer. All-caps is mandatory. The word break is the identity element.
+            </p>
+
+            <div class="wordmark-grid">
+              <div class="wordmark-variant-wrap">
+                <div class="wordmark-label">On Dark</div>
+                <div class="wordmark-variant wordmark-on-dark">
+                  VAULT<span class="identity-element">KEY</span>
+                </div>
+              </div>
+              <div class="wordmark-variant-wrap">
+                <div class="wordmark-label">On Light</div>
+                <div class="wordmark-variant wordmark-on-light">
+                  VAULT<span style="color: var(--color-primary-dark);">KEY</span>
+                </div>
+              </div>
+              <div class="wordmark-variant-wrap">
+                <div class="wordmark-label">On Brand</div>
+                <div class="wordmark-variant wordmark-on-brand">
+                  VAULTKEY
+                </div>
+              </div>
+            </div>
+
+            <!-- Clear Space -->
+            <div class="clearspace">
+              <div class="clearspace-title">Clear Space</div>
+              <div class="clearspace-demo">
+                <span class="clearspace-mark">VAULT<span style="color: var(--color-primary);">KEY</span></span>
+              </div>
+              <p class="clearspace-text">
+                Minimum clear space around the wordmark equals the cap-height of the "V" character. No other elements, text, or visual artifacts may intrude within this boundary.
+              </p>
+            </div>
+
+            <!-- Do / Don't -->
+            <div class="do-dont-grid">
+              <div class="do-card">
+                <div class="do-label">Do</div>
+                <div class="do-example">
+                  <span style="font-family: var(--font-heading); font-weight: 900; font-size: 1.5rem; letter-spacing: 0.05em; color: var(--text-dark-primary);">VAULT<span style="color: var(--color-primary);">KEY</span></span>
+                </div>
+                <p class="do-text">Use the approved two-tone wordmark with KEY highlighted in brand green.</p>
+              </div>
+              <div class="dont-card-inline">
+                <div class="dont-label-inline">Don't</div>
+                <div class="dont-example-inline">
+                  <span style="font-family: var(--font-heading); font-weight: 900; font-size: 1.5rem; letter-spacing: 0.05em; transform: scaleX(1.3); display: inline-block; color: var(--text-dark-primary);">VAULT<span style="color: var(--color-primary);">KEY</span></span>
+                </div>
+                <p class="dont-text-inline">Never stretch, compress, or distort the wordmark proportions.</p>
+              </div>
+              <div class="do-card">
+                <div class="do-label">Do</div>
+                <div class="do-example">
+                  <span style="font-family: var(--font-heading); font-weight: 900; font-size: 1.5rem; letter-spacing: 0.05em; color: var(--text-dark-primary);">VAULTKEY</span>
+                </div>
+                <p class="do-text">Monochrome version is acceptable on single-color contexts (reversed out on brand green).</p>
+              </div>
+              <div class="dont-card-inline">
+                <div class="dont-label-inline">Don't</div>
+                <div class="dont-example-inline">
+                  <span style="font-family: var(--font-heading); font-weight: 900; font-size: 1.5rem; letter-spacing: 0.05em; background: linear-gradient(135deg, var(--color-primary), var(--color-cool)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">VAULTKEY</span>
+                </div>
+                <p class="dont-text-inline">Never apply gradients to the wordmark. Flat, solid color only.</p>
+              </div>
+              <div class="do-card">
+                <div class="do-label">Do</div>
+                <div class="do-example">
+                  <span style="font-family: var(--font-heading); font-weight: 900; font-size: 1.5rem; letter-spacing: 0.05em; color: var(--text-dark-primary);">VAULT<span style="color: var(--color-primary);">KEY</span></span>
+                </div>
+                <p class="do-text">Always use Cabinet Grotesk Black. The font is the identity.</p>
+              </div>
+              <div class="dont-card-inline">
+                <div class="dont-label-inline">Don't</div>
+                <div class="dont-example-inline">
+                  <span style="font-family: 'Courier New', monospace; font-weight: bold; font-size: 1.5rem; letter-spacing: 0.05em; color: var(--text-dark-primary);">VaultKey</span>
+                </div>
+                <p class="dont-text-inline">Never use mixed case. Never substitute unapproved typefaces.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- 03 — Colors -->
+      <section id="colors">
+        <p class="section-label">03 — Color Palette</p>
+        <h2 class="section-title">Color System</h2>
+        <p class="section-description">
+          Built on a near-black foundation with electric green as the primary signal. The palette is austere by design. Warm accents (amber) serve alert hierarchy. Cool accents (cyan) serve data visualization. Red is reserved for destructive actions and critical alerts only.
+        </p>
+
+        <!-- Core -->
+        <div class="palette-group">
+          <h3 class="palette-group-title">Core</h3>
+          <div class="swatches">
+            <div class="swatch">
+              <div class="swatch-color" style="background: #4dff7a;">
+                <span class="swatch-contrast">12.8:1</span>
+              </div>
+              <div class="swatch-info">
+                <div class="swatch-name">Primary Light</div>
+                <div class="swatch-hex">#4dff7a</div>
+                <div class="swatch-usage">Hover states, highlights</div>
+              </div>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background: #00e639;">
+                <span class="swatch-contrast">10.6:1</span>
+              </div>
+              <div class="swatch-info">
+                <div class="swatch-name">Primary</div>
+                <div class="swatch-hex">#00e639</div>
+                <div class="swatch-usage">Brand accent, CTAs</div>
+              </div>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background: #00b32d;">
+                <span class="swatch-contrast">7.2:1</span>
+              </div>
+              <div class="swatch-info">
+                <div class="swatch-name">Primary Dark</div>
+                <div class="swatch-hex">#00b32d</div>
+                <div class="swatch-usage">Pressed states, text on light</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Accents -->
+        <div class="palette-group">
+          <h3 class="palette-group-title">Accents</h3>
+          <div class="swatches">
+            <div class="swatch">
+              <div class="swatch-color" style="background: #c49a1a;">
+                <span class="swatch-contrast">5.8:1</span>
+              </div>
+              <div class="swatch-info">
+                <div class="swatch-name">Warm</div>
+                <div class="swatch-hex">#c49a1a</div>
+                <div class="swatch-usage">Alert hierarchy, caution</div>
+              </div>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background: #e6b422;">
+                <span class="swatch-contrast">8.1:1</span>
+              </div>
+              <div class="swatch-info">
+                <div class="swatch-name">Warm Light</div>
+                <div class="swatch-hex">#e6b422</div>
+                <div class="swatch-usage">Warm highlights</div>
+              </div>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background: #00a8cc;">
+                <span class="swatch-contrast">6.4:1</span>
+              </div>
+              <div class="swatch-info">
+                <div class="swatch-name">Cool</div>
+                <div class="swatch-hex">#00a8cc</div>
+                <div class="swatch-usage">Data, links, metrics</div>
+              </div>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background: #33c4e0;">
+                <span class="swatch-contrast">8.9:1</span>
+              </div>
+              <div class="swatch-info">
+                <div class="swatch-name">Cool Light</div>
+                <div class="swatch-hex">#33c4e0</div>
+                <div class="swatch-usage">Data highlights</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Semantic -->
+        <div class="palette-group">
+          <h3 class="palette-group-title">Semantic</h3>
+          <div class="swatches">
+            <div class="swatch">
+              <div class="swatch-color" style="background: #22c55e;">
+                <span class="swatch-contrast">9.1:1</span>
+              </div>
+              <div class="swatch-info">
+                <div class="swatch-name">Success</div>
+                <div class="swatch-hex">#22c55e</div>
+                <div class="swatch-usage">Verification, pass states</div>
+              </div>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background: #d97706;">
+                <span class="swatch-contrast">5.4:1</span>
+              </div>
+              <div class="swatch-info">
+                <div class="swatch-name">Warning</div>
+                <div class="swatch-hex">#d97706</div>
+                <div class="swatch-usage">Caution, degraded state</div>
+              </div>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background: #e53e3e;">
+                <span class="swatch-contrast">4.6:1</span>
+              </div>
+              <div class="swatch-info">
+                <div class="swatch-name">Error</div>
+                <div class="swatch-hex">#e53e3e</div>
+                <div class="swatch-usage">Critical alerts, breaches</div>
+              </div>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background: #3b82f6;">
+                <span class="swatch-contrast">4.7:1</span>
+              </div>
+              <div class="swatch-info">
+                <div class="swatch-name">Info</div>
+                <div class="swatch-hex">#3b82f6</div>
+                <div class="swatch-usage">Informational, neutral status</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Surfaces -->
+        <div class="palette-group">
+          <h3 class="palette-group-title">Surfaces</h3>
+          <div class="mode-preview">
+            <div class="mode-preview-panel mode-preview-light">
+              <div class="mode-label">Light Mode</div>
+              <div class="swatches" style="grid-template-columns: 1fr;">
+                <div class="swatch" style="border-color: var(--surface-border);">
+                  <div class="swatch-color" style="background: #f3f5f4; border: 1px solid var(--surface-border);"></div>
+                  <div class="swatch-info" style="background: var(--surface-card);"><div class="swatch-name" style="color: var(--text-primary);">Page</div><div class="swatch-hex" style="color: var(--text-tertiary);">#f3f5f4</div></div>
+                </div>
+                <div class="swatch" style="border-color: var(--surface-border);">
+                  <div class="swatch-color" style="background: #f8faf9; border: 1px solid var(--surface-border);"></div>
+                  <div class="swatch-info" style="background: var(--surface-card);"><div class="swatch-name" style="color: var(--text-primary);">Card</div><div class="swatch-hex" style="color: var(--text-tertiary);">#f8faf9</div></div>
+                </div>
+                <div class="swatch" style="border-color: var(--surface-border);">
+                  <div class="swatch-color" style="background: #e8ece9;"></div>
+                  <div class="swatch-info" style="background: var(--surface-card);"><div class="swatch-name" style="color: var(--text-primary);">Elevated</div><div class="swatch-hex" style="color: var(--text-tertiary);">#e8ece9</div></div>
+                </div>
+                <div class="swatch" style="border-color: var(--surface-border);">
+                  <div class="swatch-color" style="background: #cdd5cf;"></div>
+                  <div class="swatch-info" style="background: var(--surface-card);"><div class="swatch-name" style="color: var(--text-primary);">Border</div><div class="swatch-hex" style="color: var(--text-tertiary);">#cdd5cf</div></div>
+                </div>
+              </div>
+            </div>
+            <div class="mode-preview-panel mode-preview-dark">
+              <div class="mode-label">Dark Mode</div>
+              <div class="swatches" style="grid-template-columns: 1fr;">
+                <div class="swatch" style="border-color: var(--surface-dark-border);">
+                  <div class="swatch-color" style="background: #040a06;"></div>
+                  <div class="swatch-info" style="background: var(--surface-dark-elevated);"><div class="swatch-name" style="color: var(--text-dark-primary);">Deep</div><div class="swatch-hex" style="color: var(--text-dark-tertiary);">#040a06</div></div>
+                </div>
+                <div class="swatch" style="border-color: var(--surface-dark-border);">
+                  <div class="swatch-color" style="background: #0a120c;"></div>
+                  <div class="swatch-info" style="background: var(--surface-dark-elevated);"><div class="swatch-name" style="color: var(--text-dark-primary);">Base</div><div class="swatch-hex" style="color: var(--text-dark-tertiary);">#0a120c</div></div>
+                </div>
+                <div class="swatch" style="border-color: var(--surface-dark-border);">
+                  <div class="swatch-color" style="background: #121e15;"></div>
+                  <div class="swatch-info" style="background: var(--surface-dark-elevated);"><div class="swatch-name" style="color: var(--text-dark-primary);">Elevated</div><div class="swatch-hex" style="color: var(--text-dark-tertiary);">#121e15</div></div>
+                </div>
+                <div class="swatch" style="border-color: var(--surface-dark-border);">
+                  <div class="swatch-color" style="background: #1e3223;"></div>
+                  <div class="swatch-info" style="background: var(--surface-dark-elevated);"><div class="swatch-name" style="color: var(--text-dark-primary);">Border</div><div class="swatch-hex" style="color: var(--text-dark-tertiary);">#1e3223</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Text Scales -->
+        <div class="palette-group">
+          <h3 class="palette-group-title">Text</h3>
+          <div class="mode-preview">
+            <div class="mode-preview-panel mode-preview-light">
+              <div class="mode-label">Light Mode</div>
+              <div class="swatches" style="grid-template-columns: 1fr;">
+                <div class="swatch" style="border-color: var(--surface-border);">
+                  <div class="swatch-color" style="background: #0a1a0e;"></div>
+                  <div class="swatch-info" style="background: var(--surface-card);"><div class="swatch-name" style="color: var(--text-primary);">Primary</div><div class="swatch-hex" style="color: var(--text-tertiary);">#0a1a0e</div></div>
+                </div>
+                <div class="swatch" style="border-color: var(--surface-border);">
+                  <div class="swatch-color" style="background: #3d5242;"></div>
+                  <div class="swatch-info" style="background: var(--surface-card);"><div class="swatch-name" style="color: var(--text-primary);">Secondary</div><div class="swatch-hex" style="color: var(--text-tertiary);">#3d5242</div></div>
+                </div>
+                <div class="swatch" style="border-color: var(--surface-border);">
+                  <div class="swatch-color" style="background: #6b8570;"></div>
+                  <div class="swatch-info" style="background: var(--surface-card);"><div class="swatch-name" style="color: var(--text-primary);">Tertiary</div><div class="swatch-hex" style="color: var(--text-tertiary);">#6b8570</div></div>
+                </div>
+                <div class="swatch" style="border-color: var(--surface-border);">
+                  <div class="swatch-color" style="background: #9aaa9e;"></div>
+                  <div class="swatch-info" style="background: var(--surface-card);"><div class="swatch-name" style="color: var(--text-primary);">Disabled</div><div class="swatch-hex" style="color: var(--text-tertiary);">#9aaa9e</div></div>
+                </div>
+              </div>
+            </div>
+            <div class="mode-preview-panel mode-preview-dark">
+              <div class="mode-label">Dark Mode</div>
+              <div class="swatches" style="grid-template-columns: 1fr;">
+                <div class="swatch" style="border-color: var(--surface-dark-border);">
+                  <div class="swatch-color" style="background: #e8f5ea;"></div>
+                  <div class="swatch-info" style="background: var(--surface-dark-elevated);"><div class="swatch-name" style="color: var(--text-dark-primary);">Primary</div><div class="swatch-hex" style="color: var(--text-dark-tertiary);">#e8f5ea</div></div>
+                </div>
+                <div class="swatch" style="border-color: var(--surface-dark-border);">
+                  <div class="swatch-color" style="background: #a3c4a8;"></div>
+                  <div class="swatch-info" style="background: var(--surface-dark-elevated);"><div class="swatch-name" style="color: var(--text-dark-primary);">Secondary</div><div class="swatch-hex" style="color: var(--text-dark-tertiary);">#a3c4a8</div></div>
+                </div>
+                <div class="swatch" style="border-color: var(--surface-dark-border);">
+                  <div class="swatch-color" style="background: #6b8570;"></div>
+                  <div class="swatch-info" style="background: var(--surface-dark-elevated);"><div class="swatch-name" style="color: var(--text-dark-primary);">Tertiary</div><div class="swatch-hex" style="color: var(--text-dark-tertiary);">#6b8570</div></div>
+                </div>
+                <div class="swatch" style="border-color: var(--surface-dark-border);">
+                  <div class="swatch-color" style="background: #3d5242;"></div>
+                  <div class="swatch-info" style="background: var(--surface-dark-elevated);"><div class="swatch-name" style="color: var(--text-dark-primary);">Disabled</div><div class="swatch-hex" style="color: var(--text-dark-tertiary);">#3d5242</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 04 — Typography -->
+      <div class="section-alt">
+        <section id="typography">
+          <div class="section-inner">
+            <p class="section-label">04 — Typography</p>
+            <h2 class="section-title">Type System</h2>
+            <p class="section-description">
+              Terminal-grade precision. Cabinet Grotesk drives display and headings with authoritative weight. Satoshi handles body copy with geometric clarity. JetBrains Mono pervades labels, data, and metadata to reinforce the technical character.
+            </p>
+
+            <!-- Display -->
+            <div class="type-specimen">
+              <div class="type-specimen-label">Display</div>
+              <div class="type-specimen-sample" style="font-family: var(--font-display); font-weight: 900; font-size: 3.052rem; line-height: 1.05; letter-spacing: -0.03em; text-transform: uppercase;">
+                Zero Trust Architecture
+              </div>
+              <dl class="type-specimen-meta">
+                <div><dt>Family</dt><dd>Cabinet Grotesk</dd></div>
+                <div><dt>Weight</dt><dd>900 (Black)</dd></div>
+                <div><dt>Tracking</dt><dd>-0.03em</dd></div>
+                <div><dt>Line height</dt><dd>1.05</dd></div>
+              </dl>
+            </div>
+
+            <!-- Heading -->
+            <div class="type-specimen">
+              <div class="type-specimen-label">Heading</div>
+              <div class="type-specimen-sample" style="font-family: var(--font-heading); font-weight: 700; font-size: 1.953rem; line-height: 1.2; letter-spacing: -0.02em; text-transform: uppercase;">
+                Identity-First Perimeter Defense
+              </div>
+              <dl class="type-specimen-meta">
+                <div><dt>Family</dt><dd>Cabinet Grotesk</dd></div>
+                <div><dt>Weight</dt><dd>600 &ndash; 800</dd></div>
+                <div><dt>Tracking</dt><dd>-0.02em</dd></div>
+                <div><dt>Line height</dt><dd>1.2</dd></div>
+              </dl>
+            </div>
+
+            <!-- Body -->
+            <div class="type-specimen">
+              <div class="type-specimen-label">Body</div>
+              <div class="type-specimen-sample" style="font-family: var(--font-body); font-size: 1rem; line-height: 1.7; font-weight: 400;">
+                Every request is authenticated. Every session is ephemeral. Every identity is verified against a cryptographic root of trust. VAULTKEY implements zero-trust at the packet level, eliminating implicit trust zones that legacy architectures depend on.
+              </div>
+              <dl class="type-specimen-meta">
+                <div><dt>Family</dt><dd>Satoshi</dd></div>
+                <div><dt>Weight</dt><dd>400 (Regular)</dd></div>
+                <div><dt>Tracking</dt><dd>0</dd></div>
+                <div><dt>Line height</dt><dd>1.7</dd></div>
+              </dl>
+            </div>
+
+            <!-- Mono -->
+            <div class="type-specimen">
+              <div class="type-specimen-label">Mono</div>
+              <div class="type-specimen-sample" style="font-family: var(--font-mono); font-size: 0.875rem; line-height: 1.5;">
+                $ vaultkey verify --identity user@corp.io --scope admin<br>
+                <span style="color: var(--color-primary);">&#10003;</span> identity verified | mfa: hardware_key | session: 3600s<br>
+                <span style="color: var(--color-primary);">&#10003;</span> policy: least-privilege | scope: admin | risk: low
+              </div>
+              <dl class="type-specimen-meta">
+                <div><dt>Family</dt><dd>JetBrains Mono</dd></div>
+                <div><dt>Weight</dt><dd>400 &ndash; 600</dd></div>
+                <div><dt>Use</dt><dd>CLI output, labels, metadata, code, data tables</dd></div>
+              </dl>
+            </div>
+
+            <!-- Type Scale Table -->
+            <h3 class="palette-group-title" style="margin-top: var(--space-2xl);">Type Scale</h3>
+            <table class="type-scale-table">
+              <thead>
+                <tr>
+                  <th>Token</th>
+                  <th>Rem</th>
+                  <th>Px</th>
+                  <th>Use</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>6xl</td>
+                  <td>3.815rem</td>
+                  <td>61.04px</td>
+                  <td>Hero headlines</td>
+                </tr>
+                <tr>
+                  <td>5xl</td>
+                  <td>3.052rem</td>
+                  <td>48.83px</td>
+                  <td>Section heroes</td>
+                </tr>
+                <tr>
+                  <td>4xl</td>
+                  <td>2.441rem</td>
+                  <td>39.06px</td>
+                  <td>Page titles</td>
+                </tr>
+                <tr>
+                  <td>3xl</td>
+                  <td>1.953rem</td>
+                  <td>31.25px</td>
+                  <td>Section headings</td>
+                </tr>
+                <tr>
+                  <td>2xl</td>
+                  <td>1.563rem</td>
+                  <td>25.00px</td>
+                  <td>Subsection headings</td>
+                </tr>
+                <tr>
+                  <td>xl</td>
+                  <td>1.25rem</td>
+                  <td>20.00px</td>
+                  <td>Large body, lead text</td>
+                </tr>
+                <tr>
+                  <td>base</td>
+                  <td>1rem</td>
+                  <td>16.00px</td>
+                  <td>Body text</td>
+                </tr>
+                <tr>
+                  <td>sm</td>
+                  <td>0.8rem</td>
+                  <td>12.80px</td>
+                  <td>Captions, labels</td>
+                </tr>
+                <tr>
+                  <td>xs</td>
+                  <td>0.64rem</td>
+                  <td>10.24px</td>
+                  <td>Fine print</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+
+      <!-- 05 — Components -->
+      <section id="components">
+        <p class="section-label">05 — Components</p>
+        <h2 class="section-title">UI Components</h2>
+        <p class="section-description">
+          Every component is styled with the VAULTKEY design tokens. Sharp radii, monospace labels, and the electric green accent convey precision and authority. All variants shown in both light and dark contexts.
+        </p>
+
+        <!-- Buttons -->
+        <h3 class="palette-group-title">Buttons</h3>
+        <div class="mode-preview">
+          <div class="mode-preview-panel mode-preview-light">
+            <div class="mode-label">Light Mode</div>
+            <div class="component-row">
+              <button type="button" class="btn btn-primary">Primary</button>
+              <button type="button" class="btn btn-secondary">Secondary</button>
+              <button type="button" class="btn btn-outline">Outline</button>
+              <button type="button" class="btn btn-ghost">Ghost</button>
+              <button type="button" class="btn btn-destructive">Revoke</button>
+            </div>
+          </div>
+          <div class="mode-preview-panel mode-preview-dark">
+            <div class="mode-label">Dark Mode</div>
+            <div class="component-row">
+              <button type="button" class="btn btn-primary">Primary</button>
+              <button type="button" class="btn btn-secondary">Secondary</button>
+              <button type="button" class="btn btn-outline">Outline</button>
+              <button type="button" class="btn btn-ghost">Ghost</button>
+              <button type="button" class="btn btn-destructive">Revoke</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cards -->
+        <h3 class="palette-group-title" style="margin-top: var(--space-2xl);">Cards</h3>
+        <div class="mode-preview">
+          <div class="mode-preview-panel mode-preview-light">
+            <div class="mode-label">Light Mode</div>
+            <div class="card card-interactive" style="margin-bottom: var(--space-md);">
+              <h4 class="card-title">Policy Engine</h4>
+              <p class="card-text">Centralized policy management with real-time enforcement across all endpoints and identity providers.</p>
+            </div>
+            <div class="card card-featured">
+              <h4 class="card-title">Threat Intelligence</h4>
+              <p class="card-text">Continuous risk scoring with behavioral analysis. Anomalies trigger automatic session revocation.</p>
+            </div>
+          </div>
+          <div class="mode-preview-panel mode-preview-dark">
+            <div class="mode-label">Dark Mode</div>
+            <div class="card card-interactive" style="margin-bottom: var(--space-md);">
+              <h4 class="card-title">Policy Engine</h4>
+              <p class="card-text">Centralized policy management with real-time enforcement across all endpoints and identity providers.</p>
+            </div>
+            <div class="card card-featured">
+              <h4 class="card-title">Threat Intelligence</h4>
+              <p class="card-text">Continuous risk scoring with behavioral analysis. Anomalies trigger automatic session revocation.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Inputs -->
+        <h3 class="palette-group-title" style="margin-top: var(--space-2xl);">Inputs</h3>
+        <div class="mode-preview">
+          <div class="mode-preview-panel mode-preview-light">
+            <div class="mode-label">Light Mode</div>
+            <div class="input-group">
+              <label for="input-light-default" class="input-label">Identity</label>
+              <input type="email" id="input-light-default" name="identity" class="input" placeholder="user@corp.io" autocomplete="email" style="background: var(--surface-card); border-color: var(--surface-border); color: var(--text-primary);">
+              <p class="input-hint" style="color: var(--text-tertiary);">Primary identity for authentication</p>
+            </div>
+            <div class="input-group">
+              <label for="input-light-error" class="input-label" style="color: var(--text-primary);">Access Token</label>
+              <input type="text" id="input-light-error" name="token-error" class="input input-error" value="expired_token_0x3f" autocomplete="off" style="background: var(--surface-card); color: var(--text-primary);">
+              <p class="input-error-msg">Token expired. Rotate credentials.</p>
+            </div>
+            <div class="input-group">
+              <label for="input-light-disabled" class="input-label" style="color: var(--text-primary);">Scope</label>
+              <input type="text" id="input-light-disabled" name="scope-disabled" class="input" disabled value="read-only (locked)" autocomplete="off" style="background: var(--surface-card); border-color: var(--surface-border); color: var(--text-primary);">
+            </div>
+          </div>
+          <div class="mode-preview-panel mode-preview-dark">
+            <div class="mode-label">Dark Mode</div>
+            <div class="input-group">
+              <label for="input-dark-default" class="input-label">Identity</label>
+              <input type="email" id="input-dark-default" name="dark-identity" class="input" placeholder="user@corp.io" autocomplete="email">
+              <p class="input-hint">Primary identity for authentication</p>
+            </div>
+            <div class="input-group">
+              <label for="input-dark-error" class="input-label">Access Token</label>
+              <input type="text" id="input-dark-error" name="dark-token-error" class="input input-error" value="expired_token_0x3f" autocomplete="off">
+              <p class="input-error-msg">Token expired. Rotate credentials.</p>
+            </div>
+            <div class="input-group">
+              <label for="input-dark-disabled" class="input-label">Scope</label>
+              <input type="text" id="input-dark-disabled" name="dark-scope-disabled" class="input" disabled value="read-only (locked)" autocomplete="off">
+            </div>
+          </div>
+        </div>
+
+        <!-- Tags -->
+        <h3 class="palette-group-title" style="margin-top: var(--space-2xl);">Tags & Badges</h3>
+        <div class="mode-preview">
+          <div class="mode-preview-panel mode-preview-light">
+            <div class="mode-label">Light Mode</div>
+            <div class="tags">
+              <span class="tag tag-primary">Verified</span>
+              <span class="tag tag-success">Authenticated</span>
+              <span class="tag tag-warning">Degraded</span>
+              <span class="tag tag-error">Breach</span>
+              <span class="tag tag-info">Pending</span>
+            </div>
+          </div>
+          <div class="mode-preview-panel mode-preview-dark">
+            <div class="mode-label">Dark Mode</div>
+            <div class="tags">
+              <span class="tag tag-primary">Verified</span>
+              <span class="tag tag-success">Authenticated</span>
+              <span class="tag tag-warning">Degraded</span>
+              <span class="tag tag-error">Breach</span>
+              <span class="tag tag-info">Pending</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 06 — Don't -->
+      <div class="section-alt">
+        <section id="dont">
+          <div class="section-inner">
+            <p class="section-label">06 — Don't</p>
+            <h2 class="section-title">Negative Rules</h2>
+            <p class="section-description">
+              These are explicit violations of the VAULTKEY brand system. Every item here has been rejected for a specific reason. Do not deviate.
+            </p>
+
+            <div class="dont-grid">
+              <div class="dont-card">
+                <div class="dont-label">Don't</div>
+                <div class="dont-example">
+                  <span style="font-family: var(--font-heading); font-weight: 900; font-size: 1.5rem; letter-spacing: 0.05em; transform: scaleX(1.4); display: inline-block; color: var(--text-dark-primary);">VAULTKEY</span>
+                </div>
+                <p class="dont-text">Never stretch, skew, or distort the wordmark. Maintain original proportions at all times.</p>
+              </div>
+
+              <div class="dont-card">
+                <div class="dont-label">Don't</div>
+                <div class="dont-example">
+                  <span style="font-family: var(--font-heading); font-weight: 900; font-size: 1.5rem; letter-spacing: 0.05em; background: linear-gradient(135deg, var(--color-primary), var(--color-cool)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">VAULTKEY</span>
+                </div>
+                <p class="dont-text">Never apply gradients to the wordmark. The mark must always render as flat, solid color.</p>
+              </div>
+
+              <div class="dont-card">
+                <div class="dont-label">Don't</div>
+                <div class="dont-example">
+                  <span style="font-family: 'Comic Sans MS', cursive; font-weight: bold; font-size: 1.5rem; color: var(--text-dark-primary);">VaultKey</span>
+                </div>
+                <p class="dont-text">Never use unapproved typefaces. Never render in mixed case. The wordmark is always all-caps Cabinet Grotesk.</p>
+              </div>
+
+              <div class="dont-card">
+                <div class="dont-label">Don't</div>
+                <div class="dont-example">
+                  <div style="width: 40px; height: 40px; background: var(--color-primary); border-radius: 10px; display: inline-flex; align-items: center; justify-content: center; font-family: var(--font-heading); font-weight: 900; font-size: 1.2rem; color: var(--surface-dark-deep);">V</div>
+                </div>
+                <p class="dont-text">Never reduce the brand to a letter inside a rounded square. VAULTKEY is a typographic wordmark. There is no icon.</p>
+              </div>
+
+              <div class="dont-card">
+                <div class="dont-label">Don't</div>
+                <div class="dont-example">
+                  <span style="font-family: var(--font-body); font-size: 10px; color: var(--text-dark-primary);">Session tokens expire after 3600 seconds. Contact admin for renewal.</span>
+                </div>
+                <p class="dont-text">Never set body text below 14px (0.875rem). Readability is a security requirement. Unreadable text causes operational errors.</p>
+              </div>
+
+              <div class="dont-card">
+                <div class="dont-label">Don't</div>
+                <div class="dont-example">
+                  <span style="font-family: var(--font-heading); font-weight: 900; font-size: 1.5rem; letter-spacing: 0.05em; color: #ff69b4;">VAULT</span><span style="font-family: var(--font-heading); font-weight: 900; font-size: 1.5rem; letter-spacing: 0.05em; color: #ffd700;">KEY</span>
+                </div>
+                <p class="dont-text">Never use unapproved color combinations. The brand palette exists for a reason. Friendly, warm colors undermine the authority VAULTKEY requires.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Footer -->
+      <footer style="padding: var(--space-2xl); text-align: center;">
+        <p style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-dark-tertiary);">
+          VAULTKEY Brand Guidelines &middot; <span style="font-variant-numeric: tabular-nums;">2026</span> &middot; Generated with Brandbook Design System
+        </p>
+      </footer>
+    </main>
+  </div>
+
+  <!-- Scroll-based active section highlighting -->
+  <script>
+    (function () {
+      var navLinks = document.querySelectorAll('.sidebar-nav a');
+      var sections = document.querySelectorAll('section[id]');
+
+      if (!sections.length || !navLinks.length) return;
+
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            navLinks.forEach(function (link) { link.classList.remove('active'); });
+            var active = document.querySelector('.sidebar-nav a[href="#' + entry.target.id + '"]');
+            if (active) active.classList.add('active');
+          }
+        });
+      }, {
+        rootMargin: '-20% 0px -70% 0px',
+        threshold: 0
+      });
+
+      sections.forEach(function (section) { observer.observe(section); });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,1910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#2a2523">
+  <title>Maison. — Brand Guidelines</title>
+
+  <!-- Preconnect to Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Albert+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================
+       DESIGN TOKENS
+       ============================================ */
+    :root {
+      /* Core — deep charcoal, the near-black that is Maison.'s signature */
+      --color-primary-light: #4a4340;
+      --color-primary: #2a2523;
+      --color-primary-dark: #1a1614;
+
+      /* Accents */
+      --color-warm: #b8924a;
+      --color-warm-light: #d4b06a;
+      --color-cool: #5a7a7a;
+      --color-cool-light: #7a9e9e;
+
+      /* Semantic */
+      --color-success: #3d7a4a;
+      --color-warning: #b8924a;
+      --color-error: #9e3a3a;
+      --color-info: #3a5a8a;
+
+      /* Surfaces — Light */
+      --surface-page: #f8f5f0;
+      --surface-card: #fdfcf9;
+      --surface-elevated: #f0ebe3;
+      --surface-border: #e0d8cc;
+
+      /* Surfaces — Dark */
+      --surface-dark-deep: #0e0c0b;
+      --surface-dark-base: #171413;
+      --surface-dark-elevated: #221e1c;
+      --surface-dark-border: #3a3432;
+
+      /* Text — Light */
+      --text-primary: #1a1614;
+      --text-secondary: #5c524a;
+      --text-tertiary: #8a7e74;
+      --text-disabled: #b8ada3;
+
+      /* Text — Dark */
+      --text-dark-primary: #f0ebe3;
+      --text-dark-secondary: #b8ada3;
+      --text-dark-tertiary: #8a7e74;
+      --text-dark-disabled: #5c524a;
+
+      /* Typography */
+      --font-display: 'Cormorant', Georgia, 'Times New Roman', serif;
+      --font-heading: 'Albert Sans', system-ui, -apple-system, sans-serif;
+      --font-body: 'Albert Sans', system-ui, -apple-system, sans-serif;
+      --font-mono: 'IBM Plex Mono', 'Fira Code', 'Cascadia Code', monospace;
+
+      /* Spacing */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2rem;
+      --space-2xl: 3rem;
+      --space-3xl: 4rem;
+      --space-4xl: 6rem;
+
+      /* Radii — sharp, Ruler-appropriate */
+      --radius-sm: 0.125rem;
+      --radius-md: 0.25rem;
+      --radius-lg: 0.375rem;
+      --radius-xl: 0.5rem;
+      --radius-full: 9999px;
+
+      /* Layout */
+      --sidebar-width: 240px;
+      --content-max: 960px;
+    }
+
+    /* ============================================
+       RESET & BASE
+       ============================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: clamp(15px, 1vw + 12px, 18px);
+      scroll-behavior: smooth;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    body {
+      font-family: var(--font-body);
+      font-weight: 400;
+      line-height: 1.6;
+      color: var(--text-primary);
+      background-color: var(--surface-page);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+
+    /* Noise texture overlay */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.025;
+      z-index: 9999;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* ============================================
+       SKIP LINK
+       ============================================ */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: var(--space-md);
+      padding: var(--space-sm) var(--space-md);
+      background: var(--color-warm);
+      color: var(--surface-dark-deep);
+      border-radius: var(--radius-md);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      text-decoration: none;
+      z-index: 10000;
+      transition: top 0.2s;
+    }
+
+    .skip-link:focus {
+      top: var(--space-md);
+    }
+
+    /* ============================================
+       FOCUS STYLES
+       ============================================ */
+    :focus-visible {
+      outline: 2px solid var(--color-warm);
+      outline-offset: 2px;
+    }
+
+    /* ============================================
+       LAYOUT
+       ============================================ */
+    .layout {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* ============================================
+       SIDEBAR
+       ============================================ */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: var(--sidebar-width);
+      height: 100vh;
+      padding: var(--space-xl) var(--space-lg);
+      background: var(--surface-dark-base);
+      color: var(--text-dark-primary);
+      overflow-y: auto;
+      z-index: 100;
+      border-right: 1px solid var(--surface-dark-border);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar-logo {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: 1.6rem;
+      letter-spacing: -0.02em;
+      margin-bottom: var(--space-2xl);
+      background: linear-gradient(135deg, var(--color-warm-light), var(--color-warm));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .sidebar-nav {
+      list-style: none;
+    }
+
+    .sidebar-nav li {
+      margin-bottom: var(--space-xs);
+    }
+
+    .sidebar-nav a {
+      display: block;
+      padding: var(--space-sm) var(--space-md);
+      color: var(--text-dark-tertiary);
+      text-decoration: none;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.02em;
+      border-radius: var(--radius-md);
+      transition: color 0.15s;
+    }
+
+    .sidebar-nav a:hover,
+    .sidebar-nav a:focus-visible {
+      color: var(--text-dark-primary);
+    }
+
+    .sidebar-nav a.active {
+      color: var(--text-dark-primary);
+      background: var(--surface-dark-border);
+      border-radius: var(--radius-md) 0 0 var(--radius-md);
+      margin-right: calc(var(--space-lg) * -1);
+      padding-right: calc(var(--space-md) + var(--space-lg));
+    }
+
+    .sidebar-nav .section-number {
+      color: var(--color-warm);
+      margin-right: var(--space-sm);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .sidebar-credit {
+      margin-top: auto;
+      padding-top: var(--space-lg);
+    }
+
+    .sidebar-credit a {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: var(--text-dark-disabled);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: color 0.15s;
+    }
+
+    .sidebar-credit a:hover {
+      color: var(--text-dark-tertiary);
+    }
+
+    /* ============================================
+       CONTENT
+       ============================================ */
+    .content {
+      margin-left: var(--sidebar-width);
+      flex: 1;
+      min-width: 0;
+    }
+
+    /* ============================================
+       SECTIONS
+       ============================================ */
+    section {
+      padding: var(--space-4xl) var(--space-2xl);
+      max-width: var(--content-max);
+      margin: 0 auto;
+      color: var(--text-primary);
+    }
+
+    .section-alt {
+      background: var(--surface-elevated);
+      max-width: none;
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    .section-alt > .section-inner {
+      max-width: var(--content-max);
+      margin: 0 auto;
+      padding: 0 var(--space-2xl);
+    }
+
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-warm);
+      margin-bottom: var(--space-sm);
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 2.441rem;
+      font-weight: 400;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: var(--space-lg);
+      color: var(--text-primary);
+    }
+
+    .section-description {
+      color: var(--text-secondary);
+      max-width: 60ch;
+      margin-bottom: var(--space-2xl);
+    }
+
+    /* ============================================
+       HERO / COVER
+       ============================================ */
+    .hero {
+      padding: var(--space-4xl) var(--space-2xl);
+      max-width: var(--content-max);
+      margin: 0 auto;
+      min-height: 50vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+      padding: var(--space-xs) var(--space-md);
+      background: var(--surface-elevated);
+      border-radius: var(--radius-full);
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--color-warm);
+      margin-bottom: var(--space-xl);
+      width: fit-content;
+    }
+
+    .hero-badge .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--color-warm);
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: 4.5rem;
+      font-weight: 400;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: var(--space-lg);
+      color: var(--text-primary);
+    }
+
+    .hero-wordmark {
+      font-family: var(--font-display);
+      font-weight: 500;
+    }
+
+    .identity-element {
+      color: var(--color-warm);
+    }
+
+    .hero-subtitle {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      max-width: 50ch;
+      line-height: 1.6;
+    }
+
+    /* ============================================
+       VOICE GUIDELINES
+       ============================================ */
+    .voice-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: var(--space-lg);
+      margin-top: var(--space-xl);
+    }
+
+    .voice-card {
+      padding: var(--space-xl);
+      background: var(--surface-card);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius-lg);
+    }
+
+    .voice-card h4 {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: var(--space-sm);
+      color: var(--text-primary);
+    }
+
+    .voice-card p {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    /* ============================================
+       01 — ARCHETYPE
+       ============================================ */
+    .archetype-card {
+      background: var(--surface-card);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-2xl);
+      margin-bottom: var(--space-xl);
+    }
+
+    .archetype-name {
+      font-family: var(--font-display);
+      font-size: 1.953rem;
+      font-weight: 400;
+      margin-bottom: var(--space-sm);
+      color: var(--text-primary);
+    }
+
+    .traits {
+      display: flex;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+      margin-bottom: var(--space-lg);
+    }
+
+    .trait {
+      padding: var(--space-xs) var(--space-md);
+      background: var(--surface-elevated);
+      border-radius: var(--radius-full);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--color-warm);
+    }
+
+    .positioning-spectrums {
+      margin-top: var(--space-xl);
+    }
+
+    .spectrum {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      margin-bottom: var(--space-md);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+    }
+
+    .spectrum-label {
+      width: 100px;
+      text-align: right;
+      color: var(--text-tertiary);
+      flex-shrink: 0;
+    }
+
+    .spectrum-bar {
+      flex: 1;
+      height: 4px;
+      background: var(--surface-elevated);
+      border-radius: var(--radius-full);
+      position: relative;
+    }
+
+    .spectrum-marker {
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 12px;
+      height: 12px;
+      background: var(--color-warm);
+      border-radius: 50%;
+      border: 2px solid var(--surface-card);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+    }
+
+    .spectrum-label-end {
+      width: 100px;
+      color: var(--text-tertiary);
+      flex-shrink: 0;
+    }
+
+    /* ============================================
+       02 — WORDMARK
+       ============================================ */
+    .wordmark-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--space-lg);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .wordmark-variant {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-3xl) var(--space-xl);
+      border-radius: var(--radius-lg);
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: 2.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .wordmark-on-light {
+      background: var(--surface-card);
+      border: 1px solid var(--surface-border);
+      color: var(--text-primary);
+    }
+
+    .wordmark-on-dark {
+      background: var(--surface-dark-base);
+      color: var(--text-dark-primary);
+    }
+
+    .wordmark-on-brand {
+      background: var(--color-primary);
+      color: var(--color-warm);
+    }
+
+    .wordmark-variant-label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: var(--space-sm);
+      text-align: center;
+    }
+
+    .wordmark-variant-wrapper {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .wordmark-variant-wrapper .wordmark-on-light .wordmark-variant-label {
+      color: var(--text-tertiary);
+    }
+
+    .clear-space-demo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-2xl);
+      background: var(--surface-card);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius-lg);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .clear-space-box {
+      position: relative;
+      padding: var(--space-xl);
+      border: 1px dashed var(--color-warm);
+    }
+
+    .clear-space-box::before {
+      content: 'Cap-height minimum';
+      position: absolute;
+      top: 2px;
+      left: var(--space-sm);
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: var(--color-warm);
+      letter-spacing: 0.05em;
+    }
+
+    .clear-space-wordmark {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: 2rem;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+    }
+
+    /* Do / Don't grid for wordmark */
+    .do-dont-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--space-lg);
+    }
+
+    .do-card, .dont-card-sm {
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+    }
+
+    .do-card {
+      border: 1.5px solid var(--color-success);
+      background: color-mix(in srgb, var(--color-success) 3%, var(--surface-card));
+    }
+
+    .dont-card-sm {
+      border: 1.5px solid var(--color-error);
+      background: color-mix(in srgb, var(--color-error) 3%, var(--surface-card));
+    }
+
+    .do-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-success);
+      margin-bottom: var(--space-md);
+    }
+
+    .dont-label-sm {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-error);
+      margin-bottom: var(--space-md);
+    }
+
+    .do-example, .dont-example-sm {
+      padding: var(--space-lg);
+      background: var(--surface-elevated);
+      border-radius: var(--radius-md);
+      margin-bottom: var(--space-md);
+      text-align: center;
+    }
+
+    .do-text, .dont-text-sm {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+
+    /* ============================================
+       03 — COLOR PALETTE
+       ============================================ */
+    .palette-group {
+      margin-bottom: var(--space-2xl);
+    }
+
+    .palette-group-title {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 1.25rem;
+      margin-bottom: var(--space-md);
+      color: var(--text-primary);
+    }
+
+    .swatches {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: var(--space-md);
+    }
+
+    .swatch {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--surface-border);
+    }
+
+    .swatch-color {
+      height: 80px;
+      display: flex;
+      align-items: flex-end;
+      padding: var(--space-sm);
+    }
+
+    .swatch-info {
+      padding: var(--space-sm) var(--space-md);
+      background: var(--surface-card);
+    }
+
+    .swatch-name {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 0.8rem;
+      color: var(--text-primary);
+    }
+
+    .swatch-hex {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-tertiary);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .swatch-contrast {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: var(--text-tertiary);
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* ============================================
+       04 — TYPOGRAPHY
+       ============================================ */
+    .type-specimen {
+      margin-bottom: var(--space-2xl);
+      padding: var(--space-2xl);
+      background: var(--surface-card);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius-lg);
+    }
+
+    .type-specimen-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-warm);
+      margin-bottom: var(--space-md);
+    }
+
+    .type-specimen-sample {
+      margin-bottom: var(--space-md);
+      color: var(--text-primary);
+    }
+
+    .type-specimen-meta {
+      display: flex;
+      gap: var(--space-lg);
+      flex-wrap: wrap;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-tertiary);
+    }
+
+    .type-specimen-meta dt {
+      color: var(--text-secondary);
+    }
+
+    .type-specimen-meta dd {
+      font-variant-numeric: tabular-nums;
+    }
+
+    .type-scale-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: var(--space-xl);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+    }
+
+    .type-scale-table th {
+      text-align: left;
+      padding: var(--space-sm) var(--space-md);
+      border-bottom: 2px solid var(--surface-border);
+      color: var(--text-secondary);
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      font-size: 0.65rem;
+    }
+
+    .type-scale-table td {
+      padding: var(--space-sm) var(--space-md);
+      border-bottom: 1px solid var(--surface-border);
+      color: var(--text-primary);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .type-scale-table .scale-preview {
+      font-family: var(--font-display);
+      color: var(--text-primary);
+    }
+
+    /* ============================================
+       05 — COMPONENTS
+       ============================================ */
+    .component-row {
+      display: flex;
+      gap: var(--space-md);
+      flex-wrap: wrap;
+      align-items: center;
+      margin-bottom: var(--space-xl);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-sm) var(--space-lg);
+      border-radius: var(--radius-md);
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 0.875rem;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.1s, box-shadow 0.1s;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+    .btn:active { transform: translateY(0); }
+
+    .btn-primary {
+      background: var(--color-primary);
+      color: var(--color-warm-light);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+    .btn-primary:hover {
+      background: var(--color-primary-dark);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.08);
+    }
+
+    .btn-secondary {
+      background: var(--surface-elevated);
+      color: var(--text-primary);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--color-primary);
+      border: 1.5px solid var(--color-primary);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-secondary);
+    }
+    .btn-ghost:hover {
+      background: var(--surface-elevated);
+      color: var(--text-primary);
+    }
+
+    .btn-destructive {
+      background: var(--color-error);
+      color: #fdfcf9;
+    }
+
+    .btn-gold {
+      background: var(--color-warm);
+      color: var(--surface-dark-deep);
+      font-weight: 600;
+    }
+    .btn-gold:hover {
+      background: var(--color-warm-light);
+    }
+
+    /* Cards */
+    .card {
+      background: var(--surface-card);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+
+    .card-interactive:hover {
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      transform: translateY(-2px);
+    }
+
+    .card-featured {
+      border-color: var(--color-warm);
+      box-shadow: 0 0 0 1px var(--color-warm);
+    }
+
+    .card-title {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-bottom: var(--space-sm);
+      color: var(--text-primary);
+    }
+
+    .card-text {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+    }
+
+    /* Inputs */
+    .input-group {
+      margin-bottom: var(--space-lg);
+      max-width: 400px;
+    }
+
+    .input-label {
+      display: block;
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 0.8rem;
+      margin-bottom: var(--space-xs);
+      color: var(--text-primary);
+    }
+
+    .input {
+      width: 100%;
+      padding: var(--space-sm) var(--space-md);
+      border: 1.5px solid var(--surface-border);
+      border-radius: var(--radius-md);
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      color: var(--text-primary);
+      background: var(--surface-card);
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    .input:focus {
+      outline: none;
+      border-color: var(--color-warm);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-warm) 20%, transparent);
+    }
+
+    .input-error { border-color: var(--color-error); }
+    .input-error:focus { box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-error) 20%, transparent); }
+    .input:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .input-hint {
+      font-size: 0.75rem;
+      margin-top: var(--space-xs);
+      color: var(--text-tertiary);
+    }
+
+    .input-error-msg {
+      font-size: 0.75rem;
+      margin-top: var(--space-xs);
+      color: var(--color-error);
+    }
+
+    /* Tags */
+    .tags {
+      display: flex;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+    }
+
+    .tag-primary { background: color-mix(in srgb, var(--color-primary) 12%, transparent); color: var(--color-primary); }
+    .tag-warm { background: color-mix(in srgb, var(--color-warm) 15%, transparent); color: var(--color-warm); }
+    .tag-success { background: color-mix(in srgb, var(--color-success) 15%, transparent); color: var(--color-success); }
+    .tag-warning { background: color-mix(in srgb, var(--color-warning) 15%, transparent); color: var(--color-warning); }
+    .tag-error   { background: color-mix(in srgb, var(--color-error) 15%, transparent);   color: var(--color-error); }
+    .tag-info    { background: color-mix(in srgb, var(--color-info) 15%, transparent);    color: var(--color-info); }
+
+    /* ============================================
+       06 — DON'T RULES
+       ============================================ */
+    .dont-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--space-lg);
+    }
+
+    .dont-card {
+      border: 1.5px solid var(--color-error);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      background: color-mix(in srgb, var(--color-error) 3%, var(--surface-card));
+    }
+
+    .dont-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-error);
+      margin-bottom: var(--space-md);
+    }
+
+    .dont-example {
+      padding: var(--space-lg);
+      background: var(--surface-elevated);
+      border-radius: var(--radius-md);
+      margin-bottom: var(--space-md);
+      text-align: center;
+    }
+
+    .dont-text {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+
+    /* ============================================
+       DARK MODE PREVIEW PANELS (within components)
+       ============================================ */
+    .mode-preview {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-lg);
+      margin-bottom: var(--space-xl);
+    }
+
+    .mode-preview-panel {
+      padding: var(--space-xl);
+      border-radius: var(--radius-lg);
+    }
+
+    .mode-preview-light {
+      background: var(--surface-page);
+      color: var(--text-primary);
+      border: 1px solid var(--surface-border);
+    }
+
+    .mode-preview-dark {
+      background: var(--surface-dark-base);
+      color: var(--text-dark-primary);
+      border: 1px solid var(--surface-dark-border);
+    }
+
+    .mode-label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: var(--space-md);
+      opacity: 0.6;
+    }
+
+    /* ============================================
+       DARK MODE (auto via prefers-color-scheme)
+       ============================================ */
+    @media (prefers-color-scheme: dark) {
+      body {
+        color: var(--text-dark-primary);
+        background-color: var(--surface-dark-base);
+      }
+
+      section { color: var(--text-dark-primary); }
+      .section-title { color: var(--text-dark-primary); }
+      .section-label { color: var(--color-warm-light); }
+      .section-description { color: var(--text-dark-secondary); }
+      .section-alt { background: var(--surface-dark-elevated); }
+
+      .hero-badge { background: var(--surface-dark-elevated); color: var(--color-warm-light); }
+      .hero-title { color: var(--text-dark-primary); }
+      .hero-subtitle { color: var(--text-dark-secondary); }
+
+      .archetype-card { background: var(--surface-dark-elevated); border-color: var(--surface-dark-border); }
+      .archetype-name { color: var(--text-dark-primary); }
+      .trait { background: var(--surface-dark-deep); color: var(--color-warm-light); }
+
+      .voice-card { background: var(--surface-dark-elevated); border-color: var(--surface-dark-border); }
+      .voice-card h4 { color: var(--text-dark-primary); }
+      .voice-card p { color: var(--text-dark-secondary); }
+
+      .spectrum-label, .spectrum-label-end { color: var(--text-dark-tertiary); }
+      .spectrum-bar { background: var(--surface-dark-elevated); }
+
+      .palette-group-title { color: var(--text-dark-primary); }
+      .swatch-info { background: var(--surface-dark-elevated); }
+      .swatch-name { color: var(--text-dark-primary); }
+      .swatch { border-color: var(--surface-dark-border); }
+      .swatch-hex { color: var(--text-dark-tertiary); }
+
+      .type-specimen { background: var(--surface-dark-elevated); border-color: var(--surface-dark-border); }
+      .type-specimen-sample { color: var(--text-dark-primary); }
+      .type-specimen-label { color: var(--color-warm-light); }
+
+      .type-scale-table th { border-bottom-color: var(--surface-dark-border); color: var(--text-dark-secondary); }
+      .type-scale-table td { border-bottom-color: var(--surface-dark-border); color: var(--text-dark-primary); }
+      .type-scale-table .scale-preview { color: var(--text-dark-primary); }
+
+      .card { background: var(--surface-dark-elevated); border-color: var(--surface-dark-border); }
+      .card-title { color: var(--text-dark-primary); }
+      .card-text { color: var(--text-dark-secondary); }
+
+      .input { background: var(--surface-dark-elevated); border-color: var(--surface-dark-border); color: var(--text-dark-primary); }
+      .input-label { color: var(--text-dark-primary); }
+      .input-hint { color: var(--text-dark-tertiary); }
+
+      .btn-secondary { background: var(--surface-dark-elevated); color: var(--text-dark-primary); }
+      .btn-ghost { color: var(--text-dark-secondary); }
+      .btn-ghost:hover { background: var(--surface-dark-elevated); color: var(--text-dark-primary); }
+
+      .dont-card { background: color-mix(in srgb, var(--color-error) 5%, var(--surface-dark-elevated)); }
+      .dont-text { color: var(--text-dark-secondary); }
+      .dont-example { background: var(--surface-dark-deep); }
+
+      .do-card { background: color-mix(in srgb, var(--color-success) 5%, var(--surface-dark-elevated)); }
+      .dont-card-sm { background: color-mix(in srgb, var(--color-error) 5%, var(--surface-dark-elevated)); }
+      .do-text, .dont-text-sm { color: var(--text-dark-secondary); }
+      .do-example, .dont-example-sm { background: var(--surface-dark-deep); }
+
+      .clear-space-demo { background: var(--surface-dark-elevated); border-color: var(--surface-dark-border); }
+      .clear-space-wordmark { color: var(--text-dark-primary); }
+
+      .mode-preview-light {
+        background: var(--surface-page);
+        color: var(--text-primary);
+        border-color: var(--surface-border);
+      }
+    }
+
+    /* ============================================
+       RESPONSIVE
+       ============================================ */
+    @media (max-width: 768px) {
+      .sidebar { display: none; }
+      .content { margin-left: 0; }
+      .hero-title { font-size: 2.441rem; }
+      .mode-preview { grid-template-columns: 1fr; }
+      .wordmark-grid { grid-template-columns: 1fr; }
+      .do-dont-grid { grid-template-columns: 1fr; }
+      .dont-grid { grid-template-columns: 1fr; }
+      .voice-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ============================================
+       PRINT
+       ============================================ */
+    @media print {
+      .sidebar { display: none; }
+      .content { margin-left: 0; }
+      .skip-link { display: none; }
+      body { background: #f8f5f0; color: #1a1614; }
+      body::after { display: none; }
+      .section-alt { background: #f5f3f0; color: #1a1614; }
+      .mode-preview-dark { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <div class="layout">
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar" aria-label="Brandbook sections">
+      <div class="sidebar-logo" aria-label="Brandbook">Brandbook</div>
+      <ul class="sidebar-nav" role="list">
+        <li><a href="#cover" class="active"><span class="section-number">00</span> Cover</a></li>
+        <li><a href="#archetype"><span class="section-number">01</span> Archetype</a></li>
+        <li><a href="#wordmark"><span class="section-number">02</span> Wordmark</a></li>
+        <li><a href="#colors"><span class="section-number">03</span> Colors</a></li>
+        <li><a href="#typography"><span class="section-number">04</span> Typography</a></li>
+        <li><a href="#components"><span class="section-number">05</span> Components</a></li>
+        <li><a href="#dont"><span class="section-number">06</span> Don't</a></li>
+      </ul>
+      <div class="sidebar-credit">
+        <a href="https://x.com/diegoivo" target="_blank" rel="noopener noreferrer">Created by @diegoivo</a>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="content" id="main">
+
+      <!-- 00 — Cover -->
+      <section id="cover" class="hero">
+        <div class="hero-badge">
+          <span class="dot"></span>
+          Brand Guidelines
+        </div>
+        <h1 class="hero-title">
+          <span class="hero-wordmark">Maison<span class="identity-element">.</span></span>
+        </h1>
+        <p class="hero-subtitle">
+          Luxury real estate for the world's most discerning buyers. The definitive destination for properties of distinction, curated for ultra-high-net-worth individuals who accept nothing less than the exceptional.
+        </p>
+      </section>
+
+      <!-- 01 — Archetype -->
+      <div class="section-alt">
+        <section id="archetype">
+          <div class="section-inner">
+            <p class="section-label">01 — Archetype</p>
+            <h2 class="section-title">Brand Personality</h2>
+            <p class="section-description">
+              The archetype defines the emotional register, voice, and visual direction of Maison. across every touchpoint.
+            </p>
+
+            <div class="archetype-card">
+              <h3 class="archetype-name">The Ruler with Lover Influence</h3>
+              <div class="traits">
+                <span class="trait">Authoritative</span>
+                <span class="trait">Commanding</span>
+                <span class="trait">Refined</span>
+                <span class="trait">Sensual</span>
+              </div>
+              <p style="color: var(--text-secondary); margin-bottom: var(--space-lg);">
+                Maison. speaks from a position of established authority. The Ruler drives the structured, confident foundation -- symmetrical grids, luxurious spacing, and a restrained palette anchored in deep charcoal and gold. The Lover adds warmth and sensory richness: high-contrast serif typography, warm ivory surfaces, and a tactile quality that invites the eye to linger. Together they produce a brand that commands respect while rewarding attention to detail.
+              </p>
+
+              <div class="positioning-spectrums">
+                <div class="spectrum">
+                  <span class="spectrum-label">Premium</span>
+                  <div class="spectrum-bar"><div class="spectrum-marker" style="left: 95%;"></div></div>
+                  <span class="spectrum-label-end">Accessible</span>
+                </div>
+                <div class="spectrum">
+                  <span class="spectrum-label">Technical</span>
+                  <div class="spectrum-bar"><div class="spectrum-marker" style="left: 42%;"></div></div>
+                  <span class="spectrum-label-end">Approachable</span>
+                </div>
+                <div class="spectrum">
+                  <span class="spectrum-label">Bold</span>
+                  <div class="spectrum-bar"><div class="spectrum-marker" style="left: 65%;"></div></div>
+                  <span class="spectrum-label-end">Subtle</span>
+                </div>
+                <div class="spectrum">
+                  <span class="spectrum-label">Playful</span>
+                  <div class="spectrum-bar"><div class="spectrum-marker" style="left: 92%;"></div></div>
+                  <span class="spectrum-label-end">Serious</span>
+                </div>
+              </div>
+            </div>
+
+            <h3 class="palette-group-title" style="margin-top: var(--space-2xl);">Voice Guidelines</h3>
+            <div class="voice-grid">
+              <div class="voice-card">
+                <h4>Tone</h4>
+                <p>Measured and assured. Every sentence carries weight. Maison. never raises its voice because it never needs to.</p>
+              </div>
+              <div class="voice-card">
+                <h4>Vocabulary</h4>
+                <p>Precise, elevated, never ornate. Prefer "residence" over "home," "curated" over "selected," "distinction" over "luxury." Avoid superlatives -- the properties speak for themselves.</p>
+              </div>
+              <div class="voice-card">
+                <h4>Rhythm</h4>
+                <p>Short declarative sentences punctuated by considered pauses. Let whitespace do the work. A single well-placed period carries more authority than a paragraph of persuasion.</p>
+              </div>
+              <div class="voice-card">
+                <h4>Audience Register</h4>
+                <p>Speak to equals, not aspirants. The reader already has means; they are evaluating whether Maison. meets their standard. Respect their intelligence and time.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- 02 — Wordmark -->
+      <section id="wordmark">
+        <p class="section-label">02 — Logo & Wordmark</p>
+        <h2 class="section-title">The Wordmark</h2>
+        <p class="section-description">
+          The period is the brand. It is the full stop that signals completeness, authority, and finality. "Maison" is a word. Maison. is an institution.
+        </p>
+
+        <div class="wordmark-grid">
+          <div class="wordmark-variant-wrapper">
+            <div class="wordmark-variant wordmark-on-light">
+              Maison<span class="identity-element">.</span>
+            </div>
+            <p style="font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-tertiary); text-align: center; margin-top: var(--space-sm);">On light</p>
+          </div>
+          <div class="wordmark-variant-wrapper">
+            <div class="wordmark-variant wordmark-on-dark">
+              Maison<span style="color: var(--color-warm);">.</span>
+            </div>
+            <p style="font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-tertiary); text-align: center; margin-top: var(--space-sm);">On dark</p>
+          </div>
+          <div class="wordmark-variant-wrapper">
+            <div class="wordmark-variant wordmark-on-brand">
+              Maison<span style="color: var(--color-warm-light);">.</span>
+            </div>
+            <p style="font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-tertiary); text-align: center; margin-top: var(--space-sm);">On brand surface</p>
+          </div>
+        </div>
+
+        <!-- Clear Space -->
+        <h3 class="palette-group-title">Clear Space</h3>
+        <p class="section-description">
+          Maintain a minimum clear space equal to the cap-height of the "M" around the wordmark on all sides. This preserves the mark's commanding presence.
+        </p>
+        <div class="clear-space-demo">
+          <div class="clear-space-box">
+            <span class="clear-space-wordmark">Maison<span class="identity-element">.</span></span>
+          </div>
+        </div>
+
+        <!-- Do / Don't -->
+        <h3 class="palette-group-title">Usage Rules</h3>
+        <div class="do-dont-grid">
+          <div class="do-card">
+            <div class="do-label">Do</div>
+            <div class="do-example">
+              <span style="font-family: var(--font-display); font-weight: 500; font-size: 1.5rem; color: var(--text-primary);">Maison<span style="color: var(--color-warm);">.</span></span>
+            </div>
+            <p class="do-text">Use the designated Cormorant typeface with the gold period as the identity accent.</p>
+          </div>
+          <div class="do-card">
+            <div class="do-label">Do</div>
+            <div class="do-example" style="background: var(--surface-dark-base);">
+              <span style="font-family: var(--font-display); font-weight: 500; font-size: 1.5rem; color: var(--text-dark-primary);">Maison<span style="color: var(--color-warm);">.</span></span>
+            </div>
+            <p class="do-text">On dark backgrounds, use the light text variant with the warm gold period.</p>
+          </div>
+          <div class="do-card">
+            <div class="do-label">Do</div>
+            <div class="do-example">
+              <span style="font-family: var(--font-display); font-weight: 500; font-size: 1.5rem; color: var(--text-primary);">Maison<span style="color: var(--text-primary);">.</span></span>
+            </div>
+            <p class="do-text">In monochrome contexts (print, engraving), use a single solid color for the full wordmark including the period.</p>
+          </div>
+          <div class="dont-card-sm">
+            <div class="dont-label-sm">Don't</div>
+            <div class="dont-example-sm">
+              <span style="font-family: var(--font-display); font-weight: 500; font-size: 1.5rem; transform: scaleX(1.3); display: inline-block; color: var(--text-primary);">Maison.</span>
+            </div>
+            <p class="dont-text-sm">Never stretch, compress, or distort the wordmark in any direction.</p>
+          </div>
+          <div class="dont-card-sm">
+            <div class="dont-label-sm">Don't</div>
+            <div class="dont-example-sm">
+              <span style="font-family: var(--font-display); font-weight: 500; font-size: 1.5rem; background: linear-gradient(135deg, var(--color-warm), var(--color-cool)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Maison.</span>
+            </div>
+            <p class="dont-text-sm">Never apply gradients to the wordmark. The logo must always use flat, solid colors.</p>
+          </div>
+          <div class="dont-card-sm">
+            <div class="dont-label-sm">Don't</div>
+            <div class="dont-example-sm">
+              <span style="font-family: var(--font-display); font-weight: 500; font-size: 1.5rem; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.15em;">MAISON.</span>
+            </div>
+            <p class="dont-text-sm">Never render the wordmark in all capitals. "Maison." uses title case -- the period carries the authority, not volume.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 03 — Colors -->
+      <div class="section-alt">
+        <section id="colors">
+          <div class="section-inner">
+            <p class="section-label">03 — Color Palette</p>
+            <h2 class="section-title">Color System</h2>
+            <p class="section-description">
+              A restrained palette built on deep charcoal and gold, with warm ivory surfaces and muted semantic colors that never compete with the architecture being presented.
+            </p>
+
+            <!-- Core -->
+            <div class="palette-group">
+              <h3 class="palette-group-title">Core</h3>
+              <div class="swatches">
+                <div class="swatch">
+                  <div class="swatch-color" style="background: #4a4340;"></div>
+                  <div class="swatch-info">
+                    <div class="swatch-name">Primary Light</div>
+                    <div class="swatch-hex">#4a4340</div>
+                    <div class="swatch-contrast">7.2:1 on page</div>
+                  </div>
+                </div>
+                <div class="swatch">
+                  <div class="swatch-color" style="background: #2a2523;"></div>
+                  <div class="swatch-info">
+                    <div class="swatch-name">Primary</div>
+                    <div class="swatch-hex">#2a2523</div>
+                    <div class="swatch-contrast">12.4:1 on page</div>
+                  </div>
+                </div>
+                <div class="swatch">
+                  <div class="swatch-color" style="background: #1a1614;"></div>
+                  <div class="swatch-info">
+                    <div class="swatch-name">Primary Dark</div>
+                    <div class="swatch-hex">#1a1614</div>
+                    <div class="swatch-contrast">15.8:1 on page</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Accents -->
+            <div class="palette-group">
+              <h3 class="palette-group-title">Accents</h3>
+              <div class="swatches">
+                <div class="swatch">
+                  <div class="swatch-color" style="background: #b8924a;"></div>
+                  <div class="swatch-info">
+                    <div class="swatch-name">Warm (Gold)</div>
+                    <div class="swatch-hex">#b8924a</div>
+                    <div class="swatch-contrast">3.5:1 on page</div>
+                  </div>
+                </div>
+                <div class="swatch">
+                  <div class="swatch-color" style="background: #d4b06a;"></div>
+                  <div class="swatch-info">
+                    <div class="swatch-name">Warm Light</div>
+                    <div class="swatch-hex">#d4b06a</div>
+                  </div>
+                </div>
+                <div class="swatch">
+                  <div class="swatch-color" style="background: #5a7a7a;"></div>
+                  <div class="swatch-info">
+                    <div class="swatch-name">Cool (Slate)</div>
+                    <div class="swatch-hex">#5a7a7a</div>
+                    <div class="swatch-contrast">4.0:1 on page</div>
+                  </div>
+                </div>
+                <div class="swatch">
+                  <div class="swatch-color" style="background: #7a9e9e;"></div>
+                  <div class="swatch-info">
+                    <div class="swatch-name">Cool Light</div>
+                    <div class="swatch-hex">#7a9e9e</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Semantic -->
+            <div class="palette-group">
+              <h3 class="palette-group-title">Semantic</h3>
+              <div class="swatches">
+                <div class="swatch">
+                  <div class="swatch-color" style="background: #3d7a4a;"></div>
+                  <div class="swatch-info">
+                    <div class="swatch-name">Success</div>
+                    <div class="swatch-hex">#3d7a4a</div>
+                  </div>
+                </div>
+                <div class="swatch">
+                  <div class="swatch-color" style="background: #b8924a;"></div>
+                  <div class="swatch-info">
+                    <div class="swatch-name">Warning</div>
+                    <div class="swatch-hex">#b8924a</div>
+                  </div>
+                </div>
+                <div class="swatch">
+                  <div class="swatch-color" style="background: #9e3a3a;"></div>
+                  <div class="swatch-info">
+                    <div class="swatch-name">Error</div>
+                    <div class="swatch-hex">#9e3a3a</div>
+                  </div>
+                </div>
+                <div class="swatch">
+                  <div class="swatch-color" style="background: #3a5a8a;"></div>
+                  <div class="swatch-info">
+                    <div class="swatch-name">Info</div>
+                    <div class="swatch-hex">#3a5a8a</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Text scales -->
+            <div class="palette-group">
+              <h3 class="palette-group-title">Text</h3>
+              <div class="mode-preview">
+                <div class="mode-preview-panel mode-preview-light">
+                  <div class="mode-label">Light Mode</div>
+                  <div class="swatches" style="grid-template-columns: 1fr;">
+                    <div class="swatch">
+                      <div class="swatch-color" style="background: #1a1614; height: 40px;"></div>
+                      <div class="swatch-info"><div class="swatch-name">Primary</div><div class="swatch-hex">#1a1614 &middot; 15.8:1</div></div>
+                    </div>
+                    <div class="swatch">
+                      <div class="swatch-color" style="background: #5c524a; height: 40px;"></div>
+                      <div class="swatch-info"><div class="swatch-name">Secondary</div><div class="swatch-hex">#5c524a &middot; 6.3:1</div></div>
+                    </div>
+                    <div class="swatch">
+                      <div class="swatch-color" style="background: #8a7e74; height: 40px;"></div>
+                      <div class="swatch-info"><div class="swatch-name">Tertiary</div><div class="swatch-hex">#8a7e74 &middot; 3.6:1</div></div>
+                    </div>
+                    <div class="swatch">
+                      <div class="swatch-color" style="background: #b8ada3; height: 40px;"></div>
+                      <div class="swatch-info"><div class="swatch-name">Disabled</div><div class="swatch-hex">#b8ada3 &middot; 2.1:1</div></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mode-preview-panel mode-preview-dark">
+                  <div class="mode-label">Dark Mode</div>
+                  <div class="swatches" style="grid-template-columns: 1fr;">
+                    <div class="swatch" style="border-color: var(--surface-dark-border);">
+                      <div class="swatch-color" style="background: #f0ebe3; height: 40px;"></div>
+                      <div class="swatch-info" style="background: var(--surface-dark-elevated);"><div class="swatch-name" style="color: var(--text-dark-primary);">Primary</div><div class="swatch-hex" style="color: var(--text-dark-tertiary);">#f0ebe3 &middot; 14.2:1</div></div>
+                    </div>
+                    <div class="swatch" style="border-color: var(--surface-dark-border);">
+                      <div class="swatch-color" style="background: #b8ada3; height: 40px;"></div>
+                      <div class="swatch-info" style="background: var(--surface-dark-elevated);"><div class="swatch-name" style="color: var(--text-dark-primary);">Secondary</div><div class="swatch-hex" style="color: var(--text-dark-tertiary);">#b8ada3 &middot; 8.4:1</div></div>
+                    </div>
+                    <div class="swatch" style="border-color: var(--surface-dark-border);">
+                      <div class="swatch-color" style="background: #8a7e74; height: 40px;"></div>
+                      <div class="swatch-info" style="background: var(--surface-dark-elevated);"><div class="swatch-name" style="color: var(--text-dark-primary);">Tertiary</div><div class="swatch-hex" style="color: var(--text-dark-tertiary);">#8a7e74 &middot; 4.8:1</div></div>
+                    </div>
+                    <div class="swatch" style="border-color: var(--surface-dark-border);">
+                      <div class="swatch-color" style="background: #5c524a; height: 40px;"></div>
+                      <div class="swatch-info" style="background: var(--surface-dark-elevated);"><div class="swatch-name" style="color: var(--text-dark-primary);">Disabled</div><div class="swatch-hex" style="color: var(--text-dark-tertiary);">#5c524a &middot; 2.8:1</div></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Surfaces -->
+            <div class="palette-group">
+              <h3 class="palette-group-title">Surfaces</h3>
+              <div class="mode-preview">
+                <div class="mode-preview-panel mode-preview-light">
+                  <div class="mode-label">Light Mode</div>
+                  <div class="swatches" style="grid-template-columns: 1fr;">
+                    <div class="swatch">
+                      <div class="swatch-color" style="background: #f8f5f0; border: 1px solid var(--surface-border);"></div>
+                      <div class="swatch-info"><div class="swatch-name">Page</div><div class="swatch-hex">#f8f5f0</div></div>
+                    </div>
+                    <div class="swatch">
+                      <div class="swatch-color" style="background: #fdfcf9; border: 1px solid var(--surface-border);"></div>
+                      <div class="swatch-info"><div class="swatch-name">Card</div><div class="swatch-hex">#fdfcf9</div></div>
+                    </div>
+                    <div class="swatch">
+                      <div class="swatch-color" style="background: #f0ebe3;"></div>
+                      <div class="swatch-info"><div class="swatch-name">Elevated</div><div class="swatch-hex">#f0ebe3</div></div>
+                    </div>
+                    <div class="swatch">
+                      <div class="swatch-color" style="background: #e0d8cc;"></div>
+                      <div class="swatch-info"><div class="swatch-name">Border</div><div class="swatch-hex">#e0d8cc</div></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mode-preview-panel mode-preview-dark">
+                  <div class="mode-label">Dark Mode</div>
+                  <div class="swatches" style="grid-template-columns: 1fr;">
+                    <div class="swatch" style="border-color: var(--surface-dark-border);">
+                      <div class="swatch-color" style="background: #0e0c0b;"></div>
+                      <div class="swatch-info" style="background: var(--surface-dark-elevated);"><div class="swatch-name" style="color: var(--text-dark-primary);">Deep</div><div class="swatch-hex" style="color: var(--text-dark-tertiary);">#0e0c0b</div></div>
+                    </div>
+                    <div class="swatch" style="border-color: var(--surface-dark-border);">
+                      <div class="swatch-color" style="background: #171413;"></div>
+                      <div class="swatch-info" style="background: var(--surface-dark-elevated);"><div class="swatch-name" style="color: var(--text-dark-primary);">Base</div><div class="swatch-hex" style="color: var(--text-dark-tertiary);">#171413</div></div>
+                    </div>
+                    <div class="swatch" style="border-color: var(--surface-dark-border);">
+                      <div class="swatch-color" style="background: #221e1c;"></div>
+                      <div class="swatch-info" style="background: var(--surface-dark-elevated);"><div class="swatch-name" style="color: var(--text-dark-primary);">Elevated</div><div class="swatch-hex" style="color: var(--text-dark-tertiary);">#221e1c</div></div>
+                    </div>
+                    <div class="swatch" style="border-color: var(--surface-dark-border);">
+                      <div class="swatch-color" style="background: #3a3432;"></div>
+                      <div class="swatch-info" style="background: var(--surface-dark-elevated);"><div class="swatch-name" style="color: var(--text-dark-primary);">Border</div><div class="swatch-hex" style="color: var(--text-dark-tertiary);">#3a3432</div></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- 04 — Typography -->
+      <section id="typography">
+        <p class="section-label">04 — Typography</p>
+        <h2 class="section-title">Type System</h2>
+        <p class="section-description">
+          An editorial type system pairing a high-contrast serif display face with a clean, geometric sans-serif body. The contrast between Cormorant's elegance and Albert Sans's precision mirrors the Ruler-Lover duality of the brand.
+        </p>
+
+        <!-- Display -->
+        <div class="type-specimen">
+          <div class="type-specimen-label">Display</div>
+          <div class="type-specimen-sample" style="font-family: var(--font-display); font-size: 3.052rem; font-weight: 400; line-height: 1.1; letter-spacing: -0.02em;">
+            Where Architecture Meets Aspiration
+          </div>
+          <dl class="type-specimen-meta">
+            <div><dt>Family</dt><dd>Cormorant</dd></div>
+            <div><dt>Weight</dt><dd>400</dd></div>
+            <div><dt>Tracking</dt><dd>-0.02em</dd></div>
+            <div><dt>Line height</dt><dd>1.1</dd></div>
+          </dl>
+        </div>
+
+        <!-- Display Italic -->
+        <div class="type-specimen">
+          <div class="type-specimen-label">Display Italic</div>
+          <div class="type-specimen-sample" style="font-family: var(--font-display); font-style: italic; font-size: 2.441rem; font-weight: 400; line-height: 1.15; letter-spacing: -0.02em;">
+            Residences of Uncompromising Distinction
+          </div>
+          <dl class="type-specimen-meta">
+            <div><dt>Family</dt><dd>Cormorant Italic</dd></div>
+            <div><dt>Weight</dt><dd>400</dd></div>
+            <div><dt>Use</dt><dd>Pull quotes, emphasis, editorial callouts</dd></div>
+          </dl>
+        </div>
+
+        <!-- Heading -->
+        <div class="type-specimen">
+          <div class="type-specimen-label">Heading</div>
+          <div class="type-specimen-sample" style="font-family: var(--font-heading); font-weight: 600; font-size: 1.953rem; line-height: 1.2; letter-spacing: -0.01em;">
+            The quick brown fox jumps over the lazy dog
+          </div>
+          <dl class="type-specimen-meta">
+            <div><dt>Family</dt><dd>Albert Sans</dd></div>
+            <div><dt>Weight</dt><dd>500 -- 700</dd></div>
+            <div><dt>Tracking</dt><dd>-0.01em</dd></div>
+            <div><dt>Line height</dt><dd>1.2</dd></div>
+          </dl>
+        </div>
+
+        <!-- Body -->
+        <div class="type-specimen">
+          <div class="type-specimen-label">Body</div>
+          <div class="type-specimen-sample" style="font-family: var(--font-body); font-size: 1rem; font-weight: 400; line-height: 1.6;">
+            Every residence in the Maison. portfolio has been selected through a rigorous evaluation process that considers architectural significance, location prestige, material quality, and long-term value. We present properties that reward their owners with an experience that appreciates over time -- not merely in valuation, but in the daily texture of living.
+          </div>
+          <dl class="type-specimen-meta">
+            <div><dt>Family</dt><dd>Albert Sans</dd></div>
+            <div><dt>Weight</dt><dd>400</dd></div>
+            <div><dt>Tracking</dt><dd>0</dd></div>
+            <div><dt>Line height</dt><dd>1.6</dd></div>
+          </dl>
+        </div>
+
+        <!-- Mono -->
+        <div class="type-specimen">
+          <div class="type-specimen-label">Mono</div>
+          <div class="type-specimen-sample" style="font-family: var(--font-mono); font-size: 0.875rem; font-weight: 400; line-height: 1.5;">
+            property: { id: "MAI-2847", price: "$12,500,000" };<br>
+            font-variant-numeric: tabular-nums;
+          </div>
+          <dl class="type-specimen-meta">
+            <div><dt>Family</dt><dd>IBM Plex Mono</dd></div>
+            <div><dt>Weight</dt><dd>400</dd></div>
+            <div><dt>Use</dt><dd>Labels, metadata, reference numbers, data</dd></div>
+          </dl>
+        </div>
+
+        <!-- Type Scale Table -->
+        <h3 class="palette-group-title" style="margin-top: var(--space-2xl);">Type Scale</h3>
+        <table class="type-scale-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Size</th>
+              <th>Rem</th>
+              <th>Preview</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>6xl</td>
+              <td>61.04px</td>
+              <td>3.815rem</td>
+              <td><span class="scale-preview" style="font-size: 2rem; line-height: 1.1;">Maison.</span></td>
+            </tr>
+            <tr>
+              <td>5xl</td>
+              <td>48.83px</td>
+              <td>3.052rem</td>
+              <td><span class="scale-preview" style="font-size: 1.7rem; line-height: 1.1;">Maison.</span></td>
+            </tr>
+            <tr>
+              <td>4xl</td>
+              <td>39.06px</td>
+              <td>2.441rem</td>
+              <td><span class="scale-preview" style="font-size: 1.4rem; line-height: 1.15;">Maison.</span></td>
+            </tr>
+            <tr>
+              <td>3xl</td>
+              <td>31.25px</td>
+              <td>1.953rem</td>
+              <td><span class="scale-preview" style="font-size: 1.2rem; line-height: 1.2;">Maison.</span></td>
+            </tr>
+            <tr>
+              <td>2xl</td>
+              <td>25.00px</td>
+              <td>1.563rem</td>
+              <td><span class="scale-preview" style="font-size: 1.05rem; line-height: 1.2;">Maison.</span></td>
+            </tr>
+            <tr>
+              <td>xl</td>
+              <td>20.00px</td>
+              <td>1.25rem</td>
+              <td><span class="scale-preview" style="font-size: 0.95rem; line-height: 1.3;">Maison.</span></td>
+            </tr>
+            <tr>
+              <td>base</td>
+              <td>16.00px</td>
+              <td>1rem</td>
+              <td><span class="scale-preview" style="font-size: 0.85rem; line-height: 1.6;">Maison.</span></td>
+            </tr>
+            <tr>
+              <td>sm</td>
+              <td>12.80px</td>
+              <td>0.8rem</td>
+              <td><span class="scale-preview" style="font-size: 0.75rem; line-height: 1.4;">Maison.</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- 05 — Components -->
+      <div class="section-alt">
+        <section id="components">
+          <div class="section-inner">
+            <p class="section-label">05 — Components</p>
+            <h2 class="section-title">UI Components</h2>
+            <p class="section-description">
+              Core components styled with the Maison. system, shown in both light and dark modes. The sharp radii and restrained palette reflect the Ruler archetype's preference for structure.
+            </p>
+
+            <!-- Buttons -->
+            <h3 class="palette-group-title">Buttons</h3>
+            <div class="mode-preview">
+              <div class="mode-preview-panel mode-preview-light">
+                <div class="mode-label">Light Mode</div>
+                <div class="component-row">
+                  <button type="button" class="btn btn-primary">Primary</button>
+                  <button type="button" class="btn btn-gold">Gold</button>
+                  <button type="button" class="btn btn-secondary">Secondary</button>
+                  <button type="button" class="btn btn-outline">Outline</button>
+                  <button type="button" class="btn btn-ghost">Ghost</button>
+                  <button type="button" class="btn btn-destructive">Delete</button>
+                </div>
+              </div>
+              <div class="mode-preview-panel mode-preview-dark">
+                <div class="mode-label">Dark Mode</div>
+                <div class="component-row">
+                  <button type="button" class="btn btn-primary" style="background: var(--color-primary-light); color: var(--color-warm-light);">Primary</button>
+                  <button type="button" class="btn btn-gold">Gold</button>
+                  <button type="button" class="btn btn-secondary" style="background: var(--surface-dark-elevated); color: var(--text-dark-primary);">Secondary</button>
+                  <button type="button" class="btn btn-outline" style="color: var(--color-warm-light); border-color: var(--color-warm-light);">Outline</button>
+                  <button type="button" class="btn btn-ghost" style="color: var(--text-dark-secondary);">Ghost</button>
+                  <button type="button" class="btn btn-destructive">Delete</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Cards -->
+            <h3 class="palette-group-title" style="margin-top: var(--space-2xl);">Cards</h3>
+            <div class="mode-preview">
+              <div class="mode-preview-panel mode-preview-light">
+                <div class="mode-label">Light Mode</div>
+                <div class="card card-interactive" style="margin-bottom: var(--space-md);">
+                  <h4 class="card-title">Villa Serena, Cap Ferrat</h4>
+                  <p class="card-text">6 bedrooms, private dock, infinity pool overlooking the Mediterranean. Cards use the surface-card token with a subtle border.</p>
+                </div>
+                <div class="card card-featured">
+                  <h4 class="card-title">Featured Residence</h4>
+                  <p class="card-text">Highlighted with the warm gold border to signal exclusive or promoted listings.</p>
+                </div>
+              </div>
+              <div class="mode-preview-panel mode-preview-dark">
+                <div class="mode-label">Dark Mode</div>
+                <div class="card card-interactive" style="margin-bottom: var(--space-md); background: var(--surface-dark-elevated); border-color: var(--surface-dark-border);">
+                  <h4 class="card-title" style="color: var(--text-dark-primary);">Villa Serena, Cap Ferrat</h4>
+                  <p class="card-text" style="color: var(--text-dark-secondary);">6 bedrooms, private dock, infinity pool overlooking the Mediterranean. Cards use the surface-card token with a subtle border.</p>
+                </div>
+                <div class="card card-featured" style="background: var(--surface-dark-elevated); border-color: var(--color-warm);">
+                  <h4 class="card-title" style="color: var(--text-dark-primary);">Featured Residence</h4>
+                  <p class="card-text" style="color: var(--text-dark-secondary);">Highlighted with the warm gold border to signal exclusive or promoted listings.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Inputs -->
+            <h3 class="palette-group-title" style="margin-top: var(--space-2xl);">Inputs</h3>
+            <div class="mode-preview">
+              <div class="mode-preview-panel mode-preview-light">
+                <div class="mode-label">Light Mode</div>
+                <div class="input-group">
+                  <label for="input-default" class="input-label">Property Reference</label>
+                  <input type="text" id="input-default" name="default" class="input" placeholder="MAI-0000" autocomplete="off">
+                  <p class="input-hint">Enter the Maison. reference number</p>
+                </div>
+                <div class="input-group">
+                  <label for="input-err" class="input-label">Budget Minimum</label>
+                  <input type="text" id="input-err" name="error" class="input input-error" value="Invalid amount" autocomplete="off">
+                  <p class="input-error-msg">Please enter a value of $5,000,000 or above</p>
+                </div>
+                <div class="input-group">
+                  <label for="input-dis" class="input-label">Client ID</label>
+                  <input type="text" id="input-dis" name="disabled" class="input" disabled value="Auto-assigned" autocomplete="off">
+                </div>
+              </div>
+              <div class="mode-preview-panel mode-preview-dark">
+                <div class="mode-label">Dark Mode</div>
+                <div class="input-group">
+                  <label for="input-dark-default" class="input-label" style="color: var(--text-dark-primary);">Property Reference</label>
+                  <input type="text" id="input-dark-default" name="dark-default" class="input" style="background: var(--surface-dark-elevated); border-color: var(--surface-dark-border); color: var(--text-dark-primary);" placeholder="MAI-0000" autocomplete="off">
+                  <p class="input-hint" style="color: var(--text-dark-tertiary);">Enter the Maison. reference number</p>
+                </div>
+                <div class="input-group">
+                  <label for="input-dark-err" class="input-label" style="color: var(--text-dark-primary);">Budget Minimum</label>
+                  <input type="text" id="input-dark-err" name="dark-error" class="input input-error" style="background: var(--surface-dark-elevated); color: var(--text-dark-primary);" value="Invalid amount" autocomplete="off">
+                  <p class="input-error-msg">Please enter a value of $5,000,000 or above</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tags -->
+            <h3 class="palette-group-title" style="margin-top: var(--space-2xl);">Tags & Badges</h3>
+            <div class="mode-preview">
+              <div class="mode-preview-panel mode-preview-light">
+                <div class="mode-label">Light Mode</div>
+                <div class="tags">
+                  <span class="tag tag-primary">Charcoal</span>
+                  <span class="tag tag-warm">Featured</span>
+                  <span class="tag tag-success">Available</span>
+                  <span class="tag tag-warning">Under Offer</span>
+                  <span class="tag tag-error">Withdrawn</span>
+                  <span class="tag tag-info">New Listing</span>
+                </div>
+              </div>
+              <div class="mode-preview-panel mode-preview-dark">
+                <div class="mode-label">Dark Mode</div>
+                <div class="tags">
+                  <span class="tag tag-primary">Charcoal</span>
+                  <span class="tag tag-warm">Featured</span>
+                  <span class="tag tag-success">Available</span>
+                  <span class="tag tag-warning">Under Offer</span>
+                  <span class="tag tag-error">Withdrawn</span>
+                  <span class="tag tag-info">New Listing</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- 06 — Don't -->
+      <section id="dont">
+        <p class="section-label">06 — Don't</p>
+        <h2 class="section-title">Negative Rules</h2>
+        <p class="section-description">
+          Explicit violations of the Maison. brand system. These undermine the authority and refinement the brand requires.
+        </p>
+
+        <div class="dont-grid">
+          <div class="dont-card">
+            <div class="dont-label">Don't</div>
+            <div class="dont-example">
+              <span style="font-family: var(--font-display); font-weight: 500; font-size: 1.5rem; transform: scaleX(1.3); display: inline-block; color: var(--text-primary);">Maison.</span>
+            </div>
+            <p class="dont-text">Never stretch or distort the wordmark. Precision is authority.</p>
+          </div>
+
+          <div class="dont-card">
+            <div class="dont-label">Don't</div>
+            <div class="dont-example">
+              <span style="font-family: var(--font-display); font-weight: 500; font-size: 1.5rem; background: linear-gradient(135deg, var(--color-warm), var(--color-cool)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Maison.</span>
+            </div>
+            <p class="dont-text">Never apply gradients to the wordmark. The logo uses flat, solid colors only.</p>
+          </div>
+
+          <div class="dont-card">
+            <div class="dont-label">Don't</div>
+            <div class="dont-example">
+              <span style="font-family: Arial, sans-serif; font-weight: bold; font-size: 1.5rem; color: var(--text-primary);">Maison.</span>
+            </div>
+            <p class="dont-text">Never substitute the Cormorant typeface. The wordmark must always use the designated display font.</p>
+          </div>
+
+          <div class="dont-card">
+            <div class="dont-label">Don't</div>
+            <div class="dont-example">
+              <span style="font-family: var(--font-body); font-size: 10px; color: var(--text-primary);">Properties starting from just $5M! Act now!</span>
+            </div>
+            <p class="dont-text">Never set body text below 14px. Never use exclamation marks or urgency language. Maison. does not shout.</p>
+          </div>
+
+          <div class="dont-card">
+            <div class="dont-label">Don't</div>
+            <div class="dont-example">
+              <span style="font-family: var(--font-display); font-weight: 500; font-size: 1.5rem; color: #ff4081;">Maison<span style="color: #7c4dff;">.</span></span>
+            </div>
+            <p class="dont-text">Never use unapproved bright or saturated colors with the wordmark. The palette is charcoal, gold, and ivory only.</p>
+          </div>
+
+          <div class="dont-card">
+            <div class="dont-label">Don't</div>
+            <div class="dont-example">
+              <div style="display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: var(--radius-lg); background: var(--color-warm); margin-right: var(--space-sm);">
+                <span style="font-family: var(--font-display); font-weight: 700; font-size: 1.5rem; color: #fff;">M</span>
+              </div>
+            </div>
+            <p class="dont-text">Never reduce the wordmark to a single letter in a shape. The full "Maison." text with the period is always required.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer style="padding: var(--space-2xl); text-align: center; background: var(--surface-elevated);">
+        <p style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-tertiary);">
+          Maison. Brand Guidelines &middot; <span style="font-variant-numeric: tabular-nums;">2026</span> &middot; Generated with Brandbook Design System
+        </p>
+      </footer>
+    </main>
+  </div>
+
+  <!-- Scroll-based active section highlighting -->
+  <script>
+    (function () {
+      var navLinks = document.querySelectorAll('.sidebar-nav a');
+      var sections = document.querySelectorAll('section[id]');
+
+      if (!sections.length || !navLinks.length) return;
+
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            navLinks.forEach(function (link) { link.classList.remove('active'); });
+            var active = document.querySelector('.sidebar-nav a[href="#' + entry.target.id + '"]');
+            if (active) active.classList.add('active');
+          }
+        });
+      }, {
+        rootMargin: '-20% 0px -70% 0px',
+        threshold: 0
+      });
+
+      sections.forEach(function (section) { observer.observe(section); });
+    })();
+  </script>
+</body>
+</html>
