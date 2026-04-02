@@ -1,0 +1,2101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#4a7c59">
+  <title>NutriPlan — Brandbook</title>
+
+  <!-- Preconnect to Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Figtree:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================
+       DESIGN TOKENS — NutriPlan Brand System
+       ============================================ */
+    :root {
+      /* Core — Warm Sage Green */
+      --color-primary-light: #72a37f;
+      --color-primary: #4a7c59;
+      --color-primary-dark: #2b5c3a;
+
+      /* Accents */
+      --color-warm: #d4725c;
+      --color-warm-light: #eaa18e;
+      --color-cool: #4a9e94;
+      --color-cool-light: #70bcb3;
+
+      /* Semantic */
+      --color-success: #3a8a52;
+      --color-warning: #c4862a;
+      --color-error: #c7453a;
+      --color-info: #3a7a96;
+
+      /* Surfaces — Light */
+      --surface-page: #f8f6f2;
+      --surface-card: #fdfcfa;
+      --surface-elevated: #f0ede6;
+      --surface-border: #ddd8ce;
+
+      /* Surfaces — Dark */
+      --surface-dark-deep: #0e1410;
+      --surface-dark-base: #151e18;
+      --surface-dark-elevated: #1f2e24;
+      --surface-dark-border: #2e4034;
+
+      /* Text — Light */
+      --text-primary: #1c2a1f;
+      --text-secondary: #4d5e50;
+      --text-tertiary: #7a8a7d;
+      --text-disabled: #a8b4aa;
+
+      /* Text — Dark */
+      --text-dark-primary: #ecf0ed;
+      --text-dark-secondary: #b0bdb3;
+      --text-dark-tertiary: #7a8a7d;
+      --text-dark-disabled: #4d5e50;
+
+      /* Typography */
+      --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+      --font-heading: 'Figtree', system-ui, -apple-system, sans-serif;
+      --font-body: 'Figtree', system-ui, -apple-system, sans-serif;
+      --font-mono: 'Fira Code', 'Cascadia Code', monospace;
+
+      /* Spacing */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2rem;
+      --space-2xl: 3rem;
+      --space-3xl: 4rem;
+      --space-4xl: 6rem;
+
+      /* Radii — rounded for Caregiver warmth */
+      --radius-sm: 0.375rem;
+      --radius-md: 0.625rem;
+      --radius-lg: 1rem;
+      --radius-xl: 1.25rem;
+      --radius-full: 9999px;
+
+      /* Layout */
+      --sidebar-width: 240px;
+      --content-max: 960px;
+    }
+
+    /* ============================================
+       RESET & BASE
+       ============================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: clamp(15px, 1vw + 12px, 18px);
+      scroll-behavior: smooth;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    body {
+      font-family: var(--font-body);
+      font-weight: 400;
+      line-height: 1.6;
+      color: var(--text-primary);
+      background-color: var(--surface-page);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+
+    /* Noise texture overlay */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.025;
+      z-index: 9999;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* ============================================
+       SKIP LINK
+       ============================================ */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: var(--space-md);
+      padding: var(--space-sm) var(--space-md);
+      background: var(--color-primary);
+      color: #fdfcfa;
+      border-radius: var(--radius-md);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      text-decoration: none;
+      z-index: 10000;
+      transition: top 0.2s;
+    }
+
+    .skip-link:focus {
+      top: var(--space-md);
+    }
+
+    /* ============================================
+       FOCUS STYLES
+       ============================================ */
+    :focus-visible {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 2px;
+    }
+
+    /* ============================================
+       LAYOUT
+       ============================================ */
+    .layout {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* ============================================
+       SIDEBAR — own dark chrome, independent from brand content
+       ============================================ */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: var(--sidebar-width);
+      height: 100vh;
+      padding: var(--space-xl) var(--space-lg);
+      background: var(--surface-dark-base);
+      color: var(--text-dark-primary);
+      overflow-y: auto;
+      z-index: 100;
+      border-right: 1px solid var(--surface-dark-border);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar-logo {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: 1.6rem;
+      letter-spacing: -0.02em;
+      margin-bottom: var(--space-2xl);
+      background: linear-gradient(135deg, var(--color-primary-light), var(--color-primary-dark));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .sidebar-nav {
+      list-style: none;
+    }
+
+    .sidebar-nav li {
+      margin-bottom: var(--space-xs);
+    }
+
+    .sidebar-nav a {
+      display: block;
+      padding: var(--space-sm) var(--space-md);
+      color: var(--text-dark-tertiary);
+      text-decoration: none;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.02em;
+      border-radius: var(--radius-md);
+      transition: color 0.15s;
+    }
+
+    .sidebar-nav a:hover,
+    .sidebar-nav a:focus-visible {
+      color: var(--text-dark-primary);
+    }
+
+    .sidebar-nav a.active {
+      color: var(--text-dark-primary);
+      background: var(--surface-dark-border);
+      border-radius: var(--radius-md) 0 0 var(--radius-md);
+      margin-right: calc(var(--space-lg) * -1);
+      padding-right: calc(var(--space-md) + var(--space-lg));
+    }
+
+    .sidebar-nav .section-number {
+      color: var(--color-primary-light);
+      margin-right: var(--space-sm);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .sidebar-credit {
+      margin-top: auto;
+      padding-top: var(--space-lg);
+    }
+
+    .sidebar-credit a {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: var(--text-dark-disabled);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: color 0.15s;
+    }
+
+    .sidebar-credit a:hover {
+      color: var(--text-dark-tertiary);
+    }
+
+    /* ============================================
+       CONTENT — uses brand tokens, never sidebar's dark
+       ============================================ */
+    .content {
+      margin-left: var(--sidebar-width);
+      flex: 1;
+      min-width: 0;
+    }
+
+    /* ============================================
+       SECTIONS — alternating rhythm
+       ============================================ */
+    section {
+      padding: var(--space-4xl) var(--space-2xl);
+      max-width: var(--content-max);
+      margin: 0 auto;
+      color: var(--text-primary);
+    }
+
+    .section-alt {
+      background: var(--surface-elevated);
+      max-width: none;
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    .section-alt > .section-inner {
+      max-width: var(--content-max);
+      margin: 0 auto;
+      padding: 0 var(--space-2xl);
+    }
+
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-primary-dark);
+      margin-bottom: var(--space-sm);
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 2.441rem;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: var(--space-lg);
+      color: var(--text-primary);
+    }
+
+    .section-description {
+      color: var(--text-secondary);
+      max-width: 60ch;
+      margin-bottom: var(--space-2xl);
+    }
+
+    /* ============================================
+       HERO / COVER
+       ============================================ */
+    .hero {
+      padding: var(--space-4xl) var(--space-2xl);
+      max-width: var(--content-max);
+      margin: 0 auto;
+      min-height: 50vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+      padding: var(--space-xs) var(--space-md);
+      background: var(--surface-elevated);
+      border-radius: var(--radius-full);
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--color-primary-dark);
+      margin-bottom: var(--space-xl);
+      width: fit-content;
+    }
+
+    .hero-badge .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--color-primary);
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: 3.815rem;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: var(--space-lg);
+      color: var(--text-primary);
+    }
+
+    .hero-wordmark {
+      font-family: var(--font-heading);
+      font-weight: 800;
+    }
+
+    .identity-element {
+      color: var(--color-primary);
+    }
+
+    .identity-heart {
+      color: var(--color-warm);
+      font-family: var(--font-display);
+      font-style: italic;
+    }
+
+    .hero-subtitle {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      max-width: 50ch;
+      line-height: 1.5;
+    }
+
+    .hero-tagline {
+      margin-top: var(--space-lg);
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--color-primary);
+    }
+
+    /* ============================================
+       01 — ARCHETYPE
+       ============================================ */
+    .archetype-card {
+      background: var(--surface-card);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-2xl);
+      margin-bottom: var(--space-xl);
+    }
+
+    .archetype-name {
+      font-family: var(--font-display);
+      font-size: 1.953rem;
+      margin-bottom: var(--space-sm);
+      color: var(--text-primary);
+    }
+
+    .traits {
+      display: flex;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+      margin-bottom: var(--space-lg);
+    }
+
+    .trait {
+      padding: var(--space-xs) var(--space-md);
+      background: var(--surface-elevated);
+      border-radius: var(--radius-full);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--color-primary-dark);
+    }
+
+    .voice-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--space-md);
+      margin-top: var(--space-lg);
+    }
+
+    .voice-card {
+      padding: var(--space-lg);
+      background: var(--surface-elevated);
+      border-radius: var(--radius-md);
+    }
+
+    .voice-card h4 {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--text-primary);
+      margin-bottom: var(--space-xs);
+    }
+
+    .voice-card p {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+
+    .positioning-spectrums {
+      display: grid;
+      gap: var(--space-md);
+      margin-top: var(--space-xl);
+    }
+
+    .spectrum {
+      display: grid;
+      grid-template-columns: 80px 1fr 80px;
+      align-items: center;
+      gap: var(--space-md);
+    }
+
+    .spectrum-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-tertiary);
+    }
+
+    .spectrum-label:last-child {
+      text-align: right;
+    }
+
+    .spectrum-bar {
+      height: 4px;
+      background: var(--surface-border);
+      border-radius: var(--radius-full);
+      position: relative;
+    }
+
+    .spectrum-marker {
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 14px;
+      height: 14px;
+      background: var(--color-primary);
+      border-radius: 50%;
+      border: 2px solid var(--surface-card);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+    }
+
+    /* ============================================
+       02 — WORDMARK
+       ============================================ */
+    .wordmark-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--space-lg);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .wordmark-variant {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-3xl) var(--space-xl);
+      border-radius: var(--radius-lg);
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 2rem;
+      letter-spacing: -0.02em;
+    }
+
+    .wordmark-on-light {
+      background: var(--surface-card);
+      border: 1px solid var(--surface-border);
+      color: var(--text-primary);
+    }
+
+    .wordmark-on-dark {
+      background: var(--surface-dark-base);
+      color: var(--text-dark-primary);
+    }
+
+    .wordmark-on-brand {
+      background: var(--color-primary);
+      color: #fdfcfa;
+    }
+
+    .wordmark-variant-label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      opacity: 0.5;
+      margin-bottom: var(--space-sm);
+      display: block;
+      text-align: center;
+    }
+
+    .clear-space-demo {
+      background: var(--surface-card);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .clear-space-visual {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-2xl);
+      position: relative;
+    }
+
+    .clear-space-box {
+      border: 2px dashed var(--color-primary-light);
+      padding: var(--space-xl) var(--space-2xl);
+      position: relative;
+    }
+
+    .clear-space-label {
+      position: absolute;
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: var(--color-primary);
+      letter-spacing: 0.05em;
+    }
+
+    .clear-space-label-top {
+      top: -16px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .clear-space-label-side {
+      right: -56px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .do-dont-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--space-lg);
+    }
+
+    .do-card {
+      border: 1.5px solid var(--color-success);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      background: color-mix(in srgb, var(--color-success) 3%, var(--surface-card));
+    }
+
+    .do-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-success);
+      margin-bottom: var(--space-md);
+    }
+
+    .dont-card-inline {
+      border: 1.5px solid var(--color-error);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      background: color-mix(in srgb, var(--color-error) 3%, var(--surface-card));
+    }
+
+    .dont-label-inline {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-error);
+      margin-bottom: var(--space-md);
+    }
+
+    .do-dont-example {
+      padding: var(--space-lg);
+      background: var(--surface-elevated);
+      border-radius: var(--radius-md);
+      margin-bottom: var(--space-md);
+      text-align: center;
+    }
+
+    .do-dont-text {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+
+    /* ============================================
+       03 — COLOR PALETTE
+       ============================================ */
+    .palette-group {
+      margin-bottom: var(--space-2xl);
+    }
+
+    .palette-group-title {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 1.25rem;
+      margin-bottom: var(--space-md);
+      color: var(--text-primary);
+    }
+
+    .swatches {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: var(--space-md);
+    }
+
+    .swatch {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--surface-border);
+    }
+
+    .swatch-color {
+      height: 80px;
+      display: flex;
+      align-items: flex-end;
+      padding: var(--space-sm);
+    }
+
+    .swatch-contrast {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      padding: 2px 6px;
+      border-radius: var(--radius-sm);
+      background: rgba(0,0,0,0.3);
+      color: #fdfcfa;
+    }
+
+    .swatch-info {
+      padding: var(--space-sm) var(--space-md);
+      background: var(--surface-card);
+    }
+
+    .swatch-name {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 0.8rem;
+      color: var(--text-primary);
+    }
+
+    .swatch-hex {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-tertiary);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .swatch-usage {
+      font-size: 0.65rem;
+      color: var(--text-tertiary);
+      margin-top: 2px;
+    }
+
+    /* ============================================
+       TEXT SCALES
+       ============================================ */
+    .text-scale-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-lg);
+      margin-bottom: var(--space-xl);
+    }
+
+    .text-scale-panel {
+      padding: var(--space-xl);
+      border-radius: var(--radius-lg);
+    }
+
+    .text-scale-panel-light {
+      background: var(--surface-card);
+      border: 1px solid var(--surface-border);
+    }
+
+    .text-scale-panel-dark {
+      background: var(--surface-dark-base);
+      border: 1px solid var(--surface-dark-border);
+    }
+
+    .text-sample {
+      padding: var(--space-sm) 0;
+      border-bottom: 1px solid var(--surface-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    .text-sample:last-child {
+      border-bottom: none;
+    }
+
+    .text-sample-label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.05em;
+    }
+
+    .text-sample-hex {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* ============================================
+       04 — TYPOGRAPHY
+       ============================================ */
+    .type-specimen {
+      margin-bottom: var(--space-2xl);
+      padding: var(--space-2xl);
+      background: var(--surface-card);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius-lg);
+    }
+
+    .type-specimen-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-primary-dark);
+      margin-bottom: var(--space-md);
+    }
+
+    .type-specimen-sample {
+      margin-bottom: var(--space-md);
+      color: var(--text-primary);
+    }
+
+    .type-specimen-meta {
+      display: flex;
+      gap: var(--space-lg);
+      flex-wrap: wrap;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-tertiary);
+    }
+
+    .type-specimen-meta dt {
+      color: var(--text-secondary);
+    }
+
+    .type-specimen-meta dd {
+      font-variant-numeric: tabular-nums;
+    }
+
+    .type-scale-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: var(--space-xl);
+    }
+
+    .type-scale-table th {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      text-align: left;
+      padding: var(--space-sm) var(--space-md);
+      border-bottom: 2px solid var(--surface-border);
+    }
+
+    .type-scale-table td {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      padding: var(--space-sm) var(--space-md);
+      border-bottom: 1px solid var(--surface-border);
+      color: var(--text-primary);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .type-scale-table .scale-preview {
+      font-family: var(--font-heading);
+      font-weight: 600;
+    }
+
+    /* ============================================
+       05 — COMPONENTS
+       ============================================ */
+    .component-row {
+      display: flex;
+      gap: var(--space-md);
+      flex-wrap: wrap;
+      align-items: center;
+      margin-bottom: var(--space-xl);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-sm) var(--space-lg);
+      border-radius: var(--radius-md);
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 0.875rem;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.1s, box-shadow 0.1s;
+      text-decoration: none;
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+    .btn:active { transform: translateY(0); }
+
+    .btn-primary {
+      background: var(--color-primary);
+      color: #fdfcfa;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.08);
+    }
+    .btn-primary:hover {
+      background: var(--color-primary-dark);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+    }
+
+    .btn-secondary {
+      background: var(--surface-elevated);
+      color: var(--text-primary);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--color-primary);
+      border: 1.5px solid var(--color-primary);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-secondary);
+    }
+    .btn-ghost:hover {
+      background: var(--surface-elevated);
+      color: var(--text-primary);
+    }
+
+    .btn-destructive {
+      background: var(--color-error);
+      color: #fdfcfa;
+    }
+
+    .btn-warm {
+      background: var(--color-warm);
+      color: #fdfcfa;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--surface-card);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+
+    .card-interactive:hover {
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      transform: translateY(-2px);
+    }
+
+    .card-featured {
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 1px var(--color-primary);
+    }
+
+    .card-title {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-bottom: var(--space-sm);
+      color: var(--text-primary);
+    }
+
+    .card-text {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+    }
+
+    /* Inputs */
+    .input-group {
+      margin-bottom: var(--space-lg);
+      max-width: 400px;
+    }
+
+    .input-label {
+      display: block;
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 0.8rem;
+      margin-bottom: var(--space-xs);
+      color: var(--text-primary);
+    }
+
+    .input {
+      width: 100%;
+      padding: var(--space-sm) var(--space-md);
+      border: 1.5px solid var(--surface-border);
+      border-radius: var(--radius-md);
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      color: var(--text-primary);
+      background: var(--surface-card);
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    .input:focus {
+      outline: none;
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 20%, transparent);
+    }
+
+    .input-error { border-color: var(--color-error); }
+    .input-error:focus { box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-error) 20%, transparent); }
+    .input:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .input-hint {
+      font-size: 0.75rem;
+      margin-top: var(--space-xs);
+      color: var(--text-tertiary);
+    }
+
+    .input-error-msg {
+      font-size: 0.75rem;
+      margin-top: var(--space-xs);
+      color: var(--color-error);
+    }
+
+    .textarea {
+      width: 100%;
+      padding: var(--space-sm) var(--space-md);
+      border: 1.5px solid var(--surface-border);
+      border-radius: var(--radius-md);
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      color: var(--text-primary);
+      background: var(--surface-card);
+      resize: vertical;
+      min-height: 80px;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    .textarea:focus {
+      outline: none;
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 20%, transparent);
+    }
+
+    .select {
+      width: 100%;
+      padding: var(--space-sm) var(--space-md);
+      border: 1.5px solid var(--surface-border);
+      border-radius: var(--radius-md);
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      color: var(--text-primary);
+      background: var(--surface-card);
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%234d5e50' d='M2 4l4 4 4-4'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      padding-right: 32px;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    .select:focus {
+      outline: none;
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 20%, transparent);
+    }
+
+    /* Tags */
+    .tags {
+      display: flex;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+    }
+
+    .tag-primary { background: color-mix(in srgb, var(--color-primary) 15%, transparent); color: var(--color-primary-dark); }
+    .tag-success { background: color-mix(in srgb, var(--color-success) 15%, transparent); color: var(--color-success); }
+    .tag-warning { background: color-mix(in srgb, var(--color-warning) 15%, transparent); color: var(--color-warning); }
+    .tag-error   { background: color-mix(in srgb, var(--color-error) 15%, transparent);   color: var(--color-error); }
+    .tag-info    { background: color-mix(in srgb, var(--color-info) 15%, transparent);    color: var(--color-info); }
+    .tag-warm    { background: color-mix(in srgb, var(--color-warm) 15%, transparent);    color: var(--color-warm); }
+
+    /* ============================================
+       06 — DON'T RULES
+       ============================================ */
+    .dont-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--space-lg);
+    }
+
+    .dont-card {
+      border: 1.5px solid var(--color-error);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      background: color-mix(in srgb, var(--color-error) 3%, var(--surface-card));
+    }
+
+    .dont-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-error);
+      margin-bottom: var(--space-md);
+    }
+
+    .dont-example {
+      padding: var(--space-lg);
+      background: var(--surface-elevated);
+      border-radius: var(--radius-md);
+      margin-bottom: var(--space-md);
+      text-align: center;
+    }
+
+    .dont-text {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+
+    /* ============================================
+       DARK MODE PREVIEW PANELS (within components)
+       ============================================ */
+    .mode-preview {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-lg);
+      margin-bottom: var(--space-xl);
+    }
+
+    .mode-preview-panel {
+      padding: var(--space-xl);
+      border-radius: var(--radius-lg);
+    }
+
+    .mode-preview-light {
+      background: var(--surface-page);
+      color: var(--text-primary);
+      border: 1px solid var(--surface-border);
+    }
+
+    .mode-preview-dark {
+      background: var(--surface-dark-base);
+      color: var(--text-dark-primary);
+      border: 1px solid var(--surface-dark-border);
+    }
+
+    .mode-label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: var(--space-md);
+      opacity: 0.6;
+    }
+
+    /* ============================================
+       DARK MODE (auto via prefers-color-scheme)
+       ============================================ */
+    @media (prefers-color-scheme: dark) {
+      body {
+        color: var(--text-dark-primary);
+        background-color: var(--surface-dark-base);
+      }
+
+      section { color: var(--text-dark-primary); }
+      .section-title { color: var(--text-dark-primary); }
+      .section-label { color: var(--color-primary-light); }
+      .section-description { color: var(--text-dark-secondary); }
+      .section-alt { background: var(--surface-dark-elevated); }
+
+      .hero-badge { background: var(--surface-dark-elevated); color: var(--color-primary-light); }
+      .hero-title { color: var(--text-dark-primary); }
+      .hero-subtitle { color: var(--text-dark-secondary); }
+      .hero-tagline { color: var(--color-primary-light); }
+
+      .archetype-card { background: var(--surface-dark-elevated); border-color: var(--surface-dark-border); }
+      .archetype-name { color: var(--text-dark-primary); }
+      .trait { background: var(--surface-dark-deep); color: var(--color-primary-light); }
+      .voice-card { background: var(--surface-dark-deep); }
+      .voice-card h4 { color: var(--text-dark-primary); }
+      .voice-card p { color: var(--text-dark-secondary); }
+      .spectrum-label { color: var(--text-dark-tertiary); }
+      .spectrum-bar { background: var(--surface-dark-border); }
+
+      .palette-group-title { color: var(--text-dark-primary); }
+      .swatch-info { background: var(--surface-dark-elevated); }
+      .swatch-name { color: var(--text-dark-primary); }
+      .swatch { border-color: var(--surface-dark-border); }
+      .swatch-hex { color: var(--text-dark-tertiary); }
+
+      .type-specimen { background: var(--surface-dark-elevated); border-color: var(--surface-dark-border); }
+      .type-specimen-sample { color: var(--text-dark-primary); }
+      .type-specimen-label { color: var(--color-primary-light); }
+      .type-scale-table th { color: var(--text-dark-tertiary); border-color: var(--surface-dark-border); }
+      .type-scale-table td { color: var(--text-dark-primary); border-color: var(--surface-dark-border); }
+
+      .card { background: var(--surface-dark-elevated); border-color: var(--surface-dark-border); }
+      .card-title { color: var(--text-dark-primary); }
+      .card-text { color: var(--text-dark-secondary); }
+
+      .input { background: var(--surface-dark-elevated); border-color: var(--surface-dark-border); color: var(--text-dark-primary); }
+      .input-label { color: var(--text-dark-primary); }
+      .input-hint { color: var(--text-dark-tertiary); }
+      .textarea { background: var(--surface-dark-elevated); border-color: var(--surface-dark-border); color: var(--text-dark-primary); }
+      .select { background: var(--surface-dark-elevated); border-color: var(--surface-dark-border); color: var(--text-dark-primary); }
+
+      .btn-secondary { background: var(--surface-dark-elevated); color: var(--text-dark-primary); }
+      .btn-ghost { color: var(--text-dark-secondary); }
+      .btn-ghost:hover { background: var(--surface-dark-elevated); color: var(--text-dark-primary); }
+
+      .dont-card { background: color-mix(in srgb, var(--color-error) 5%, var(--surface-dark-elevated)); }
+      .dont-text { color: var(--text-dark-secondary); }
+      .dont-example { background: var(--surface-dark-deep); }
+
+      .do-card { background: color-mix(in srgb, var(--color-success) 5%, var(--surface-dark-elevated)); }
+      .dont-card-inline { background: color-mix(in srgb, var(--color-error) 5%, var(--surface-dark-elevated)); }
+      .do-dont-example { background: var(--surface-dark-deep); }
+      .do-dont-text { color: var(--text-dark-secondary); }
+
+      .clear-space-demo { background: var(--surface-dark-elevated); border-color: var(--surface-dark-border); }
+
+      .text-scale-panel-light {
+        background: var(--surface-card);
+        color: var(--text-primary);
+        border-color: var(--surface-border);
+      }
+
+      .mode-preview-light {
+        background: var(--surface-page);
+        color: var(--text-primary);
+        border-color: var(--surface-border);
+      }
+    }
+
+    /* ============================================
+       RESPONSIVE
+       ============================================ */
+    @media (max-width: 768px) {
+      .sidebar { display: none; }
+      .content { margin-left: 0; }
+      .hero-title { font-size: 2.441rem; }
+      .mode-preview { grid-template-columns: 1fr; }
+      .wordmark-grid { grid-template-columns: 1fr; }
+      .text-scale-grid { grid-template-columns: 1fr; }
+      .do-dont-grid { grid-template-columns: 1fr; }
+      .voice-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ============================================
+       PRINT
+       ============================================ */
+    @media print {
+      .sidebar { display: none; }
+      .content { margin-left: 0; }
+      .skip-link { display: none; }
+      body { background: #f8f6f2; color: #1c2a1f; }
+      body::after { display: none; }
+      .section-alt { background: #f5f5f5; color: #1c2a1f; }
+      .mode-preview-dark { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <div class="layout">
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar" aria-label="Brandbook sections">
+      <div class="sidebar-logo" aria-label="Brandbook">Brandbook</div>
+      <ul class="sidebar-nav" role="list">
+        <li><a href="#cover" class="active"><span class="section-number">00</span> Cover</a></li>
+        <li><a href="#archetype"><span class="section-number">01</span> Archetype</a></li>
+        <li><a href="#wordmark"><span class="section-number">02</span> Wordmark</a></li>
+        <li><a href="#colors"><span class="section-number">03</span> Colors</a></li>
+        <li><a href="#typography"><span class="section-number">04</span> Typography</a></li>
+        <li><a href="#components"><span class="section-number">05</span> Components</a></li>
+        <li><a href="#dont"><span class="section-number">06</span> Don't</a></li>
+      </ul>
+      <div class="sidebar-credit">
+        <a href="https://x.com/diegoivo" target="_blank" rel="noopener noreferrer">Created by @diegoivo</a>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="content" id="main">
+
+      <!-- =============================================
+           00 — COVER
+           ============================================= -->
+      <section id="cover" class="hero">
+        <div class="hero-badge">
+          <span class="dot"></span>
+          Brand Identity System
+        </div>
+        <h1 class="hero-title">
+          <span class="hero-wordmark">Nutr<span class="identity-element">i</span><span class="identity-heart">Plan</span></span>
+        </h1>
+        <p class="hero-subtitle">
+          Meal planning for busy moms who want nourishing, stress-free family meals without the overwhelm.
+        </p>
+        <p class="hero-tagline">Feed your family with confidence.</p>
+      </section>
+
+      <!-- =============================================
+           01 — ARCHETYPE
+           ============================================= -->
+      <div class="section-alt">
+        <section id="archetype">
+          <div class="section-inner">
+            <p class="section-label">01 — Archetype</p>
+            <h2 class="section-title">Brand Personality</h2>
+            <p class="section-description">
+              The archetype blend defines NutriPlan's emotional tone, communication style, and visual direction across every touchpoint.
+            </p>
+
+            <div class="archetype-card">
+              <h3 class="archetype-name">The Caregiver + Sage</h3>
+              <div class="traits">
+                <span class="trait">Nurturing</span>
+                <span class="trait">Trustworthy</span>
+                <span class="trait">Informed</span>
+                <span class="trait">Generous</span>
+              </div>
+              <p class="section-description" style="margin-bottom: 0;">
+                NutriPlan combines the Caregiver's warmth and protective instinct with the Sage's quiet authority. It never lectures or overwhelms. Instead, it anticipates needs, removes friction, and offers guidance that feels like advice from a knowledgeable friend who genuinely cares about your family's wellbeing.
+              </p>
+            </div>
+
+            <!-- Voice Guidelines -->
+            <h3 class="palette-group-title" style="margin-top: var(--space-2xl);">Voice Guidelines</h3>
+            <div class="voice-grid">
+              <div class="voice-card">
+                <h4>Warm but not saccharine</h4>
+                <p>Speak with genuine care. Avoid baby talk, excessive exclamation marks, or condescending language.</p>
+              </div>
+              <div class="voice-card">
+                <h4>Knowledgeable but not clinical</h4>
+                <p>Share nutritional insight without sounding like a textbook. Use plain language rooted in evidence.</p>
+              </div>
+              <div class="voice-card">
+                <h4>Encouraging but realistic</h4>
+                <p>Celebrate small wins without toxic positivity. Acknowledge that meal planning is genuinely hard.</p>
+              </div>
+              <div class="voice-card">
+                <h4>Concise but not cold</h4>
+                <p>Respect the user's time. Every word should earn its place, but never at the expense of warmth.</p>
+              </div>
+            </div>
+
+            <!-- Positioning Spectrums -->
+            <h3 class="palette-group-title" style="margin-top: var(--space-2xl);">Brand Positioning</h3>
+            <div class="positioning-spectrums">
+              <div class="spectrum">
+                <span class="spectrum-label">Premium</span>
+                <div class="spectrum-bar">
+                  <div class="spectrum-marker" style="left: 75%;"></div>
+                </div>
+                <span class="spectrum-label">Accessible</span>
+              </div>
+              <div class="spectrum">
+                <span class="spectrum-label">Technical</span>
+                <div class="spectrum-bar">
+                  <div class="spectrum-marker" style="left: 72%;"></div>
+                </div>
+                <span class="spectrum-label">Approachable</span>
+              </div>
+              <div class="spectrum">
+                <span class="spectrum-label">Bold</span>
+                <div class="spectrum-bar">
+                  <div class="spectrum-marker" style="left: 68%;"></div>
+                </div>
+                <span class="spectrum-label">Subtle</span>
+              </div>
+              <div class="spectrum">
+                <span class="spectrum-label">Playful</span>
+                <div class="spectrum-bar">
+                  <div class="spectrum-marker" style="left: 62%;"></div>
+                </div>
+                <span class="spectrum-label">Serious</span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- =============================================
+           02 — WORDMARK
+           ============================================= -->
+      <section id="wordmark">
+        <p class="section-label">02 — Logo & Wordmark</p>
+        <h2 class="section-title">Wordmark System</h2>
+        <p class="section-description">
+          The NutriPlan wordmark is a typographic mark set in Figtree 800. The identity element is the dot on the "i" in "Plan," replaced with a subtle leaf shape rendered in the warm accent color. This gives the mark its organic character without relying on a separate icon.
+        </p>
+
+        <!-- Wordmark Variants -->
+        <div class="wordmark-grid">
+          <div>
+            <span class="wordmark-variant-label">On Light</span>
+            <div class="wordmark-variant wordmark-on-light">
+              Nutr<span class="identity-element">i</span><span style="color: var(--color-warm);">Plan</span>
+            </div>
+          </div>
+          <div>
+            <span class="wordmark-variant-label" style="color: var(--text-dark-tertiary);">On Dark</span>
+            <div class="wordmark-variant wordmark-on-dark">
+              Nutr<span style="color: var(--color-primary-light);">i</span><span style="color: var(--color-warm-light);">Plan</span>
+            </div>
+          </div>
+          <div>
+            <span class="wordmark-variant-label">On Brand</span>
+            <div class="wordmark-variant wordmark-on-brand">
+              NutriPlan
+            </div>
+          </div>
+        </div>
+
+        <!-- Clear Space Rules -->
+        <h3 class="palette-group-title">Clear Space</h3>
+        <div class="clear-space-demo">
+          <p class="section-description" style="margin-bottom: var(--space-md);">
+            The minimum clear space around the wordmark equals the cap-height of the "N" in Nutri. No text, graphics, or UI elements may enter this zone.
+          </p>
+          <div class="clear-space-visual">
+            <div class="clear-space-box">
+              <span class="clear-space-label clear-space-label-top">cap-height</span>
+              <span class="clear-space-label clear-space-label-side">cap-height</span>
+              <span style="font-family: var(--font-heading); font-weight: 800; font-size: 1.5rem; color: var(--text-primary);">Nutr<span class="identity-element">i</span><span style="color: var(--color-warm);">Plan</span></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Do / Don't for Wordmark -->
+        <h3 class="palette-group-title">Usage Rules</h3>
+        <div class="do-dont-grid">
+          <div class="do-card">
+            <div class="do-label">Do</div>
+            <div class="do-dont-example">
+              <span style="font-family: var(--font-heading); font-weight: 800; font-size: 1.5rem; color: var(--text-primary);">Nutr<span class="identity-element">i</span><span style="color: var(--color-warm);">Plan</span></span>
+            </div>
+            <p class="do-dont-text">Use the wordmark at its original proportions with the approved color treatment.</p>
+          </div>
+          <div class="dont-card-inline">
+            <div class="dont-label-inline">Don't</div>
+            <div class="do-dont-example">
+              <span style="font-family: var(--font-heading); font-weight: 800; font-size: 1.5rem; transform: scaleX(1.4); display: inline-block; color: var(--text-primary);">NutriPlan</span>
+            </div>
+            <p class="do-dont-text">Never stretch or distort the wordmark horizontally or vertically.</p>
+          </div>
+          <div class="do-card">
+            <div class="do-label">Do</div>
+            <div class="do-dont-example">
+              <span style="font-family: var(--font-heading); font-weight: 800; font-size: 1.2rem; color: var(--text-primary);">Nutr<span class="identity-element">i</span><span style="color: var(--color-warm);">Plan</span></span>
+            </div>
+            <p class="do-dont-text">Scale the wordmark proportionally. The smallest recommended size is 24px cap-height.</p>
+          </div>
+          <div class="dont-card-inline">
+            <div class="dont-label-inline">Don't</div>
+            <div class="do-dont-example">
+              <span style="font-family: var(--font-heading); font-weight: 800; font-size: 1.5rem; background: linear-gradient(135deg, var(--color-primary), var(--color-warm)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">NutriPlan</span>
+            </div>
+            <p class="do-dont-text">Never apply gradients to the wordmark. It must always use flat, solid colors.</p>
+          </div>
+          <div class="do-card">
+            <div class="do-label">Do</div>
+            <div class="do-dont-example" style="background: var(--surface-dark-base);">
+              <span style="font-family: var(--font-heading); font-weight: 800; font-size: 1.5rem; color: var(--text-dark-primary);">Nutr<span style="color: var(--color-primary-light);">i</span><span style="color: var(--color-warm-light);">Plan</span></span>
+            </div>
+            <p class="do-dont-text">On dark backgrounds, use the light variant of brand colors for the identity element.</p>
+          </div>
+          <div class="dont-card-inline">
+            <div class="dont-label-inline">Don't</div>
+            <div class="do-dont-example">
+              <span style="font-family: Arial, sans-serif; font-weight: bold; font-size: 1.5rem; color: var(--text-primary);">NutriPlan</span>
+            </div>
+            <p class="do-dont-text">Never render the wordmark in unapproved fonts. Always use Figtree 800.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- =============================================
+           03 — COLORS
+           ============================================= -->
+      <div class="section-alt">
+        <section id="colors">
+          <div class="section-inner">
+            <p class="section-label">03 — Color Palette</p>
+            <h2 class="section-title">Color System</h2>
+            <p class="section-description">
+              A warm, nature-inspired palette anchored in sage green with peach-coral warmth and muted teal as a cool complement. Every color is intentionally distinct in hue to ensure functional clarity and emotional range.
+            </p>
+
+            <!-- Core -->
+            <div class="palette-group">
+              <h3 class="palette-group-title">Core</h3>
+              <div class="swatches">
+                <div class="swatch">
+                  <div class="swatch-color" style="background: var(--color-primary-light);">
+                    <span class="swatch-contrast">AA 3.2:1</span>
+                  </div>
+                  <div class="swatch-info">
+                    <div class="swatch-name">Primary Light</div>
+                    <div class="swatch-hex">#72a37f</div>
+                    <div class="swatch-usage">Hover states, tinted backgrounds</div>
+                  </div>
+                </div>
+                <div class="swatch">
+                  <div class="swatch-color" style="background: var(--color-primary);">
+                    <span class="swatch-contrast">AA 4.8:1</span>
+                  </div>
+                  <div class="swatch-info">
+                    <div class="swatch-name">Primary</div>
+                    <div class="swatch-hex">#4a7c59</div>
+                    <div class="swatch-usage">Buttons, links, key UI elements</div>
+                  </div>
+                </div>
+                <div class="swatch">
+                  <div class="swatch-color" style="background: var(--color-primary-dark);">
+                    <span class="swatch-contrast">AA 8.5:1</span>
+                  </div>
+                  <div class="swatch-info">
+                    <div class="swatch-name">Primary Dark</div>
+                    <div class="swatch-hex">#2b5c3a</div>
+                    <div class="swatch-usage">Pressed states, text on light</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Accents -->
+            <div class="palette-group">
+              <h3 class="palette-group-title">Accents</h3>
+              <div class="swatches">
+                <div class="swatch">
+                  <div class="swatch-color" style="background: var(--color-warm);">
+                    <span class="swatch-contrast">AA 3.4:1</span>
+                  </div>
+                  <div class="swatch-info">
+                    <div class="swatch-name">Warm (Coral)</div>
+                    <div class="swatch-hex">#d4725c</div>
+                    <div class="swatch-usage">CTAs, highlights, energy</div>
+                  </div>
+                </div>
+                <div class="swatch">
+                  <div class="swatch-color" style="background: var(--color-warm-light);">
+                    <span class="swatch-contrast">AA 2.1:1</span>
+                  </div>
+                  <div class="swatch-info">
+                    <div class="swatch-name">Warm Light (Peach)</div>
+                    <div class="swatch-hex">#eaa18e</div>
+                    <div class="swatch-usage">Tinted backgrounds, soft accents</div>
+                  </div>
+                </div>
+                <div class="swatch">
+                  <div class="swatch-color" style="background: var(--color-cool);">
+                    <span class="swatch-contrast">AA 3.5:1</span>
+                  </div>
+                  <div class="swatch-info">
+                    <div class="swatch-name">Cool (Teal)</div>
+                    <div class="swatch-hex">#4a9e94</div>
+                    <div class="swatch-usage">Data, secondary actions</div>
+                  </div>
+                </div>
+                <div class="swatch">
+                  <div class="swatch-color" style="background: var(--color-cool-light);">
+                    <span class="swatch-contrast">AA 2.3:1</span>
+                  </div>
+                  <div class="swatch-info">
+                    <div class="swatch-name">Cool Light</div>
+                    <div class="swatch-hex">#70bcb3</div>
+                    <div class="swatch-usage">Tinted surfaces, badges</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Semantic -->
+            <div class="palette-group">
+              <h3 class="palette-group-title">Semantic</h3>
+              <div class="swatches">
+                <div class="swatch">
+                  <div class="swatch-color" style="background: var(--color-success);">
+                    <span class="swatch-contrast">AA 4.6:1</span>
+                  </div>
+                  <div class="swatch-info">
+                    <div class="swatch-name">Success</div>
+                    <div class="swatch-hex">#3a8a52</div>
+                    <div class="swatch-usage">Confirmations, positive states</div>
+                  </div>
+                </div>
+                <div class="swatch">
+                  <div class="swatch-color" style="background: var(--color-warning);">
+                    <span class="swatch-contrast">AA 3.2:1</span>
+                  </div>
+                  <div class="swatch-info">
+                    <div class="swatch-name">Warning</div>
+                    <div class="swatch-hex">#c4862a</div>
+                    <div class="swatch-usage">Caution, dietary alerts</div>
+                  </div>
+                </div>
+                <div class="swatch">
+                  <div class="swatch-color" style="background: var(--color-error);">
+                    <span class="swatch-contrast">AA 4.5:1</span>
+                  </div>
+                  <div class="swatch-info">
+                    <div class="swatch-name">Error</div>
+                    <div class="swatch-hex">#c7453a</div>
+                    <div class="swatch-usage">Validation errors, destructive actions</div>
+                  </div>
+                </div>
+                <div class="swatch">
+                  <div class="swatch-color" style="background: var(--color-info);">
+                    <span class="swatch-contrast">AA 4.7:1</span>
+                  </div>
+                  <div class="swatch-info">
+                    <div class="swatch-name">Info</div>
+                    <div class="swatch-hex">#3a7a96</div>
+                    <div class="swatch-usage">Tooltips, informational banners</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Surfaces — Light/Dark side by side -->
+            <div class="palette-group">
+              <h3 class="palette-group-title">Surfaces</h3>
+              <div class="mode-preview">
+                <div class="mode-preview-panel mode-preview-light">
+                  <div class="mode-label">Light Mode</div>
+                  <div class="swatches" style="grid-template-columns: 1fr;">
+                    <div class="swatch">
+                      <div class="swatch-color" style="background: var(--surface-page); border: 1px solid var(--surface-border);"></div>
+                      <div class="swatch-info"><div class="swatch-name">Page</div><div class="swatch-hex">#f8f6f2</div></div>
+                    </div>
+                    <div class="swatch">
+                      <div class="swatch-color" style="background: var(--surface-card); border: 1px solid var(--surface-border);"></div>
+                      <div class="swatch-info"><div class="swatch-name">Card</div><div class="swatch-hex">#fdfcfa</div></div>
+                    </div>
+                    <div class="swatch">
+                      <div class="swatch-color" style="background: var(--surface-elevated);"></div>
+                      <div class="swatch-info"><div class="swatch-name">Elevated</div><div class="swatch-hex">#f0ede6</div></div>
+                    </div>
+                    <div class="swatch">
+                      <div class="swatch-color" style="background: var(--surface-border);"></div>
+                      <div class="swatch-info"><div class="swatch-name">Border</div><div class="swatch-hex">#ddd8ce</div></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mode-preview-panel mode-preview-dark">
+                  <div class="mode-label">Dark Mode</div>
+                  <div class="swatches" style="grid-template-columns: 1fr;">
+                    <div class="swatch" style="border-color: var(--surface-dark-border);">
+                      <div class="swatch-color" style="background: var(--surface-dark-deep);"></div>
+                      <div class="swatch-info" style="background: var(--surface-dark-elevated);"><div class="swatch-name" style="color: var(--text-dark-primary);">Deep</div><div class="swatch-hex" style="color: var(--text-dark-tertiary);">#0e1410</div></div>
+                    </div>
+                    <div class="swatch" style="border-color: var(--surface-dark-border);">
+                      <div class="swatch-color" style="background: var(--surface-dark-base);"></div>
+                      <div class="swatch-info" style="background: var(--surface-dark-elevated);"><div class="swatch-name" style="color: var(--text-dark-primary);">Base</div><div class="swatch-hex" style="color: var(--text-dark-tertiary);">#151e18</div></div>
+                    </div>
+                    <div class="swatch" style="border-color: var(--surface-dark-border);">
+                      <div class="swatch-color" style="background: var(--surface-dark-elevated);"></div>
+                      <div class="swatch-info" style="background: var(--surface-dark-elevated);"><div class="swatch-name" style="color: var(--text-dark-primary);">Elevated</div><div class="swatch-hex" style="color: var(--text-dark-tertiary);">#1f2e24</div></div>
+                    </div>
+                    <div class="swatch" style="border-color: var(--surface-dark-border);">
+                      <div class="swatch-color" style="background: var(--surface-dark-border);"></div>
+                      <div class="swatch-info" style="background: var(--surface-dark-elevated);"><div class="swatch-name" style="color: var(--text-dark-primary);">Border</div><div class="swatch-hex" style="color: var(--text-dark-tertiary);">#2e4034</div></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Text Scales -->
+            <div class="palette-group">
+              <h3 class="palette-group-title">Text Colors</h3>
+              <div class="text-scale-grid">
+                <div class="text-scale-panel text-scale-panel-light">
+                  <div class="mode-label" style="color: var(--text-tertiary);">Light Mode</div>
+                  <div class="text-sample">
+                    <span class="text-sample-label" style="color: var(--text-primary);">Primary — The most important text</span>
+                    <span class="text-sample-hex" style="color: var(--text-tertiary);">#1c2a1f</span>
+                  </div>
+                  <div class="text-sample">
+                    <span class="text-sample-label" style="color: var(--text-secondary);">Secondary — Supporting descriptions</span>
+                    <span class="text-sample-hex" style="color: var(--text-tertiary);">#4d5e50</span>
+                  </div>
+                  <div class="text-sample">
+                    <span class="text-sample-label" style="color: var(--text-tertiary);">Tertiary — Hints and metadata</span>
+                    <span class="text-sample-hex" style="color: var(--text-tertiary);">#7a8a7d</span>
+                  </div>
+                  <div class="text-sample">
+                    <span class="text-sample-label" style="color: var(--text-disabled);">Disabled — Inactive controls</span>
+                    <span class="text-sample-hex" style="color: var(--text-tertiary);">#a8b4aa</span>
+                  </div>
+                </div>
+                <div class="text-scale-panel text-scale-panel-dark" style="background: var(--surface-dark-base); border: 1px solid var(--surface-dark-border);">
+                  <div class="mode-label" style="color: var(--text-dark-tertiary);">Dark Mode</div>
+                  <div class="text-sample" style="border-color: var(--surface-dark-border);">
+                    <span class="text-sample-label" style="color: var(--text-dark-primary);">Primary — The most important text</span>
+                    <span class="text-sample-hex" style="color: var(--text-dark-tertiary);">#ecf0ed</span>
+                  </div>
+                  <div class="text-sample" style="border-color: var(--surface-dark-border);">
+                    <span class="text-sample-label" style="color: var(--text-dark-secondary);">Secondary — Supporting descriptions</span>
+                    <span class="text-sample-hex" style="color: var(--text-dark-tertiary);">#b0bdb3</span>
+                  </div>
+                  <div class="text-sample" style="border-color: var(--surface-dark-border);">
+                    <span class="text-sample-label" style="color: var(--text-dark-tertiary);">Tertiary — Hints and metadata</span>
+                    <span class="text-sample-hex" style="color: var(--text-dark-tertiary);">#7a8a7d</span>
+                  </div>
+                  <div class="text-sample" style="border-color: var(--surface-dark-border);">
+                    <span class="text-sample-label" style="color: var(--text-dark-disabled);">Disabled — Inactive controls</span>
+                    <span class="text-sample-hex" style="color: var(--text-dark-tertiary);">#4d5e50</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- =============================================
+           04 — TYPOGRAPHY
+           ============================================= -->
+      <section id="typography">
+        <p class="section-label">04 — Typography</p>
+        <h2 class="section-title">Type System</h2>
+        <p class="section-description">
+          A warm, humanist type system pairing the characterful Fraunces for display with the friendly Figtree for headings and body. Fira Code provides technical precision for labels and metadata.
+        </p>
+
+        <!-- Display -->
+        <div class="type-specimen">
+          <div class="type-specimen-label">Display</div>
+          <div class="type-specimen-sample" style="font-family: var(--font-display); font-size: 3.052rem; line-height: 1.1; letter-spacing: -0.02em;">
+            Nourishing meals, made simple
+          </div>
+          <dl class="type-specimen-meta">
+            <div><dt>Family</dt><dd>Fraunces</dd></div>
+            <div><dt>Weight</dt><dd>600</dd></div>
+            <div><dt>Tracking</dt><dd>-0.02em</dd></div>
+            <div><dt>Line height</dt><dd>1.1</dd></div>
+          </dl>
+        </div>
+
+        <!-- Heading -->
+        <div class="type-specimen">
+          <div class="type-specimen-label">Heading</div>
+          <div class="type-specimen-sample" style="font-family: var(--font-heading); font-weight: 700; font-size: 1.953rem; line-height: 1.2; letter-spacing: -0.01em;">
+            Weekly meal plans tailored to your family
+          </div>
+          <div class="type-specimen-sample" style="font-family: var(--font-heading); font-weight: 600; font-size: 1.563rem; line-height: 1.25; letter-spacing: -0.01em; margin-top: var(--space-md);">
+            Smart grocery lists that save you time
+          </div>
+          <div class="type-specimen-sample" style="font-family: var(--font-heading); font-weight: 600; font-size: 1.25rem; line-height: 1.3; margin-top: var(--space-md);">
+            Nutritional balance your kids will actually enjoy
+          </div>
+          <dl class="type-specimen-meta">
+            <div><dt>Family</dt><dd>Figtree</dd></div>
+            <div><dt>Weights</dt><dd>500, 600, 700</dd></div>
+            <div><dt>Tracking</dt><dd>-0.01em</dd></div>
+            <div><dt>Line height</dt><dd>1.2 &ndash; 1.3</dd></div>
+          </dl>
+        </div>
+
+        <!-- Body -->
+        <div class="type-specimen">
+          <div class="type-specimen-label">Body</div>
+          <div class="type-specimen-sample" style="font-family: var(--font-body); font-size: 1rem; line-height: 1.6; max-width: 65ch;">
+            Planning meals for a family of four shouldn't feel like a second job. NutriPlan takes into account your dietary preferences, the ingredients already in your pantry, and the time you realistically have on a Tuesday evening. The result is a weekly plan that's balanced, varied, and achievable.
+          </div>
+          <dl class="type-specimen-meta">
+            <div><dt>Family</dt><dd>Figtree</dd></div>
+            <div><dt>Weight</dt><dd>400</dd></div>
+            <div><dt>Tracking</dt><dd>0</dd></div>
+            <div><dt>Line height</dt><dd>1.6</dd></div>
+          </dl>
+        </div>
+
+        <!-- Mono -->
+        <div class="type-specimen">
+          <div class="type-specimen-label">Mono</div>
+          <div class="type-specimen-sample" style="font-family: var(--font-mono); font-size: 0.875rem; line-height: 1.5;">
+            const mealPlan = { name: "NutriPlan", servings: 4 };<br>
+            font-variant-numeric: tabular-nums;
+          </div>
+          <dl class="type-specimen-meta">
+            <div><dt>Family</dt><dd>Fira Code</dd></div>
+            <div><dt>Weight</dt><dd>400</dd></div>
+            <div><dt>Use</dt><dd>Labels, metadata, code, timestamps</dd></div>
+          </dl>
+        </div>
+
+        <!-- Type Scale Table -->
+        <h3 class="palette-group-title" style="margin-top: var(--space-2xl);">Type Scale</h3>
+        <table class="type-scale-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Size (rem)</th>
+              <th>Size (px)</th>
+              <th>Line Height</th>
+              <th>Preview</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>6xl</td>
+              <td>3.815</td>
+              <td>61.04</td>
+              <td>1.05</td>
+              <td><span class="scale-preview" style="font-size: 1.5rem;">Hero</span></td>
+            </tr>
+            <tr>
+              <td>5xl</td>
+              <td>3.052</td>
+              <td>48.83</td>
+              <td>1.1</td>
+              <td><span class="scale-preview" style="font-size: 1.35rem;">Display</span></td>
+            </tr>
+            <tr>
+              <td>4xl</td>
+              <td>2.441</td>
+              <td>39.06</td>
+              <td>1.15</td>
+              <td><span class="scale-preview" style="font-size: 1.2rem;">Page title</span></td>
+            </tr>
+            <tr>
+              <td>3xl</td>
+              <td>1.953</td>
+              <td>31.25</td>
+              <td>1.2</td>
+              <td><span class="scale-preview" style="font-size: 1.1rem;">Section</span></td>
+            </tr>
+            <tr>
+              <td>2xl</td>
+              <td>1.563</td>
+              <td>25.00</td>
+              <td>1.25</td>
+              <td><span class="scale-preview" style="font-size: 1rem;">Subsection</span></td>
+            </tr>
+            <tr>
+              <td>xl</td>
+              <td>1.25</td>
+              <td>20.00</td>
+              <td>1.4</td>
+              <td><span class="scale-preview" style="font-size: 0.95rem;">Lead text</span></td>
+            </tr>
+            <tr>
+              <td>base</td>
+              <td>1.0</td>
+              <td>16.00</td>
+              <td>1.6</td>
+              <td><span class="scale-preview" style="font-size: 0.875rem;">Body</span></td>
+            </tr>
+            <tr>
+              <td>sm</td>
+              <td>0.8</td>
+              <td>12.80</td>
+              <td>1.4</td>
+              <td><span class="scale-preview" style="font-size: 0.8rem;">Caption</span></td>
+            </tr>
+            <tr>
+              <td>xs</td>
+              <td>0.64</td>
+              <td>10.24</td>
+              <td>1.3</td>
+              <td><span class="scale-preview" style="font-size: 0.7rem;">Fine print</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- =============================================
+           05 — COMPONENTS
+           ============================================= -->
+      <div class="section-alt">
+        <section id="components">
+          <div class="section-inner">
+            <p class="section-label">05 — Components</p>
+            <h2 class="section-title">UI Components</h2>
+            <p class="section-description">
+              Core interface elements styled with NutriPlan's design tokens. Every component is shown in both light and dark modes with relevant interaction states.
+            </p>
+
+            <!-- Buttons -->
+            <h3 class="palette-group-title">Buttons</h3>
+            <div class="mode-preview">
+              <div class="mode-preview-panel mode-preview-light">
+                <div class="mode-label">Light Mode</div>
+                <div class="component-row">
+                  <button type="button" class="btn btn-primary">Primary</button>
+                  <button type="button" class="btn btn-secondary">Secondary</button>
+                  <button type="button" class="btn btn-outline">Outline</button>
+                  <button type="button" class="btn btn-ghost">Ghost</button>
+                  <button type="button" class="btn btn-destructive">Delete</button>
+                </div>
+                <div class="component-row">
+                  <button type="button" class="btn btn-warm">Add to Plan</button>
+                </div>
+              </div>
+              <div class="mode-preview-panel mode-preview-dark">
+                <div class="mode-label">Dark Mode</div>
+                <div class="component-row">
+                  <button type="button" class="btn btn-primary">Primary</button>
+                  <button type="button" class="btn btn-secondary" style="background: var(--surface-dark-elevated); color: var(--text-dark-primary);">Secondary</button>
+                  <button type="button" class="btn btn-outline" style="color: var(--color-primary-light); border-color: var(--color-primary-light);">Outline</button>
+                  <button type="button" class="btn btn-ghost" style="color: var(--text-dark-secondary);">Ghost</button>
+                  <button type="button" class="btn btn-destructive">Delete</button>
+                </div>
+                <div class="component-row">
+                  <button type="button" class="btn btn-warm">Add to Plan</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Cards -->
+            <h3 class="palette-group-title" style="margin-top: var(--space-2xl);">Cards</h3>
+            <div class="mode-preview">
+              <div class="mode-preview-panel mode-preview-light">
+                <div class="mode-label">Light Mode</div>
+                <div class="card card-interactive" style="margin-bottom: var(--space-md);">
+                  <h4 class="card-title">Weekly Meal Plan</h4>
+                  <p class="card-text">5 dinners, 3 lunches, and a weekend brunch. Estimated prep: 2.5 hours total.</p>
+                </div>
+                <div class="card card-featured">
+                  <h4 class="card-title">Family Favorites Bundle</h4>
+                  <p class="card-text">Your top-rated recipes compiled into a single plan. Tap to customize portions.</p>
+                </div>
+              </div>
+              <div class="mode-preview-panel mode-preview-dark">
+                <div class="mode-label">Dark Mode</div>
+                <div class="card card-interactive" style="margin-bottom: var(--space-md); background: var(--surface-dark-elevated); border-color: var(--surface-dark-border);">
+                  <h4 class="card-title" style="color: var(--text-dark-primary);">Weekly Meal Plan</h4>
+                  <p class="card-text" style="color: var(--text-dark-secondary);">5 dinners, 3 lunches, and a weekend brunch. Estimated prep: 2.5 hours total.</p>
+                </div>
+                <div class="card card-featured" style="background: var(--surface-dark-elevated); border-color: var(--color-primary-light);">
+                  <h4 class="card-title" style="color: var(--text-dark-primary);">Family Favorites Bundle</h4>
+                  <p class="card-text" style="color: var(--text-dark-secondary);">Your top-rated recipes compiled into a single plan. Tap to customize portions.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Inputs -->
+            <h3 class="palette-group-title" style="margin-top: var(--space-2xl);">Inputs</h3>
+            <div class="mode-preview">
+              <div class="mode-preview-panel mode-preview-light">
+                <div class="mode-label">Light Mode</div>
+                <div class="input-group">
+                  <label for="input-default" class="input-label">Family size</label>
+                  <input type="number" id="input-default" name="family-size" class="input" placeholder="e.g. 4" autocomplete="off">
+                  <p class="input-hint">Number of people to plan meals for</p>
+                </div>
+                <div class="input-group">
+                  <label for="input-select" class="input-label">Dietary preference</label>
+                  <select id="input-select" name="diet" class="select">
+                    <option value="">Choose one</option>
+                    <option value="omnivore">Omnivore</option>
+                    <option value="vegetarian">Vegetarian</option>
+                    <option value="vegan">Vegan</option>
+                  </select>
+                </div>
+                <div class="input-group">
+                  <label for="input-err" class="input-label">Allergies</label>
+                  <input type="text" id="input-err" name="allergies" class="input input-error" value="" autocomplete="off">
+                  <p class="input-error-msg">Please list any food allergies</p>
+                </div>
+                <div class="input-group">
+                  <label for="input-notes" class="input-label">Notes</label>
+                  <textarea id="input-notes" name="notes" class="textarea" placeholder="Anything we should know about your family's meals..."></textarea>
+                </div>
+                <div class="input-group">
+                  <label for="input-dis" class="input-label">Account ID</label>
+                  <input type="text" id="input-dis" name="account-id" class="input" disabled value="NP-20260402" autocomplete="off">
+                </div>
+              </div>
+              <div class="mode-preview-panel mode-preview-dark">
+                <div class="mode-label">Dark Mode</div>
+                <div class="input-group">
+                  <label for="input-dark-default" class="input-label" style="color: var(--text-dark-primary);">Family size</label>
+                  <input type="number" id="input-dark-default" name="dark-family-size" class="input" style="background: var(--surface-dark-elevated); border-color: var(--surface-dark-border); color: var(--text-dark-primary);" placeholder="e.g. 4" autocomplete="off">
+                  <p class="input-hint" style="color: var(--text-dark-tertiary);">Number of people to plan meals for</p>
+                </div>
+                <div class="input-group">
+                  <label for="input-dark-select" class="input-label" style="color: var(--text-dark-primary);">Dietary preference</label>
+                  <select id="input-dark-select" name="dark-diet" class="select" style="background-color: var(--surface-dark-elevated); border-color: var(--surface-dark-border); color: var(--text-dark-primary);">
+                    <option value="">Choose one</option>
+                    <option value="omnivore">Omnivore</option>
+                  </select>
+                </div>
+                <div class="input-group">
+                  <label for="input-dark-err" class="input-label" style="color: var(--text-dark-primary);">Allergies</label>
+                  <input type="text" id="input-dark-err" name="dark-allergies" class="input input-error" style="background: var(--surface-dark-elevated); color: var(--text-dark-primary);" value="" autocomplete="off">
+                  <p class="input-error-msg">Please list any food allergies</p>
+                </div>
+                <div class="input-group">
+                  <label for="input-dark-notes" class="input-label" style="color: var(--text-dark-primary);">Notes</label>
+                  <textarea id="input-dark-notes" name="dark-notes" class="textarea" style="background: var(--surface-dark-elevated); border-color: var(--surface-dark-border); color: var(--text-dark-primary);" placeholder="Anything we should know..."></textarea>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tags -->
+            <h3 class="palette-group-title" style="margin-top: var(--space-2xl);">Tags & Badges</h3>
+            <div class="mode-preview">
+              <div class="mode-preview-panel mode-preview-light">
+                <div class="mode-label">Light Mode</div>
+                <div class="tags">
+                  <span class="tag tag-primary">Balanced</span>
+                  <span class="tag tag-success">Ready</span>
+                  <span class="tag tag-warning">Low stock</span>
+                  <span class="tag tag-error">Allergen</span>
+                  <span class="tag tag-info">New recipe</span>
+                  <span class="tag tag-warm">Favorite</span>
+                </div>
+              </div>
+              <div class="mode-preview-panel mode-preview-dark">
+                <div class="mode-label">Dark Mode</div>
+                <div class="tags">
+                  <span class="tag tag-primary">Balanced</span>
+                  <span class="tag tag-success">Ready</span>
+                  <span class="tag tag-warning">Low stock</span>
+                  <span class="tag tag-error">Allergen</span>
+                  <span class="tag tag-info">New recipe</span>
+                  <span class="tag tag-warm">Favorite</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- =============================================
+           06 — DON'T
+           ============================================= -->
+      <section id="dont">
+        <p class="section-label">06 — Don't</p>
+        <h2 class="section-title">Negative Rules</h2>
+        <p class="section-description">
+          These are explicit violations of the NutriPlan brand system. Avoid them in every context.
+        </p>
+
+        <div class="dont-grid">
+          <div class="dont-card">
+            <div class="dont-label">Don't</div>
+            <div class="dont-example">
+              <span style="font-family: var(--font-heading); font-weight: 800; font-size: 1.5rem; transform: scaleX(1.35); display: inline-block; color: var(--text-primary);">NutriPlan</span>
+            </div>
+            <p class="dont-text">Never stretch or compress the wordmark. Always use it at its original proportions.</p>
+          </div>
+
+          <div class="dont-card">
+            <div class="dont-label">Don't</div>
+            <div class="dont-example">
+              <span style="font-family: var(--font-heading); font-weight: 800; font-size: 1.5rem; background: linear-gradient(135deg, var(--color-primary), var(--color-warm)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">NutriPlan</span>
+            </div>
+            <p class="dont-text">Never apply gradients to the wordmark. The logo must always use flat, solid colors.</p>
+          </div>
+
+          <div class="dont-card">
+            <div class="dont-label">Don't</div>
+            <div class="dont-example">
+              <span style="font-family: Arial, sans-serif; font-weight: bold; font-size: 1.5rem; color: var(--text-primary);">NutriPlan</span>
+            </div>
+            <p class="dont-text">Never render the wordmark in unapproved typefaces. Always use Figtree 800.</p>
+          </div>
+
+          <div class="dont-card">
+            <div class="dont-label">Don't</div>
+            <div class="dont-example">
+              <span style="font-family: var(--font-body); font-size: 10px; color: var(--text-primary);">Weekly meal plan for your family of four with dietary needs taken into account.</span>
+            </div>
+            <p class="dont-text">Never set body text below 14px (0.875rem). Readability is non-negotiable, especially for recipes.</p>
+          </div>
+
+          <div class="dont-card">
+            <div class="dont-label">Don't</div>
+            <div class="dont-example">
+              <span style="font-family: var(--font-heading); font-weight: 800; font-size: 1.5rem; transform: rotate(-12deg); display: inline-block; color: var(--text-primary);">NutriPlan</span>
+            </div>
+            <p class="dont-text">Never rotate the wordmark. It should always sit on a horizontal baseline.</p>
+          </div>
+
+          <div class="dont-card">
+            <div class="dont-label">Don't</div>
+            <div class="dont-example">
+              <button type="button" style="padding: 8px 16px; border: none; border-radius: var(--radius-md); font-family: var(--font-heading); font-weight: 600; font-size: 0.875rem; background: var(--color-primary); color: #fdfcfa; outline: none;" tabindex="-1">Submit Plan</button>
+              <p style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-tertiary); margin-top: var(--space-sm);">No visible focus ring on keyboard navigation</p>
+            </div>
+            <p class="dont-text">Never remove focus indicators from interactive elements. Keyboard accessibility is required.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer style="padding: var(--space-2xl); text-align: center;">
+        <p style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-tertiary);">
+          NutriPlan Brandbook &middot; Generated with Brandbook Design System &middot; <span style="font-variant-numeric: tabular-nums;">2026</span>
+        </p>
+      </footer>
+    </main>
+  </div>
+
+  <!-- Scroll-based active section highlighting -->
+  <script>
+    (function () {
+      var navLinks = document.querySelectorAll('.sidebar-nav a');
+      var sections = document.querySelectorAll('section[id]');
+
+      if (!sections.length || !navLinks.length) return;
+
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            navLinks.forEach(function (link) { link.classList.remove('active'); });
+            var active = document.querySelector('.sidebar-nav a[href="#' + entry.target.id + '"]');
+            if (active) active.classList.add('active');
+          }
+        });
+      }, {
+        rootMargin: '-20% 0px -70% 0px',
+        threshold: 0
+      });
+
+      sections.forEach(function (section) { observer.observe(section); });
+    })();
+  </script>
+</body>
+</html>

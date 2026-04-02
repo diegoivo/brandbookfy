@@ -1,0 +1,1947 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#5C3A1E">
+  <title>Torrefazione Nera — Brand Guidelines</title>
+
+  <!-- Preconnect to Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700&family=Manrope:wght@200;300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================
+       DESIGN TOKENS — Torrefazione Nera
+       ============================================ */
+    :root {
+      /* Core — espresso brown */
+      --color-primary-light: #8B6344;
+      --color-primary: #5C3A1E;
+      --color-primary-dark: #3D2412;
+
+      /* Accents */
+      --color-warm: #B86E3A;
+      --color-warm-light: #D4915A;
+      --color-cool: #6B7F5E;
+      --color-cool-light: #8FA07E;
+
+      /* Semantic */
+      --color-success: #4A7B3C;
+      --color-warning: #C47F2A;
+      --color-error: #A63D2F;
+      --color-info: #5A7C8A;
+
+      /* Surfaces — Light */
+      --surface-page: #FAF6F2;
+      --surface-card: #FDF9F5;
+      --surface-elevated: #F0EAE2;
+      --surface-border: #E0D6CA;
+
+      /* Surfaces — Dark */
+      --surface-dark-deep: #120D08;
+      --surface-dark-base: #1C1410;
+      --surface-dark-elevated: #2A2018;
+      --surface-dark-border: #3E3228;
+
+      /* Text — Light */
+      --text-primary: #2A1E14;
+      --text-secondary: #5E4F42;
+      --text-tertiary: #8C7D70;
+      --text-disabled: #B5A99D;
+
+      /* Text — Dark */
+      --text-dark-primary: #F2ECE6;
+      --text-dark-secondary: #BFB3A5;
+      --text-dark-tertiary: #8C7D70;
+      --text-dark-disabled: #5E4F42;
+
+      /* Typography */
+      --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+      --font-heading: 'Manrope', system-ui, -apple-system, sans-serif;
+      --font-body: 'Manrope', system-ui, -apple-system, sans-serif;
+      --font-mono: 'IBM Plex Mono', 'Fira Code', 'Cascadia Code', monospace;
+
+      /* Spacing */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2rem;
+      --space-2xl: 3rem;
+      --space-3xl: 4rem;
+      --space-4xl: 6rem;
+
+      /* Radii */
+      --radius-sm: 0.25rem;
+      --radius-md: 0.375rem;
+      --radius-lg: 0.625rem;
+      --radius-xl: 1rem;
+      --radius-full: 9999px;
+
+      /* Layout */
+      --sidebar-width: 240px;
+      --content-max: 960px;
+    }
+
+    /* ============================================
+       RESET & BASE
+       ============================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: clamp(15px, 1vw + 12px, 18px);
+      scroll-behavior: smooth;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    body {
+      font-family: var(--font-body);
+      font-weight: 400;
+      line-height: 1.6;
+      color: var(--text-primary);
+      background-color: var(--surface-page);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+
+    /* Noise texture overlay */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.035;
+      z-index: 9999;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* ============================================
+       SKIP LINK
+       ============================================ */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: var(--space-md);
+      padding: var(--space-sm) var(--space-md);
+      background: var(--color-primary);
+      color: #FDF9F5;
+      border-radius: var(--radius-md);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      text-decoration: none;
+      z-index: 10000;
+      transition: top 0.2s;
+    }
+
+    .skip-link:focus {
+      top: var(--space-md);
+    }
+
+    /* ============================================
+       FOCUS STYLES
+       ============================================ */
+    :focus-visible {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 2px;
+    }
+
+    /* ============================================
+       LAYOUT
+       ============================================ */
+    .layout {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* ============================================
+       SIDEBAR — own dark chrome, independent from brand content
+       ============================================ */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: var(--sidebar-width);
+      height: 100vh;
+      padding: var(--space-xl) var(--space-lg);
+      background: var(--surface-dark-base);
+      color: var(--text-dark-primary);
+      overflow-y: auto;
+      z-index: 100;
+      border-right: 1px solid var(--surface-dark-border);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar-logo {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: 1.6rem;
+      letter-spacing: -0.02em;
+      margin-bottom: var(--space-2xl);
+      background: linear-gradient(135deg, var(--color-primary-light), var(--color-primary-dark));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .sidebar-nav {
+      list-style: none;
+    }
+
+    .sidebar-nav li {
+      margin-bottom: var(--space-xs);
+    }
+
+    .sidebar-nav a {
+      display: block;
+      padding: var(--space-sm) var(--space-md);
+      color: var(--text-dark-tertiary);
+      text-decoration: none;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.02em;
+      border-radius: var(--radius-md);
+      transition: color 0.15s;
+    }
+
+    .sidebar-nav a:hover,
+    .sidebar-nav a:focus-visible {
+      color: var(--text-dark-primary);
+    }
+
+    .sidebar-nav a.active {
+      color: var(--text-dark-primary);
+      background: var(--surface-dark-border);
+      border-radius: var(--radius-md) 0 0 var(--radius-md);
+      margin-right: calc(var(--space-lg) * -1);
+      padding-right: calc(var(--space-md) + var(--space-lg));
+    }
+
+    .sidebar-nav .section-number {
+      color: var(--color-primary-light);
+      margin-right: var(--space-sm);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .sidebar-credit {
+      margin-top: auto;
+      padding-top: var(--space-lg);
+    }
+
+    .sidebar-credit a {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: var(--text-dark-disabled);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: color 0.15s;
+    }
+
+    .sidebar-credit a:hover {
+      color: var(--text-dark-tertiary);
+    }
+
+    /* ============================================
+       CONTENT
+       ============================================ */
+    .content {
+      margin-left: var(--sidebar-width);
+      flex: 1;
+      min-width: 0;
+    }
+
+    /* ============================================
+       SECTIONS
+       ============================================ */
+    section {
+      padding: var(--space-4xl) var(--space-2xl);
+      max-width: var(--content-max);
+      margin: 0 auto;
+      color: var(--text-primary);
+    }
+
+    .section-alt {
+      background: var(--surface-elevated);
+      max-width: none;
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    .section-alt > .section-inner {
+      max-width: var(--content-max);
+      margin: 0 auto;
+      padding: 0 var(--space-2xl);
+    }
+
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-primary-dark);
+      margin-bottom: var(--space-sm);
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 2.441rem;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: var(--space-lg);
+      color: var(--text-primary);
+    }
+
+    .section-description {
+      color: var(--text-secondary);
+      max-width: 60ch;
+      margin-bottom: var(--space-2xl);
+    }
+
+    /* ============================================
+       HERO
+       ============================================ */
+    .hero {
+      padding: var(--space-4xl) var(--space-2xl);
+      max-width: var(--content-max);
+      margin: 0 auto;
+      min-height: 50vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+      padding: var(--space-xs) var(--space-md);
+      background: var(--surface-elevated);
+      border-radius: var(--radius-full);
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--color-primary-dark);
+      margin-bottom: var(--space-xl);
+      width: fit-content;
+    }
+
+    .hero-badge .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--color-primary);
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: 3.815rem;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: var(--space-lg);
+      color: var(--text-primary);
+    }
+
+    .hero-wordmark {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-style: italic;
+    }
+
+    .hero-wordmark-nera {
+      font-style: normal;
+      font-weight: 900;
+      color: var(--color-primary);
+    }
+
+    .hero-subtitle {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      max-width: 50ch;
+    }
+
+    /* ============================================
+       01 — ARCHETYPE
+       ============================================ */
+    .archetype-card {
+      background: var(--surface-card);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-2xl);
+      margin-bottom: var(--space-xl);
+    }
+
+    .archetype-name {
+      font-family: var(--font-display);
+      font-size: 1.953rem;
+      margin-bottom: var(--space-sm);
+      color: var(--text-primary);
+    }
+
+    .traits {
+      display: flex;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+      margin-bottom: var(--space-lg);
+    }
+
+    .trait {
+      padding: var(--space-xs) var(--space-md);
+      background: var(--surface-elevated);
+      border-radius: var(--radius-full);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--color-primary-dark);
+    }
+
+    .voice-guidelines {
+      margin-top: var(--space-xl);
+    }
+
+    .voice-guidelines h4 {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--text-primary);
+      margin-bottom: var(--space-md);
+    }
+
+    .voice-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--space-md);
+    }
+
+    .voice-item {
+      padding: var(--space-lg);
+      background: var(--surface-elevated);
+      border-radius: var(--radius-md);
+    }
+
+    .voice-item dt {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 0.875rem;
+      color: var(--color-primary-dark);
+      margin-bottom: var(--space-xs);
+    }
+
+    .voice-item dd {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+
+    /* ============================================
+       02 — WORDMARK
+       ============================================ */
+    .wordmark-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--space-lg);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .wordmark-variant {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-3xl) var(--space-xl);
+      border-radius: var(--radius-lg);
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: 2rem;
+      letter-spacing: -0.02em;
+      font-style: italic;
+    }
+
+    .wordmark-nera {
+      font-style: normal;
+      font-weight: 900;
+    }
+
+    .wordmark-on-light {
+      background: var(--surface-card);
+      border: 1px solid var(--surface-border);
+      color: var(--text-primary);
+    }
+
+    .wordmark-on-light .wordmark-nera {
+      color: var(--color-primary);
+    }
+
+    .wordmark-on-dark {
+      background: var(--surface-dark-base);
+      color: var(--text-dark-primary);
+    }
+
+    .wordmark-on-dark .wordmark-nera {
+      color: var(--color-primary-light);
+    }
+
+    .wordmark-on-brand {
+      background: var(--color-primary);
+      color: var(--color-warm-light);
+    }
+
+    .wordmark-on-brand .wordmark-nera {
+      color: #FDF9F5;
+    }
+
+    /* Clear space rules */
+    .clearspace {
+      margin-top: var(--space-2xl);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .clearspace-title {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-bottom: var(--space-md);
+      color: var(--text-primary);
+    }
+
+    .clearspace-demo {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-2xl);
+      background: var(--surface-card);
+      border: 2px dashed var(--color-warm);
+      border-radius: var(--radius-lg);
+      position: relative;
+    }
+
+    .clearspace-mark {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-style: italic;
+      color: var(--text-primary);
+      padding: var(--space-lg);
+      border: 1px solid var(--surface-border);
+      background: var(--surface-page);
+    }
+
+    .clearspace-mark .wordmark-nera {
+      font-style: normal;
+      font-weight: 900;
+      color: var(--color-primary);
+    }
+
+    .clearspace-note {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--color-warm);
+      position: absolute;
+      top: var(--space-sm);
+      left: var(--space-md);
+    }
+
+    /* Do / Don't */
+    .do-dont-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: var(--space-lg);
+      margin-top: var(--space-xl);
+    }
+
+    .do-card,
+    .dont-card-inline {
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+    }
+
+    .do-card {
+      border: 1.5px solid var(--color-success);
+      background: color-mix(in srgb, var(--color-success) 4%, var(--surface-card));
+    }
+
+    .dont-card-inline {
+      border: 1.5px solid var(--color-error);
+      background: color-mix(in srgb, var(--color-error) 4%, var(--surface-card));
+    }
+
+    .do-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-success);
+      margin-bottom: var(--space-md);
+    }
+
+    .dont-label-inline {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-error);
+      margin-bottom: var(--space-md);
+    }
+
+    .do-dont-example {
+      padding: var(--space-lg);
+      background: var(--surface-elevated);
+      border-radius: var(--radius-md);
+      margin-bottom: var(--space-md);
+      text-align: center;
+    }
+
+    .do-dont-text {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+
+    /* ============================================
+       03 — COLOR PALETTE
+       ============================================ */
+    .palette-group {
+      margin-bottom: var(--space-2xl);
+    }
+
+    .palette-group-title {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 1.25rem;
+      margin-bottom: var(--space-md);
+      color: var(--text-primary);
+    }
+
+    .swatches {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: var(--space-md);
+    }
+
+    .swatch {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--surface-border);
+    }
+
+    .swatch-color {
+      height: 80px;
+      display: flex;
+      align-items: flex-end;
+      padding: var(--space-sm);
+    }
+
+    .swatch-contrast {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      padding: 2px 6px;
+      border-radius: var(--radius-sm);
+      background: rgba(0,0,0,0.35);
+      color: #fff;
+    }
+
+    .swatch-info {
+      padding: var(--space-sm) var(--space-md);
+      background: var(--surface-card);
+    }
+
+    .swatch-name {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 0.8rem;
+      color: var(--text-primary);
+    }
+
+    .swatch-hex {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-tertiary);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .swatch-usage {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: var(--text-tertiary);
+      margin-top: 2px;
+    }
+
+    /* ============================================
+       04 — TYPOGRAPHY
+       ============================================ */
+    .type-specimen {
+      margin-bottom: var(--space-2xl);
+      padding: var(--space-2xl);
+      background: var(--surface-card);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius-lg);
+    }
+
+    .type-specimen-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-primary-dark);
+      margin-bottom: var(--space-md);
+    }
+
+    .type-specimen-sample {
+      margin-bottom: var(--space-md);
+      color: var(--text-primary);
+    }
+
+    .type-specimen-meta {
+      display: flex;
+      gap: var(--space-lg);
+      flex-wrap: wrap;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-tertiary);
+    }
+
+    .type-specimen-meta dt {
+      color: var(--text-secondary);
+    }
+
+    .type-specimen-meta dd {
+      font-variant-numeric: tabular-nums;
+    }
+
+    .type-scale-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: var(--space-xl);
+    }
+
+    .type-scale-table th,
+    .type-scale-table td {
+      padding: var(--space-sm) var(--space-md);
+      text-align: left;
+      border-bottom: 1px solid var(--surface-border);
+      font-size: 0.875rem;
+    }
+
+    .type-scale-table th {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      color: var(--text-primary);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .type-scale-table td {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .type-scale-table .scale-name {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    /* ============================================
+       05 — COMPONENTS
+       ============================================ */
+    .component-row {
+      display: flex;
+      gap: var(--space-md);
+      flex-wrap: wrap;
+      align-items: center;
+      margin-bottom: var(--space-xl);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-sm) var(--space-lg);
+      border-radius: var(--radius-md);
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 0.875rem;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.1s, box-shadow 0.1s;
+      text-decoration: none;
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+    .btn:active { transform: translateY(0); }
+
+    .btn-primary {
+      background: var(--color-primary);
+      color: #FDF9F5;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+    .btn-primary:hover {
+      background: var(--color-primary-dark);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.08);
+    }
+
+    .btn-secondary {
+      background: var(--surface-elevated);
+      color: var(--text-primary);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--color-primary);
+      border: 1.5px solid var(--color-primary);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-secondary);
+    }
+    .btn-ghost:hover {
+      background: var(--surface-elevated);
+      color: var(--text-primary);
+    }
+
+    .btn-destructive {
+      background: var(--color-error);
+      color: #FDF9F5;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--surface-card);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+
+    .card-interactive:hover {
+      box-shadow: 0 8px 24px rgba(42, 30, 20, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .card-featured {
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 1px var(--color-primary);
+    }
+
+    .card-title {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-bottom: var(--space-sm);
+      color: var(--text-primary);
+    }
+
+    .card-text {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+    }
+
+    /* Inputs */
+    .input-group {
+      margin-bottom: var(--space-lg);
+      max-width: 400px;
+    }
+
+    .input-label {
+      display: block;
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 0.8rem;
+      margin-bottom: var(--space-xs);
+      color: var(--text-primary);
+    }
+
+    .input {
+      width: 100%;
+      padding: var(--space-sm) var(--space-md);
+      border: 1.5px solid var(--surface-border);
+      border-radius: var(--radius-md);
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      color: var(--text-primary);
+      background: var(--surface-card);
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    .input:focus {
+      outline: none;
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 20%, transparent);
+    }
+
+    .input-error { border-color: var(--color-error); }
+    .input-error:focus { box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-error) 20%, transparent); }
+    .input:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .input-hint {
+      font-size: 0.75rem;
+      margin-top: var(--space-xs);
+      color: var(--text-tertiary);
+    }
+
+    .input-error-msg {
+      font-size: 0.75rem;
+      margin-top: var(--space-xs);
+      color: var(--color-error);
+    }
+
+    /* Tags */
+    .tags {
+      display: flex;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+    }
+
+    .tag-primary { background: color-mix(in srgb, var(--color-primary) 15%, transparent); color: var(--color-primary-dark); }
+    .tag-success { background: color-mix(in srgb, var(--color-success) 15%, transparent); color: var(--color-success); }
+    .tag-warning { background: color-mix(in srgb, var(--color-warning) 15%, transparent); color: var(--color-warning); }
+    .tag-error   { background: color-mix(in srgb, var(--color-error) 15%, transparent);   color: var(--color-error); }
+    .tag-info    { background: color-mix(in srgb, var(--color-info) 15%, transparent);    color: var(--color-info); }
+
+    /* ============================================
+       06 — DON'T RULES
+       ============================================ */
+    .dont-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--space-lg);
+    }
+
+    .dont-card {
+      border: 1.5px solid var(--color-error);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      background: color-mix(in srgb, var(--color-error) 3%, var(--surface-card));
+    }
+
+    .dont-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-error);
+      margin-bottom: var(--space-md);
+    }
+
+    .dont-example {
+      padding: var(--space-lg);
+      background: var(--surface-elevated);
+      border-radius: var(--radius-md);
+      margin-bottom: var(--space-md);
+      text-align: center;
+    }
+
+    .dont-text {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+
+    /* ============================================
+       DARK MODE PREVIEW PANELS
+       ============================================ */
+    .mode-preview {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-lg);
+      margin-bottom: var(--space-xl);
+    }
+
+    .mode-preview-panel {
+      padding: var(--space-xl);
+      border-radius: var(--radius-lg);
+    }
+
+    .mode-preview-light {
+      background: var(--surface-page);
+      color: var(--text-primary);
+      border: 1px solid var(--surface-border);
+    }
+
+    .mode-preview-dark {
+      background: var(--surface-dark-base);
+      color: var(--text-dark-primary);
+      border: 1px solid var(--surface-dark-border);
+    }
+
+    .mode-label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: var(--space-md);
+      opacity: 0.6;
+    }
+
+    /* ============================================
+       TEXT SWATCHES
+       ============================================ */
+    .text-swatch-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-lg);
+      margin-top: var(--space-lg);
+    }
+
+    .text-swatch-panel {
+      padding: var(--space-xl);
+      border-radius: var(--radius-lg);
+    }
+
+    .text-swatch-panel-light {
+      background: var(--surface-page);
+      border: 1px solid var(--surface-border);
+    }
+
+    .text-swatch-panel-dark {
+      background: var(--surface-dark-base);
+      border: 1px solid var(--surface-dark-border);
+    }
+
+    .text-swatch-row {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      margin-bottom: var(--space-sm);
+    }
+
+    .text-swatch-sample {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 0.875rem;
+      flex: 1;
+    }
+
+    .text-swatch-meta {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* ============================================
+       DARK MODE (auto via prefers-color-scheme)
+       ============================================ */
+    @media (prefers-color-scheme: dark) {
+      body {
+        color: var(--text-dark-primary);
+        background-color: var(--surface-dark-base);
+      }
+
+      section { color: var(--text-dark-primary); }
+      .section-title { color: var(--text-dark-primary); }
+      .section-label { color: var(--color-primary-light); }
+      .section-description { color: var(--text-dark-secondary); }
+      .section-alt { background: var(--surface-dark-elevated); }
+
+      .hero-badge { background: var(--surface-dark-elevated); color: var(--color-primary-light); }
+      .hero-title { color: var(--text-dark-primary); }
+      .hero-subtitle { color: var(--text-dark-secondary); }
+
+      .archetype-card { background: var(--surface-dark-elevated); border-color: var(--surface-dark-border); }
+      .archetype-name { color: var(--text-dark-primary); }
+      .trait { background: var(--surface-dark-deep); color: var(--color-primary-light); }
+      .voice-item { background: var(--surface-dark-deep); }
+      .voice-item dt { color: var(--color-primary-light); }
+      .voice-item dd { color: var(--text-dark-secondary); }
+      .voice-guidelines h4 { color: var(--text-dark-primary); }
+
+      .palette-group-title { color: var(--text-dark-primary); }
+      .swatch-info { background: var(--surface-dark-elevated); }
+      .swatch-name { color: var(--text-dark-primary); }
+      .swatch { border-color: var(--surface-dark-border); }
+      .swatch-hex { color: var(--text-dark-tertiary); }
+
+      .type-specimen { background: var(--surface-dark-elevated); border-color: var(--surface-dark-border); }
+      .type-specimen-sample { color: var(--text-dark-primary); }
+      .type-specimen-label { color: var(--color-primary-light); }
+      .type-scale-table th { color: var(--text-dark-primary); }
+      .type-scale-table td { color: var(--text-dark-secondary); }
+      .type-scale-table .scale-name { color: var(--text-dark-primary); }
+      .type-scale-table th,
+      .type-scale-table td { border-bottom-color: var(--surface-dark-border); }
+
+      .card { background: var(--surface-dark-elevated); border-color: var(--surface-dark-border); }
+      .card-title { color: var(--text-dark-primary); }
+      .card-text { color: var(--text-dark-secondary); }
+
+      .input { background: var(--surface-dark-elevated); border-color: var(--surface-dark-border); color: var(--text-dark-primary); }
+      .input-label { color: var(--text-dark-primary); }
+      .input-hint { color: var(--text-dark-tertiary); }
+
+      .btn-secondary { background: var(--surface-dark-elevated); color: var(--text-dark-primary); }
+      .btn-ghost { color: var(--text-dark-secondary); }
+      .btn-ghost:hover { background: var(--surface-dark-elevated); color: var(--text-dark-primary); }
+
+      .dont-card { background: color-mix(in srgb, var(--color-error) 5%, var(--surface-dark-elevated)); }
+      .dont-text { color: var(--text-dark-secondary); }
+      .dont-example { background: var(--surface-dark-deep); }
+
+      .do-card { background: color-mix(in srgb, var(--color-success) 5%, var(--surface-dark-elevated)); }
+      .dont-card-inline { background: color-mix(in srgb, var(--color-error) 5%, var(--surface-dark-elevated)); }
+      .do-dont-example { background: var(--surface-dark-deep); }
+      .do-dont-text { color: var(--text-dark-secondary); }
+
+      .clearspace-demo { background: var(--surface-dark-elevated); border-color: var(--color-warm); }
+      .clearspace-mark { background: var(--surface-dark-deep); border-color: var(--surface-dark-border); color: var(--text-dark-primary); }
+      .clearspace-mark .wordmark-nera { color: var(--color-primary-light); }
+      .clearspace-title { color: var(--text-dark-primary); }
+
+      .mode-preview-light {
+        background: var(--surface-page);
+        color: var(--text-primary);
+        border-color: var(--surface-border);
+      }
+    }
+
+    /* ============================================
+       RESPONSIVE
+       ============================================ */
+    @media (max-width: 768px) {
+      .sidebar { display: none; }
+      .content { margin-left: 0; }
+      .hero-title { font-size: 2.441rem; }
+      .mode-preview { grid-template-columns: 1fr; }
+      .wordmark-grid { grid-template-columns: 1fr; }
+      .do-dont-grid { grid-template-columns: 1fr; }
+      .text-swatch-grid { grid-template-columns: 1fr; }
+      .voice-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ============================================
+       PRINT
+       ============================================ */
+    @media print {
+      .sidebar { display: none; }
+      .content { margin-left: 0; }
+      .skip-link { display: none; }
+      body { background: #fff; color: #2A1E14; }
+      body::after { display: none; }
+      .section-alt { background: #F0EAE2; color: #2A1E14; }
+      .mode-preview-dark { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <div class="layout">
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar" aria-label="Brandbook sections">
+      <div class="sidebar-logo" aria-label="Brandbook">Brandbook</div>
+      <ul class="sidebar-nav" role="list">
+        <li><a href="#cover" class="active"><span class="section-number">00</span> Cover</a></li>
+        <li><a href="#archetype"><span class="section-number">01</span> Archetype</a></li>
+        <li><a href="#wordmark"><span class="section-number">02</span> Wordmark</a></li>
+        <li><a href="#colors"><span class="section-number">03</span> Colors</a></li>
+        <li><a href="#typography"><span class="section-number">04</span> Typography</a></li>
+        <li><a href="#components"><span class="section-number">05</span> Components</a></li>
+        <li><a href="#dont"><span class="section-number">06</span> Don&rsquo;t</a></li>
+      </ul>
+      <div class="sidebar-credit">
+        <a href="https://x.com/diegoivo" target="_blank" rel="noopener noreferrer">Created by @diegoivo</a>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="content" id="main">
+      <!-- 00 — Cover -->
+      <section id="cover" class="hero">
+        <div class="hero-badge">
+          <span class="dot"></span>
+          Brand Guidelines
+        </div>
+        <h1 class="hero-title">
+          <span class="hero-wordmark">Torrefazione <span class="hero-wordmark-nera">Nera</span></span>
+        </h1>
+        <p class="hero-subtitle">
+          Artisan Italian coffee roasted with tradition, delivered with intention. A brand identity forged in espresso and warmth.
+        </p>
+      </section>
+
+      <!-- 01 — Archetype -->
+      <section id="archetype">
+        <p class="section-label">01 — Archetype</p>
+        <h2 class="section-title">Brand Personality</h2>
+        <p class="section-description">
+          The archetype drives every visual and verbal decision &mdash; from the warmth of the palette to the weight of the wordmark.
+        </p>
+
+        <div class="archetype-card">
+          <h3 class="archetype-name">The Lover &times; Creator</h3>
+          <div class="traits">
+            <span class="trait">Passionate</span>
+            <span class="trait">Sophisticated</span>
+            <span class="trait">Artisanal</span>
+            <span class="trait">Sensorial</span>
+          </div>
+          <p class="section-description" style="margin-bottom: 0;">
+            Torrefazione Nera speaks as a devoted craftsperson who has spent decades perfecting a single art. The brand draws you in through the senses &mdash; the rich aroma of freshly ground beans, the dark sheen of a perfect crema, the warmth of a ceramic cup held between both hands. Every detail is deliberate, every experience an invitation to slow down and savor.
+          </p>
+
+          <div class="voice-guidelines">
+            <h4>Voice Guidelines</h4>
+            <dl class="voice-grid">
+              <div class="voice-item">
+                <dt>Tone</dt>
+                <dd>Warm, intimate, and knowledgeable &mdash; as if guiding a guest through a private tasting</dd>
+              </div>
+              <div class="voice-item">
+                <dt>Language</dt>
+                <dd>Sensory-rich, precise, occasionally poetic &mdash; never clinical or hurried</dd>
+              </div>
+              <div class="voice-item">
+                <dt>Cadence</dt>
+                <dd>Measured and unhurried, with the confidence of someone who trusts their craft</dd>
+              </div>
+              <div class="voice-item">
+                <dt>Avoid</dt>
+                <dd>Slang, hyperbole, aggressive sales language, trendy jargon, exclamation marks</dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+      </section>
+
+      <!-- 02 — Wordmark -->
+      <div class="section-alt">
+        <section id="wordmark">
+          <div class="section-inner">
+            <p class="section-label">02 — Logo &amp; Wordmark</p>
+            <h2 class="section-title">Wordmark System</h2>
+            <p class="section-description">
+              The wordmark pairs the italic display serif &ldquo;Torrefazione&rdquo; with the heavy-weight &ldquo;Nera&rdquo; anchor. The contrast between flowing italic and planted bold creates the brand's visual tension &mdash; tradition meeting presence.
+            </p>
+
+            <div class="wordmark-grid">
+              <div class="wordmark-variant wordmark-on-light">
+                Torrefazione <span class="wordmark-nera">Nera</span>
+              </div>
+              <div class="wordmark-variant wordmark-on-dark">
+                Torrefazione <span class="wordmark-nera">Nera</span>
+              </div>
+              <div class="wordmark-variant wordmark-on-brand">
+                Torrefazione <span class="wordmark-nera">Nera</span>
+              </div>
+            </div>
+
+            <!-- Clear Space -->
+            <div class="clearspace">
+              <h3 class="clearspace-title">Clear Space</h3>
+              <p class="section-description">
+                Minimum clear space equals the cap-height of the &ldquo;N&rdquo; in Nera. This padding ensures the wordmark breathes on any surface.
+              </p>
+              <div class="clearspace-demo">
+                <span class="clearspace-note">Cap-height = minimum padding</span>
+                <span class="clearspace-mark">Torrefazione <span class="wordmark-nera">Nera</span></span>
+              </div>
+            </div>
+
+            <!-- Do / Don't -->
+            <h3 class="clearspace-title" style="margin-top: var(--space-2xl);">Usage Rules</h3>
+            <div class="do-dont-grid">
+              <div class="do-card">
+                <div class="do-label">Do</div>
+                <div class="do-dont-example">
+                  <span style="font-family: var(--font-display); font-size: 1.3rem; font-style: italic; color: var(--text-primary);">Torrefazione <span style="font-style: normal; font-weight: 900; color: var(--color-primary);">Nera</span></span>
+                </div>
+                <p class="do-dont-text">Use the full wordmark with the italic/bold contrast intact.</p>
+              </div>
+              <div class="do-card">
+                <div class="do-label">Do</div>
+                <div class="do-dont-example">
+                  <span style="font-family: var(--font-display); font-size: 1.3rem; font-weight: 900; color: var(--text-primary);">Nera</span>
+                </div>
+                <p class="do-dont-text">Use the standalone &ldquo;Nera&rdquo; mark as a shorthand in constrained spaces.</p>
+              </div>
+              <div class="do-card">
+                <div class="do-label">Do</div>
+                <div class="do-dont-example" style="background: var(--surface-dark-base); padding: var(--space-xl);">
+                  <span style="font-family: var(--font-display); font-size: 1.3rem; font-style: italic; color: var(--text-dark-primary);">Torrefazione <span style="font-style: normal; font-weight: 900; color: var(--color-primary-light);">Nera</span></span>
+                </div>
+                <p class="do-dont-text">Adjust &ldquo;Nera&rdquo; to the lighter primary tint on dark backgrounds for legibility.</p>
+              </div>
+
+              <div class="dont-card-inline">
+                <div class="dont-label-inline">Don&rsquo;t</div>
+                <div class="do-dont-example">
+                  <span style="font-family: var(--font-display); font-weight: 800; font-size: 1.3rem; transform: scaleX(1.3); display: inline-block; color: var(--text-primary);">Torrefazione Nera</span>
+                </div>
+                <p class="do-dont-text">Never stretch or distort the wordmark. Maintain original proportions.</p>
+              </div>
+              <div class="dont-card-inline">
+                <div class="dont-label-inline">Don&rsquo;t</div>
+                <div class="do-dont-example">
+                  <span style="font-family: var(--font-display); font-weight: 800; font-size: 1.3rem; background: linear-gradient(135deg, var(--color-primary), var(--color-warm)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Torrefazione Nera</span>
+                </div>
+                <p class="do-dont-text">Never apply gradients to the wordmark. The logo must use flat, solid colors.</p>
+              </div>
+              <div class="dont-card-inline">
+                <div class="dont-label-inline">Don&rsquo;t</div>
+                <div class="do-dont-example">
+                  <span style="font-family: Arial, sans-serif; font-weight: bold; font-size: 1.3rem; color: var(--text-primary);">Torrefazione Nera</span>
+                </div>
+                <p class="do-dont-text">Never set the wordmark in a substitute font. Only Playfair Display is approved.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- 03 — Colors -->
+      <section id="colors">
+        <p class="section-label">03 — Color Palette</p>
+        <h2 class="section-title">Color System</h2>
+        <p class="section-description">
+          Rooted in the deep browns of espresso and the warm coppers of traditional Italian roasting machinery. Every accent and surface is tinted with the primary hue to maintain cohesion.
+        </p>
+
+        <!-- Core -->
+        <div class="palette-group">
+          <h3 class="palette-group-title">Core</h3>
+          <div class="swatches">
+            <div class="swatch">
+              <div class="swatch-color" style="background: #8B6344;">
+                <span class="swatch-contrast">AA 3.2:1</span>
+              </div>
+              <div class="swatch-info">
+                <div class="swatch-name">Primary Light</div>
+                <div class="swatch-hex">#8B6344</div>
+                <div class="swatch-usage">Hover states, tinted bgs</div>
+              </div>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background: #5C3A1E;">
+                <span class="swatch-contrast">AA 8.5:1</span>
+              </div>
+              <div class="swatch-info">
+                <div class="swatch-name">Primary</div>
+                <div class="swatch-hex">#5C3A1E</div>
+                <div class="swatch-usage">Brand anchor, CTAs</div>
+              </div>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background: #3D2412;">
+                <span class="swatch-contrast">AA 12.7:1</span>
+              </div>
+              <div class="swatch-info">
+                <div class="swatch-name">Primary Dark</div>
+                <div class="swatch-hex">#3D2412</div>
+                <div class="swatch-usage">Pressed states, text</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Accents -->
+        <div class="palette-group">
+          <h3 class="palette-group-title">Accents</h3>
+          <div class="swatches">
+            <div class="swatch">
+              <div class="swatch-color" style="background: #B86E3A;">
+                <span class="swatch-contrast">AA 3.7:1</span>
+              </div>
+              <div class="swatch-info">
+                <div class="swatch-name">Warm</div>
+                <div class="swatch-hex">#B86E3A</div>
+                <div class="swatch-usage">Highlights, CTAs</div>
+              </div>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background: #D4915A;">
+                <span class="swatch-contrast">AA 2.3:1</span>
+              </div>
+              <div class="swatch-info">
+                <div class="swatch-name">Warm Light</div>
+                <div class="swatch-hex">#D4915A</div>
+                <div class="swatch-usage">Decorative, tags</div>
+              </div>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background: #6B7F5E;">
+                <span class="swatch-contrast">AA 3.3:1</span>
+              </div>
+              <div class="swatch-info">
+                <div class="swatch-name">Cool</div>
+                <div class="swatch-hex">#6B7F5E</div>
+                <div class="swatch-usage">Data, links, metrics</div>
+              </div>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background: #8FA07E;">
+                <span class="swatch-contrast">AA 2.4:1</span>
+              </div>
+              <div class="swatch-info">
+                <div class="swatch-name">Cool Light</div>
+                <div class="swatch-hex">#8FA07E</div>
+                <div class="swatch-usage">Decorative, badges</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Semantic -->
+        <div class="palette-group">
+          <h3 class="palette-group-title">Semantic</h3>
+          <div class="swatches">
+            <div class="swatch">
+              <div class="swatch-color" style="background: #4A7B3C;">
+                <span class="swatch-contrast">AA 4.2:1</span>
+              </div>
+              <div class="swatch-info">
+                <div class="swatch-name">Success</div>
+                <div class="swatch-hex">#4A7B3C</div>
+              </div>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background: #C47F2A;">
+                <span class="swatch-contrast">AA 3.0:1</span>
+              </div>
+              <div class="swatch-info">
+                <div class="swatch-name">Warning</div>
+                <div class="swatch-hex">#C47F2A</div>
+              </div>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background: #A63D2F;">
+                <span class="swatch-contrast">AA 5.0:1</span>
+              </div>
+              <div class="swatch-info">
+                <div class="swatch-name">Error</div>
+                <div class="swatch-hex">#A63D2F</div>
+              </div>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background: #5A7C8A;">
+                <span class="swatch-contrast">AA 3.4:1</span>
+              </div>
+              <div class="swatch-info">
+                <div class="swatch-name">Info</div>
+                <div class="swatch-hex">#5A7C8A</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Surfaces — Light/Dark side by side -->
+        <div class="palette-group">
+          <h3 class="palette-group-title">Surfaces</h3>
+          <div class="mode-preview">
+            <div class="mode-preview-panel mode-preview-light">
+              <div class="mode-label">Light Mode</div>
+              <div class="swatches" style="grid-template-columns: 1fr;">
+                <div class="swatch">
+                  <div class="swatch-color" style="background: #FAF6F2; border: 1px solid var(--surface-border);"></div>
+                  <div class="swatch-info"><div class="swatch-name">Page</div><div class="swatch-hex">#FAF6F2</div></div>
+                </div>
+                <div class="swatch">
+                  <div class="swatch-color" style="background: #FDF9F5; border: 1px solid var(--surface-border);"></div>
+                  <div class="swatch-info"><div class="swatch-name">Card</div><div class="swatch-hex">#FDF9F5</div></div>
+                </div>
+                <div class="swatch">
+                  <div class="swatch-color" style="background: #F0EAE2;"></div>
+                  <div class="swatch-info"><div class="swatch-name">Elevated</div><div class="swatch-hex">#F0EAE2</div></div>
+                </div>
+                <div class="swatch">
+                  <div class="swatch-color" style="background: #E0D6CA;"></div>
+                  <div class="swatch-info"><div class="swatch-name">Border</div><div class="swatch-hex">#E0D6CA</div></div>
+                </div>
+              </div>
+            </div>
+            <div class="mode-preview-panel mode-preview-dark">
+              <div class="mode-label">Dark Mode</div>
+              <div class="swatches" style="grid-template-columns: 1fr;">
+                <div class="swatch" style="border-color: var(--surface-dark-border);">
+                  <div class="swatch-color" style="background: #120D08;"></div>
+                  <div class="swatch-info" style="background: var(--surface-dark-elevated);"><div class="swatch-name" style="color: var(--text-dark-primary);">Deep</div><div class="swatch-hex" style="color: var(--text-dark-tertiary);">#120D08</div></div>
+                </div>
+                <div class="swatch" style="border-color: var(--surface-dark-border);">
+                  <div class="swatch-color" style="background: #1C1410;"></div>
+                  <div class="swatch-info" style="background: var(--surface-dark-elevated);"><div class="swatch-name" style="color: var(--text-dark-primary);">Base</div><div class="swatch-hex" style="color: var(--text-dark-tertiary);">#1C1410</div></div>
+                </div>
+                <div class="swatch" style="border-color: var(--surface-dark-border);">
+                  <div class="swatch-color" style="background: #2A2018;"></div>
+                  <div class="swatch-info" style="background: var(--surface-dark-elevated);"><div class="swatch-name" style="color: var(--text-dark-primary);">Elevated</div><div class="swatch-hex" style="color: var(--text-dark-tertiary);">#2A2018</div></div>
+                </div>
+                <div class="swatch" style="border-color: var(--surface-dark-border);">
+                  <div class="swatch-color" style="background: #3E3228;"></div>
+                  <div class="swatch-info" style="background: var(--surface-dark-elevated);"><div class="swatch-name" style="color: var(--text-dark-primary);">Border</div><div class="swatch-hex" style="color: var(--text-dark-tertiary);">#3E3228</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Text Scales -->
+        <div class="palette-group">
+          <h3 class="palette-group-title">Text</h3>
+          <div class="text-swatch-grid">
+            <div class="text-swatch-panel text-swatch-panel-light">
+              <div class="mode-label">Light Mode</div>
+              <div class="text-swatch-row">
+                <span class="text-swatch-sample" style="color: #2A1E14;">Primary Text</span>
+                <span class="text-swatch-meta" style="color: var(--text-tertiary);">#2A1E14</span>
+              </div>
+              <div class="text-swatch-row">
+                <span class="text-swatch-sample" style="color: #5E4F42;">Secondary Text</span>
+                <span class="text-swatch-meta" style="color: var(--text-tertiary);">#5E4F42</span>
+              </div>
+              <div class="text-swatch-row">
+                <span class="text-swatch-sample" style="color: #8C7D70;">Tertiary Text</span>
+                <span class="text-swatch-meta" style="color: var(--text-tertiary);">#8C7D70</span>
+              </div>
+              <div class="text-swatch-row">
+                <span class="text-swatch-sample" style="color: #B5A99D;">Disabled Text</span>
+                <span class="text-swatch-meta" style="color: var(--text-tertiary);">#B5A99D</span>
+              </div>
+            </div>
+            <div class="text-swatch-panel text-swatch-panel-dark">
+              <div class="mode-label" style="color: var(--text-dark-tertiary);">Dark Mode</div>
+              <div class="text-swatch-row">
+                <span class="text-swatch-sample" style="color: #F2ECE6;">Primary Text</span>
+                <span class="text-swatch-meta" style="color: var(--text-dark-tertiary);">#F2ECE6</span>
+              </div>
+              <div class="text-swatch-row">
+                <span class="text-swatch-sample" style="color: #BFB3A5;">Secondary Text</span>
+                <span class="text-swatch-meta" style="color: var(--text-dark-tertiary);">#BFB3A5</span>
+              </div>
+              <div class="text-swatch-row">
+                <span class="text-swatch-sample" style="color: #8C7D70;">Tertiary Text</span>
+                <span class="text-swatch-meta" style="color: var(--text-dark-tertiary);">#8C7D70</span>
+              </div>
+              <div class="text-swatch-row">
+                <span class="text-swatch-sample" style="color: #5E4F42;">Disabled Text</span>
+                <span class="text-swatch-meta" style="color: var(--text-dark-tertiary);">#5E4F42</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 04 — Typography -->
+      <div class="section-alt">
+        <section id="typography">
+          <div class="section-inner">
+            <p class="section-label">04 — Typography</p>
+            <h2 class="section-title">Type System</h2>
+            <p class="section-description">
+              An editorial pairing inspired by vintage Italian cafe signage &mdash; the high-contrast Playfair Display serif for presence, the warm humanist Manrope for comfortable reading.
+            </p>
+
+            <!-- Display -->
+            <div class="type-specimen">
+              <div class="type-specimen-label">Display</div>
+              <div class="type-specimen-sample" style="font-family: var(--font-display); font-size: 3.052rem; line-height: 1.1; letter-spacing: -0.02em;">
+                Dalla tostatura al primo sorso
+              </div>
+              <dl class="type-specimen-meta">
+                <div><dt>Family</dt><dd>Playfair Display</dd></div>
+                <div><dt>Weight</dt><dd>400</dd></div>
+                <div><dt>Tracking</dt><dd>-0.02em</dd></div>
+                <div><dt>Line height</dt><dd>1.1</dd></div>
+              </dl>
+            </div>
+
+            <!-- Display Italic -->
+            <div class="type-specimen">
+              <div class="type-specimen-label">Display Italic</div>
+              <div class="type-specimen-sample" style="font-family: var(--font-display); font-style: italic; font-size: 2.441rem; line-height: 1.15; letter-spacing: -0.02em;">
+                Il caff&egrave; &egrave; un rito, non una bevanda
+              </div>
+              <dl class="type-specimen-meta">
+                <div><dt>Family</dt><dd>Playfair Display Italic</dd></div>
+                <div><dt>Weight</dt><dd>400</dd></div>
+                <div><dt>Tracking</dt><dd>-0.02em</dd></div>
+                <div><dt>Use</dt><dd>Wordmark, pull quotes, editorial emphasis</dd></div>
+              </dl>
+            </div>
+
+            <!-- Heading -->
+            <div class="type-specimen">
+              <div class="type-specimen-label">Heading</div>
+              <div class="type-specimen-sample" style="font-family: var(--font-heading); font-weight: 700; font-size: 1.953rem; line-height: 1.2; letter-spacing: -0.01em;">
+                Single Origin Beans, Roasted Daily
+              </div>
+              <dl class="type-specimen-meta">
+                <div><dt>Family</dt><dd>Manrope</dd></div>
+                <div><dt>Weight</dt><dd>500&ndash;800</dd></div>
+                <div><dt>Tracking</dt><dd>-0.01em</dd></div>
+                <div><dt>Line height</dt><dd>1.2</dd></div>
+              </dl>
+            </div>
+
+            <!-- Body -->
+            <div class="type-specimen">
+              <div class="type-specimen-label">Body</div>
+              <div class="type-specimen-sample" style="font-family: var(--font-body); font-size: 1rem; line-height: 1.6;">
+                Every bag of Torrefazione Nera begins its journey in the highlands where volcanic soil and morning mist shape each cherry. We roast in small batches, adjusting time and temperature by hand, coaxing out the character that the terroir has already written into the bean. The result is a cup that rewards patience and rewards attention.
+              </div>
+              <dl class="type-specimen-meta">
+                <div><dt>Family</dt><dd>Manrope</dd></div>
+                <div><dt>Weight</dt><dd>400</dd></div>
+                <div><dt>Tracking</dt><dd>0</dd></div>
+                <div><dt>Line height</dt><dd>1.6</dd></div>
+              </dl>
+            </div>
+
+            <!-- Mono -->
+            <div class="type-specimen">
+              <div class="type-specimen-label">Mono</div>
+              <div class="type-specimen-sample" style="font-family: var(--font-mono); font-size: 0.875rem; line-height: 1.5;">
+                origin: ethiopia-yirgacheffe | roast: medium | altitude: 1950m<br>
+                cupping-score: 87.5 | process: washed | harvest: 2025
+              </div>
+              <dl class="type-specimen-meta">
+                <div><dt>Family</dt><dd>IBM Plex Mono</dd></div>
+                <div><dt>Weight</dt><dd>400</dd></div>
+                <div><dt>Use</dt><dd>Labels, metadata, technical specs, roast data</dd></div>
+              </dl>
+            </div>
+
+            <!-- Type Scale Table -->
+            <h3 class="palette-group-title" style="margin-top: var(--space-2xl);">Type Scale</h3>
+            <table class="type-scale-table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Size</th>
+                  <th>Rem</th>
+                  <th>Line Height</th>
+                  <th>Use</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="scale-name">6xl</td>
+                  <td><span style="font-variant-numeric: tabular-nums;">61.04px</span></td>
+                  <td>3.815rem</td>
+                  <td>1.05</td>
+                  <td>Hero headlines</td>
+                </tr>
+                <tr>
+                  <td class="scale-name">5xl</td>
+                  <td><span style="font-variant-numeric: tabular-nums;">48.83px</span></td>
+                  <td>3.052rem</td>
+                  <td>1.1</td>
+                  <td>Section heroes</td>
+                </tr>
+                <tr>
+                  <td class="scale-name">4xl</td>
+                  <td><span style="font-variant-numeric: tabular-nums;">39.06px</span></td>
+                  <td>2.441rem</td>
+                  <td>1.15</td>
+                  <td>Page titles</td>
+                </tr>
+                <tr>
+                  <td class="scale-name">3xl</td>
+                  <td><span style="font-variant-numeric: tabular-nums;">31.25px</span></td>
+                  <td>1.953rem</td>
+                  <td>1.2</td>
+                  <td>Section headings</td>
+                </tr>
+                <tr>
+                  <td class="scale-name">2xl</td>
+                  <td><span style="font-variant-numeric: tabular-nums;">25.00px</span></td>
+                  <td>1.563rem</td>
+                  <td>1.25</td>
+                  <td>Subsection headings</td>
+                </tr>
+                <tr>
+                  <td class="scale-name">xl</td>
+                  <td><span style="font-variant-numeric: tabular-nums;">20.00px</span></td>
+                  <td>1.25rem</td>
+                  <td>1.4</td>
+                  <td>Lead text, large body</td>
+                </tr>
+                <tr>
+                  <td class="scale-name">base</td>
+                  <td><span style="font-variant-numeric: tabular-nums;">16.00px</span></td>
+                  <td>1rem</td>
+                  <td>1.6</td>
+                  <td>Body text</td>
+                </tr>
+                <tr>
+                  <td class="scale-name">sm</td>
+                  <td><span style="font-variant-numeric: tabular-nums;">12.80px</span></td>
+                  <td>0.8rem</td>
+                  <td>1.4</td>
+                  <td>Captions, labels</td>
+                </tr>
+                <tr>
+                  <td class="scale-name">xs</td>
+                  <td><span style="font-variant-numeric: tabular-nums;">10.24px</span></td>
+                  <td>0.64rem</td>
+                  <td>1.3</td>
+                  <td>Fine print only</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+
+      <!-- 05 — Components -->
+      <section id="components">
+        <p class="section-label">05 — Components</p>
+        <h2 class="section-title">UI Components</h2>
+        <p class="section-description">
+          Core components styled with Torrefazione Nera&rsquo;s design tokens, shown in both light and dark contexts.
+        </p>
+
+        <!-- Buttons -->
+        <h3 class="palette-group-title">Buttons</h3>
+        <div class="mode-preview">
+          <div class="mode-preview-panel mode-preview-light">
+            <div class="mode-label">Light Mode</div>
+            <div class="component-row">
+              <button type="button" class="btn btn-primary">Primary</button>
+              <button type="button" class="btn btn-secondary">Secondary</button>
+              <button type="button" class="btn btn-outline">Outline</button>
+              <button type="button" class="btn btn-ghost">Ghost</button>
+              <button type="button" class="btn btn-destructive">Delete</button>
+            </div>
+          </div>
+          <div class="mode-preview-panel mode-preview-dark">
+            <div class="mode-label">Dark Mode</div>
+            <div class="component-row">
+              <button type="button" class="btn btn-primary">Primary</button>
+              <button type="button" class="btn btn-secondary" style="background: var(--surface-dark-elevated); color: var(--text-dark-primary);">Secondary</button>
+              <button type="button" class="btn btn-outline" style="color: var(--color-primary-light); border-color: var(--color-primary-light);">Outline</button>
+              <button type="button" class="btn btn-ghost" style="color: var(--text-dark-secondary);">Ghost</button>
+              <button type="button" class="btn btn-destructive">Delete</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cards -->
+        <h3 class="palette-group-title" style="margin-top: var(--space-2xl);">Cards</h3>
+        <div class="mode-preview">
+          <div class="mode-preview-panel mode-preview-light">
+            <div class="mode-label">Light Mode</div>
+            <div class="card" style="margin-bottom: var(--space-md);">
+              <h4 class="card-title">Ethiopia Yirgacheffe</h4>
+              <p class="card-text">Bright citrus and floral honey notes with a clean, tea-like body. Washed process at 1,950m elevation.</p>
+            </div>
+            <div class="card card-interactive" style="margin-bottom: var(--space-md);">
+              <h4 class="card-title">Colombia Huila</h4>
+              <p class="card-text">Dark chocolate and stone fruit, full body with a long caramel finish. Natural process, hand-sorted.</p>
+            </div>
+            <div class="card card-featured">
+              <h4 class="card-title">Blend Classico &mdash; House Favourite</h4>
+              <p class="card-text">Our signature espresso: Brazil, Guatemala, and a whisper of Robusta for crema. Roasted for body and sweetness.</p>
+            </div>
+          </div>
+          <div class="mode-preview-panel mode-preview-dark">
+            <div class="mode-label">Dark Mode</div>
+            <div class="card" style="margin-bottom: var(--space-md); background: var(--surface-dark-elevated); border-color: var(--surface-dark-border);">
+              <h4 class="card-title" style="color: var(--text-dark-primary);">Ethiopia Yirgacheffe</h4>
+              <p class="card-text" style="color: var(--text-dark-secondary);">Bright citrus and floral honey notes with a clean, tea-like body. Washed process at 1,950m elevation.</p>
+            </div>
+            <div class="card card-interactive" style="margin-bottom: var(--space-md); background: var(--surface-dark-elevated); border-color: var(--surface-dark-border);">
+              <h4 class="card-title" style="color: var(--text-dark-primary);">Colombia Huila</h4>
+              <p class="card-text" style="color: var(--text-dark-secondary);">Dark chocolate and stone fruit, full body with a long caramel finish. Natural process, hand-sorted.</p>
+            </div>
+            <div class="card card-featured" style="background: var(--surface-dark-elevated); border-color: var(--color-primary-light);">
+              <h4 class="card-title" style="color: var(--text-dark-primary);">Blend Classico &mdash; House Favourite</h4>
+              <p class="card-text" style="color: var(--text-dark-secondary);">Our signature espresso: Brazil, Guatemala, and a whisper of Robusta for crema. Roasted for body and sweetness.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Inputs -->
+        <h3 class="palette-group-title" style="margin-top: var(--space-2xl);">Inputs</h3>
+        <div class="mode-preview">
+          <div class="mode-preview-panel mode-preview-light">
+            <div class="mode-label">Light Mode</div>
+            <div class="input-group">
+              <label for="input-default" class="input-label">Email Address</label>
+              <input type="email" id="input-default" name="email" class="input" placeholder="isabella@torrefazionenera.it" autocomplete="email">
+              <p class="input-hint">We will never share your email</p>
+            </div>
+            <div class="input-group">
+              <label for="input-err" class="input-label">Shipping Postcode</label>
+              <input type="text" id="input-err" name="postcode" class="input input-error" value="INVALID" autocomplete="postal-code">
+              <p class="input-error-msg">Please enter a valid postcode</p>
+            </div>
+            <div class="input-group">
+              <label for="input-dis" class="input-label">Roast Profile</label>
+              <input type="text" id="input-dis" name="roast" class="input" disabled value="Medium (locked)" autocomplete="off">
+            </div>
+          </div>
+          <div class="mode-preview-panel mode-preview-dark">
+            <div class="mode-label">Dark Mode</div>
+            <div class="input-group">
+              <label for="input-dark-default" class="input-label" style="color: var(--text-dark-primary);">Email Address</label>
+              <input type="email" id="input-dark-default" name="dark-email" class="input" style="background: var(--surface-dark-elevated); border-color: var(--surface-dark-border); color: var(--text-dark-primary);" placeholder="isabella@torrefazionenera.it" autocomplete="email">
+              <p class="input-hint" style="color: var(--text-dark-tertiary);">We will never share your email</p>
+            </div>
+            <div class="input-group">
+              <label for="input-dark-err" class="input-label" style="color: var(--text-dark-primary);">Shipping Postcode</label>
+              <input type="text" id="input-dark-err" name="dark-postcode" class="input input-error" style="background: var(--surface-dark-elevated); color: var(--text-dark-primary);" value="INVALID" autocomplete="postal-code">
+              <p class="input-error-msg">Please enter a valid postcode</p>
+            </div>
+            <div class="input-group">
+              <label for="input-dark-dis" class="input-label" style="color: var(--text-dark-primary);">Roast Profile</label>
+              <input type="text" id="input-dark-dis" name="dark-roast" class="input" style="background: var(--surface-dark-elevated); border-color: var(--surface-dark-border); color: var(--text-dark-primary);" disabled value="Medium (locked)" autocomplete="off">
+            </div>
+          </div>
+        </div>
+
+        <!-- Tags -->
+        <h3 class="palette-group-title" style="margin-top: var(--space-2xl);">Tags &amp; Badges</h3>
+        <div class="mode-preview">
+          <div class="mode-preview-panel mode-preview-light">
+            <div class="mode-label">Light Mode</div>
+            <div class="tags">
+              <span class="tag tag-primary">Single Origin</span>
+              <span class="tag tag-success">In Stock</span>
+              <span class="tag tag-warning">Limited Batch</span>
+              <span class="tag tag-error">Sold Out</span>
+              <span class="tag tag-info">New Arrival</span>
+            </div>
+          </div>
+          <div class="mode-preview-panel mode-preview-dark">
+            <div class="mode-label">Dark Mode</div>
+            <div class="tags">
+              <span class="tag tag-primary">Single Origin</span>
+              <span class="tag tag-success">In Stock</span>
+              <span class="tag tag-warning">Limited Batch</span>
+              <span class="tag tag-error">Sold Out</span>
+              <span class="tag tag-info">New Arrival</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 06 — Don't -->
+      <div class="section-alt">
+        <section id="dont">
+          <div class="section-inner">
+            <p class="section-label">06 — Don&rsquo;t</p>
+            <h2 class="section-title">Negative Rules</h2>
+            <p class="section-description">
+              These are explicit violations of the brand system. Each one undermines the identity that Torrefazione Nera has built.
+            </p>
+
+            <div class="dont-grid">
+              <div class="dont-card">
+                <div class="dont-label">Don&rsquo;t</div>
+                <div class="dont-example">
+                  <span style="font-family: var(--font-display); font-weight: 800; font-size: 1.4rem; transform: scaleX(1.3); display: inline-block; color: var(--text-primary);">Torrefazione Nera</span>
+                </div>
+                <p class="dont-text">Never stretch or distort the wordmark. It must always appear at its original aspect ratio.</p>
+              </div>
+
+              <div class="dont-card">
+                <div class="dont-label">Don&rsquo;t</div>
+                <div class="dont-example">
+                  <span style="font-family: var(--font-display); font-weight: 800; font-size: 1.4rem; background: linear-gradient(135deg, #5C3A1E, #B86E3A); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Torrefazione Nera</span>
+                </div>
+                <p class="dont-text">Never apply gradients to the logo. The wordmark must always use flat, solid color.</p>
+              </div>
+
+              <div class="dont-card">
+                <div class="dont-label">Don&rsquo;t</div>
+                <div class="dont-example">
+                  <span style="font-family: Arial, sans-serif; font-weight: bold; font-size: 1.4rem; color: var(--text-primary);">Torrefazione Nera</span>
+                </div>
+                <p class="dont-text">Never substitute the typeface. The wordmark must always use Playfair Display.</p>
+              </div>
+
+              <div class="dont-card">
+                <div class="dont-label">Don&rsquo;t</div>
+                <div class="dont-example">
+                  <span style="font-family: var(--font-body); font-size: 10px; color: var(--text-primary);">Torrefazione Nera reserves the right to roast only the finest beans from sustainable farms worldwide.</span>
+                </div>
+                <p class="dont-text">Never set body text below 14px (0.875rem). Readability cannot be compromised for aesthetics.</p>
+              </div>
+
+              <div class="dont-card">
+                <div class="dont-label">Don&rsquo;t</div>
+                <div class="dont-example">
+                  <span style="font-family: var(--font-display); font-weight: 900; font-size: 1.4rem; color: #3498db;">Torrefazione <span style="color: #2980b9;">Nera</span></span>
+                </div>
+                <p class="dont-text">Never use blue or cold tones on the wordmark. The brand palette is warm &mdash; espresso, copper, cream.</p>
+              </div>
+
+              <div class="dont-card">
+                <div class="dont-label">Don&rsquo;t</div>
+                <div class="dont-example">
+                  <button type="button" style="font-family: var(--font-heading); font-size: 0.875rem; padding: 8px 16px; background: var(--color-primary); color: #FDF9F5; border: none; border-radius: var(--radius-md); outline: none; cursor: pointer;">Order Now</button>
+                  <span style="font-family: var(--font-mono); font-size: 0.65rem; display: block; margin-top: 8px; color: var(--color-error);">outline: none &mdash; no focus ring</span>
+                </div>
+                <p class="dont-text">Never remove focus indicators from interactive elements. Accessibility is not optional.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Footer -->
+      <footer style="padding: var(--space-2xl); text-align: center;">
+        <p style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-tertiary);">
+          Torrefazione Nera &mdash; Brand Guidelines &middot; <span style="font-variant-numeric: tabular-nums;">2026</span>
+        </p>
+      </footer>
+    </main>
+  </div>
+
+  <!-- Scroll-based active section highlighting -->
+  <script>
+    (function () {
+      var navLinks = document.querySelectorAll('.sidebar-nav a');
+      var sections = document.querySelectorAll('section[id]');
+
+      if (!sections.length || !navLinks.length) return;
+
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            navLinks.forEach(function (link) { link.classList.remove('active'); });
+            var active = document.querySelector('.sidebar-nav a[href="#' + entry.target.id + '"]');
+            if (active) active.classList.add('active');
+          }
+        });
+      }, {
+        rootMargin: '-20% 0px -70% 0px',
+        threshold: 0
+      });
+
+      sections.forEach(function (section) { observer.observe(section); });
+    })();
+  </script>
+</body>
+</html>

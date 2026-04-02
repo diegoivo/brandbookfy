@@ -28,16 +28,18 @@ Three brandbooks generated with Brandbookfy — same skill, completely different
 
 ### All examples generated during testing
 
-- **NutriPlan** — Meal planning app. Sage green, Fraunces serif, Caregiver archetype
-- **PixelForge** — Indie game studio. Electric magenta + cyan, Unbounded, Creator archetype
-- **Ledgr** — Fintech dashboard. Deep teal + amber, Outfit sans, Sage archetype
-- **Maison.** — Luxury real estate. Charcoal + gold, Cormorant serif, Ruler archetype
-- **stillpoint** — Meditation app. Warm stone + olive, Cormorant serif, Innocent archetype
-- **VAULTKEY** — Cybersecurity platform. Terminal green on black, Cabinet Grotesk, Hero archetype
-- **Torrefazione Nera** — Artisan coffee roaster. Espresso brown + copper, Playfair Display, Lover archetype
-- **< CodePath />** — Coding bootcamp. Deep indigo + chartreuse, Fira Code mono, Magician archetype
-- **re:thread** — Sustainable fashion. Clay terracotta + forest green, Outfit sans, Explorer archetype
-- **Lex§** — Legal tech SaaS. Deep navy + bronze, DM Serif Display, Sage archetype
+| | Brand | Description |
+|:---:|---|---|
+| <a href="https://diegoivo.github.io/brandbookfy/examples/nutriplan-meal-planning.html"><img src="assets/screenshots/nutriplan-meal-planning.png" width="120"></a> | [**NutriPlan**](https://diegoivo.github.io/brandbookfy/examples/nutriplan-meal-planning.html) | Meal planning app. Sage green, Fraunces serif, Caregiver archetype |
+| <a href="https://diegoivo.github.io/brandbookfy/examples/pixelforge-indie-games.html"><img src="assets/screenshots/pixelforge-indie-games.png" width="120"></a> | [**PixelForge**](https://diegoivo.github.io/brandbookfy/examples/pixelforge-indie-games.html) | Indie game studio. Electric magenta + cyan, Unbounded, Creator archetype |
+| <a href="https://diegoivo.github.io/brandbookfy/examples/ledgr-fintech.html"><img src="assets/screenshots/ledgr-fintech.png" width="120"></a> | [**Ledgr**](https://diegoivo.github.io/brandbookfy/examples/ledgr-fintech.html) | Fintech dashboard. Deep teal + amber, Outfit sans, Sage archetype |
+| <a href="https://diegoivo.github.io/brandbookfy/examples/maison-luxury-realestate.html"><img src="assets/screenshots/maison-luxury-realestate.png" width="120"></a> | [**Maison.**](https://diegoivo.github.io/brandbookfy/examples/maison-luxury-realestate.html) | Luxury real estate. Charcoal + gold, Cormorant serif, Ruler archetype |
+| <a href="https://diegoivo.github.io/brandbookfy/examples/stillpoint-wellness.html"><img src="assets/screenshots/stillpoint-wellness.png" width="120"></a> | [**stillpoint**](https://diegoivo.github.io/brandbookfy/examples/stillpoint-wellness.html) | Meditation app. Warm stone + olive, Cormorant serif, Innocent archetype |
+| <a href="https://diegoivo.github.io/brandbookfy/examples/vaultkey-cybersecurity.html"><img src="assets/screenshots/vaultkey-cybersecurity.png" width="120"></a> | [**VAULTKEY**](https://diegoivo.github.io/brandbookfy/examples/vaultkey-cybersecurity.html) | Cybersecurity platform. Terminal green on black, Cabinet Grotesk, Hero archetype |
+| <a href="https://diegoivo.github.io/brandbookfy/examples/torrefazione-nera-coffee.html"><img src="assets/screenshots/torrefazione-nera-coffee.png" width="120"></a> | [**Torrefazione Nera**](https://diegoivo.github.io/brandbookfy/examples/torrefazione-nera-coffee.html) | Artisan coffee roaster. Espresso brown + copper, Playfair Display, Lover archetype |
+| <a href="https://diegoivo.github.io/brandbookfy/examples/codepath-edtech.html"><img src="assets/screenshots/codepath-edtech.png" width="120"></a> | [**< CodePath />**](https://diegoivo.github.io/brandbookfy/examples/codepath-edtech.html) | Coding bootcamp. Deep indigo + chartreuse, Fira Code mono, Magician archetype |
+| <a href="https://diegoivo.github.io/brandbookfy/examples/rethread-fashion.html"><img src="assets/screenshots/rethread-fashion.png" width="120"></a> | [**re:thread**](https://diegoivo.github.io/brandbookfy/examples/rethread-fashion.html) | Sustainable fashion. Clay terracotta + forest green, Outfit sans, Explorer archetype |
+| <a href="https://diegoivo.github.io/brandbookfy/examples/lex-legaltech.html"><img src="assets/screenshots/lex-legaltech.png" width="120"></a> | [**Lex§**](https://diegoivo.github.io/brandbookfy/examples/lex-legaltech.html) | Legal tech SaaS. Deep navy + bronze, DM Serif Display, Sage archetype |
 
 ## Install
 

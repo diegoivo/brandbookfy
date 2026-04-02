@@ -1,0 +1,2068 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#1a7a72">
+  <title>Ledgr — Brand Guidelines</title>
+
+  <!-- Preconnect to Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Manrope:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================
+       DESIGN TOKENS
+       ============================================ */
+    :root {
+      /* Core */
+      --color-primary-light: #4db8ac;
+      --color-primary: #1a7a72;
+      --color-primary-dark: #0e524d;
+
+      /* Accents */
+      --color-warm: #c6872b;
+      --color-warm-light: #e5a94e;
+      --color-cool: #3d7fc4;
+      --color-cool-light: #6b9fd6;
+
+      /* Semantic */
+      --color-success: #1a8a52;
+      --color-warning: #c6872b;
+      --color-error: #c43d3d;
+      --color-info: #3d6fc4;
+
+      /* Surfaces — Light */
+      --surface-page: #f7f9f8;
+      --surface-card: #f0f4f3;
+      --surface-elevated: #e6ecea;
+      --surface-border: #d0d9d7;
+
+      /* Surfaces — Dark */
+      --surface-dark-deep: #071614;
+      --surface-dark-base: #0c201e;
+      --surface-dark-elevated: #142e2b;
+      --surface-dark-border: #1e3f3b;
+
+      /* Text — Light */
+      --text-primary: #0e2421;
+      --text-secondary: #3d5c58;
+      --text-tertiary: #6b8b86;
+      --text-disabled: #99b3af;
+
+      /* Text — Dark */
+      --text-dark-primary: #e8f1ef;
+      --text-dark-secondary: #a8c4bf;
+      --text-dark-tertiary: #6b8b86;
+      --text-dark-disabled: #3d5c58;
+
+      /* Typography */
+      --font-display: 'Outfit', 'Avenir', 'Segoe UI', sans-serif;
+      --font-heading: 'Outfit', 'Avenir', 'Segoe UI', sans-serif;
+      --font-body: 'Manrope', 'Avenir', 'Segoe UI', sans-serif;
+      --font-mono: 'IBM Plex Mono', 'Fira Code', 'Cascadia Code', monospace;
+
+      /* Spacing */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2rem;
+      --space-2xl: 3rem;
+      --space-3xl: 4rem;
+      --space-4xl: 6rem;
+
+      /* Radii */
+      --radius-sm: 0.25rem;
+      --radius-md: 0.375rem;
+      --radius-lg: 0.625rem;
+      --radius-xl: 0.875rem;
+      --radius-full: 9999px;
+
+      /* Layout */
+      --sidebar-width: 240px;
+      --content-max: 960px;
+    }
+
+    /* ============================================
+       RESET & BASE
+       ============================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: clamp(15px, 1vw + 12px, 18px);
+      scroll-behavior: smooth;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    body {
+      font-family: var(--font-body);
+      font-weight: 400;
+      line-height: 1.6;
+      color: var(--text-primary);
+      background-color: var(--surface-page);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+
+    /* Noise texture overlay */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.025;
+      z-index: 9999;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* ============================================
+       SKIP LINK
+       ============================================ */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: var(--space-md);
+      padding: var(--space-sm) var(--space-md);
+      background: var(--color-primary);
+      color: #fff;
+      border-radius: var(--radius-md);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      text-decoration: none;
+      z-index: 10000;
+      transition: top 0.2s;
+    }
+
+    .skip-link:focus {
+      top: var(--space-md);
+    }
+
+    /* ============================================
+       FOCUS STYLES
+       ============================================ */
+    :focus-visible {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 2px;
+    }
+
+    /* ============================================
+       LAYOUT
+       ============================================ */
+    .layout {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* ============================================
+       SIDEBAR
+       ============================================ */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: var(--sidebar-width);
+      height: 100vh;
+      padding: var(--space-xl) var(--space-lg);
+      background: var(--surface-dark-base);
+      color: var(--text-dark-primary);
+      overflow-y: auto;
+      z-index: 100;
+      border-right: 1px solid var(--surface-dark-border);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar-logo {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: 1.6rem;
+      letter-spacing: -0.02em;
+      margin-bottom: var(--space-2xl);
+      background: linear-gradient(135deg, var(--color-primary-light), var(--color-primary-dark));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .sidebar-nav {
+      list-style: none;
+    }
+
+    .sidebar-nav li {
+      margin-bottom: var(--space-xs);
+    }
+
+    .sidebar-nav a {
+      display: block;
+      padding: var(--space-sm) var(--space-md);
+      color: var(--text-dark-tertiary);
+      text-decoration: none;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.02em;
+      border-radius: var(--radius-md);
+      transition: color 0.15s;
+    }
+
+    .sidebar-nav a:hover,
+    .sidebar-nav a:focus-visible {
+      color: var(--text-dark-primary);
+    }
+
+    .sidebar-nav a.active {
+      color: var(--text-dark-primary);
+      background: var(--surface-dark-border);
+      border-radius: var(--radius-md) 0 0 var(--radius-md);
+      margin-right: calc(var(--space-lg) * -1);
+      padding-right: calc(var(--space-md) + var(--space-lg));
+    }
+
+    .sidebar-nav .section-number {
+      color: var(--color-primary-light);
+      margin-right: var(--space-sm);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .sidebar-credit {
+      margin-top: auto;
+      padding-top: var(--space-lg);
+    }
+
+    .sidebar-credit a {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: var(--text-dark-disabled);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: color 0.15s;
+    }
+
+    .sidebar-credit a:hover {
+      color: var(--text-dark-tertiary);
+    }
+
+    /* ============================================
+       CONTENT
+       ============================================ */
+    .content {
+      margin-left: var(--sidebar-width);
+      flex: 1;
+      min-width: 0;
+    }
+
+    /* ============================================
+       SECTIONS
+       ============================================ */
+    section {
+      padding: var(--space-4xl) var(--space-2xl);
+      max-width: var(--content-max);
+      margin: 0 auto;
+      color: var(--text-primary);
+    }
+
+    .section-alt {
+      background: var(--surface-elevated);
+      max-width: none;
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    .section-alt > .section-inner {
+      max-width: var(--content-max);
+      margin: 0 auto;
+      padding: 0 var(--space-2xl);
+    }
+
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-primary-dark);
+      margin-bottom: var(--space-sm);
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 2.441rem;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: var(--space-lg);
+      color: var(--text-primary);
+    }
+
+    .section-description {
+      color: var(--text-secondary);
+      max-width: 60ch;
+      margin-bottom: var(--space-2xl);
+    }
+
+    /* ============================================
+       HERO
+       ============================================ */
+    .hero {
+      padding: var(--space-4xl) var(--space-2xl);
+      max-width: var(--content-max);
+      margin: 0 auto;
+      min-height: 50vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+      padding: var(--space-xs) var(--space-md);
+      background: var(--surface-elevated);
+      border-radius: var(--radius-full);
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--color-primary-dark);
+      margin-bottom: var(--space-xl);
+      width: fit-content;
+    }
+
+    .hero-badge .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--color-primary);
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 3.815rem;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: var(--space-lg);
+      color: var(--text-primary);
+    }
+
+    .hero-wordmark {
+      font-family: var(--font-display);
+      font-weight: 800;
+    }
+
+    .identity-element {
+      color: var(--color-primary);
+    }
+
+    /* The missing "e" gap */
+    .ledgr-gap {
+      display: inline-block;
+      width: 0.15em;
+      height: 0.6em;
+      border-bottom: 3px solid var(--color-primary);
+      vertical-align: baseline;
+      margin: 0 0.02em;
+      position: relative;
+      top: -0.05em;
+    }
+
+    .hero-subtitle {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      max-width: 50ch;
+      line-height: 1.5;
+    }
+
+    /* ============================================
+       01 — ARCHETYPE
+       ============================================ */
+    .archetype-card {
+      background: var(--surface-card);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-2xl);
+      margin-bottom: var(--space-xl);
+    }
+
+    .archetype-name {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.953rem;
+      margin-bottom: var(--space-sm);
+      color: var(--text-primary);
+    }
+
+    .traits {
+      display: flex;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+      margin-bottom: var(--space-lg);
+    }
+
+    .trait {
+      padding: var(--space-xs) var(--space-md);
+      background: var(--surface-elevated);
+      border-radius: var(--radius-full);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--color-primary-dark);
+    }
+
+    .voice-guidelines {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--space-md);
+      margin-top: var(--space-xl);
+    }
+
+    .voice-card {
+      padding: var(--space-lg);
+      background: var(--surface-card);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius-lg);
+    }
+
+    .voice-card-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-primary-dark);
+      margin-bottom: var(--space-sm);
+    }
+
+    .voice-card-text {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    /* Positioning spectrums */
+    .spectrums {
+      display: grid;
+      gap: var(--space-lg);
+      margin-top: var(--space-xl);
+    }
+
+    .spectrum {
+      display: grid;
+      grid-template-columns: 6rem 1fr 6rem;
+      align-items: center;
+      gap: var(--space-md);
+    }
+
+    .spectrum-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      color: var(--text-tertiary);
+    }
+
+    .spectrum-label-end {
+      text-align: right;
+    }
+
+    .spectrum-track {
+      height: 4px;
+      background: var(--surface-border);
+      border-radius: var(--radius-full);
+      position: relative;
+    }
+
+    .spectrum-marker {
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 14px;
+      height: 14px;
+      background: var(--color-primary);
+      border-radius: 50%;
+      border: 2px solid var(--surface-card);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+    }
+
+    /* ============================================
+       02 — WORDMARK
+       ============================================ */
+    .wordmark-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--space-lg);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .wordmark-variant {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-3xl) var(--space-xl);
+      border-radius: var(--radius-lg);
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 2.4rem;
+      letter-spacing: -0.03em;
+    }
+
+    .wordmark-on-light {
+      background: var(--surface-card);
+      border: 1px solid var(--surface-border);
+      color: var(--text-primary);
+    }
+
+    .wordmark-on-dark {
+      background: var(--surface-dark-base);
+      color: var(--text-dark-primary);
+    }
+
+    .wordmark-on-brand {
+      background: var(--color-primary);
+      color: #fafcfb;
+    }
+
+    .wordmark-variant-label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-top: var(--space-sm);
+      opacity: 0.5;
+      text-align: center;
+    }
+
+    .wordmark-variant-wrapper {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Clear space */
+    .clearspace-demo {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: var(--space-2xl);
+      background: var(--surface-card);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius-lg);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .clearspace-wordmark {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 2rem;
+      letter-spacing: -0.03em;
+      color: var(--text-primary);
+      border: 1px dashed var(--color-primary-light);
+      padding: 1.2em;
+      position: relative;
+    }
+
+    .clearspace-label {
+      position: absolute;
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: var(--color-primary);
+      letter-spacing: 0.05em;
+    }
+
+    .clearspace-label-top {
+      top: 0.3em;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .clearspace-label-side {
+      right: 0.3em;
+      top: 50%;
+      transform: translateY(-50%) rotate(90deg);
+    }
+
+    /* Do/Don't grid */
+    .do-dont-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--space-lg);
+    }
+
+    .do-card {
+      border: 1.5px solid var(--color-success);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      background: color-mix(in srgb, var(--color-success) 3%, var(--surface-card));
+    }
+
+    .do-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-success);
+      margin-bottom: var(--space-md);
+    }
+
+    .dont-card-wm {
+      border: 1.5px solid var(--color-error);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      background: color-mix(in srgb, var(--color-error) 3%, var(--surface-card));
+    }
+
+    .dont-label-wm {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-error);
+      margin-bottom: var(--space-md);
+    }
+
+    .do-dont-example {
+      padding: var(--space-lg);
+      background: var(--surface-elevated);
+      border-radius: var(--radius-md);
+      margin-bottom: var(--space-md);
+      text-align: center;
+      min-height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .do-dont-text {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+
+    /* ============================================
+       03 — COLOR PALETTE
+       ============================================ */
+    .palette-group {
+      margin-bottom: var(--space-2xl);
+    }
+
+    .palette-group-title {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 1.25rem;
+      margin-bottom: var(--space-md);
+      color: var(--text-primary);
+    }
+
+    .swatches {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: var(--space-md);
+    }
+
+    .swatch {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--surface-border);
+    }
+
+    .swatch-color {
+      height: 80px;
+      display: flex;
+      align-items: flex-end;
+      padding: var(--space-sm);
+    }
+
+    .swatch-info {
+      padding: var(--space-sm) var(--space-md);
+      background: var(--surface-card);
+    }
+
+    .swatch-name {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 0.8rem;
+      color: var(--text-primary);
+    }
+
+    .swatch-hex {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-tertiary);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .swatch-usage {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: var(--text-tertiary);
+      margin-top: 2px;
+    }
+
+    .swatch-contrast {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: var(--text-tertiary);
+      margin-top: 2px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* ============================================
+       04 — TYPOGRAPHY
+       ============================================ */
+    .type-specimen {
+      margin-bottom: var(--space-2xl);
+      padding: var(--space-2xl);
+      background: var(--surface-card);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius-lg);
+    }
+
+    .type-specimen-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-primary-dark);
+      margin-bottom: var(--space-md);
+    }
+
+    .type-specimen-sample {
+      margin-bottom: var(--space-md);
+      color: var(--text-primary);
+    }
+
+    .type-specimen-meta {
+      display: flex;
+      gap: var(--space-lg);
+      flex-wrap: wrap;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-tertiary);
+    }
+
+    .type-specimen-meta dt {
+      color: var(--text-secondary);
+    }
+
+    .type-specimen-meta dd {
+      font-variant-numeric: tabular-nums;
+    }
+
+    .type-scale-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: var(--space-xl);
+    }
+
+    .type-scale-table th,
+    .type-scale-table td {
+      padding: var(--space-sm) var(--space-md);
+      text-align: left;
+      border-bottom: 1px solid var(--surface-border);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-variant-numeric: tabular-nums;
+      color: var(--text-primary);
+    }
+
+    .type-scale-table th {
+      color: var(--text-tertiary);
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      font-size: 0.65rem;
+    }
+
+    .type-scale-table td:first-child {
+      font-weight: 600;
+      color: var(--color-primary-dark);
+    }
+
+    /* ============================================
+       05 — COMPONENTS
+       ============================================ */
+    .component-row {
+      display: flex;
+      gap: var(--space-md);
+      flex-wrap: wrap;
+      align-items: center;
+      margin-bottom: var(--space-xl);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-sm) var(--space-lg);
+      border-radius: var(--radius-md);
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 0.875rem;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.1s, box-shadow 0.1s;
+      text-decoration: none;
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+    .btn:active { transform: translateY(0); }
+
+    .btn-primary {
+      background: var(--color-primary);
+      color: #fafcfb;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.08);
+    }
+    .btn-primary:hover {
+      background: var(--color-primary-dark);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+    }
+
+    .btn-secondary {
+      background: var(--surface-elevated);
+      color: var(--text-primary);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--color-primary);
+      border: 1.5px solid var(--color-primary);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-secondary);
+    }
+    .btn-ghost:hover {
+      background: var(--surface-elevated);
+      color: var(--text-primary);
+    }
+
+    .btn-destructive {
+      background: var(--color-error);
+      color: #fafcfb;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--surface-card);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+
+    .card-interactive:hover {
+      box-shadow: 0 8px 24px rgba(14, 36, 33, 0.08);
+      transform: translateY(-2px);
+    }
+
+    .card-featured {
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 1px var(--color-primary);
+    }
+
+    .card-title {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-bottom: var(--space-sm);
+      color: var(--text-primary);
+    }
+
+    .card-text {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+    }
+
+    /* Inputs */
+    .input-group {
+      margin-bottom: var(--space-lg);
+      max-width: 400px;
+    }
+
+    .input-label {
+      display: block;
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 0.8rem;
+      margin-bottom: var(--space-xs);
+      color: var(--text-primary);
+    }
+
+    .input {
+      width: 100%;
+      padding: var(--space-sm) var(--space-md);
+      border: 1.5px solid var(--surface-border);
+      border-radius: var(--radius-md);
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      color: var(--text-primary);
+      background: var(--surface-card);
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    .input:focus {
+      outline: none;
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 20%, transparent);
+    }
+
+    .input-error { border-color: var(--color-error); }
+    .input-error:focus { box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-error) 20%, transparent); }
+    .input:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .input-hint {
+      font-size: 0.75rem;
+      margin-top: var(--space-xs);
+      color: var(--text-tertiary);
+    }
+
+    .input-error-msg {
+      font-size: 0.75rem;
+      margin-top: var(--space-xs);
+      color: var(--color-error);
+    }
+
+    /* Tags */
+    .tags {
+      display: flex;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+    }
+
+    .tag-primary { background: color-mix(in srgb, var(--color-primary) 15%, transparent); color: var(--color-primary-dark); }
+    .tag-success { background: color-mix(in srgb, var(--color-success) 15%, transparent); color: var(--color-success); }
+    .tag-warning { background: color-mix(in srgb, var(--color-warning) 15%, transparent); color: var(--color-warning); }
+    .tag-error   { background: color-mix(in srgb, var(--color-error) 15%, transparent);   color: var(--color-error); }
+    .tag-info    { background: color-mix(in srgb, var(--color-info) 15%, transparent);    color: var(--color-info); }
+
+    /* ============================================
+       06 — DON'T RULES
+       ============================================ */
+    .dont-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--space-lg);
+    }
+
+    .dont-card {
+      border: 1.5px solid var(--color-error);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      background: color-mix(in srgb, var(--color-error) 3%, var(--surface-card));
+    }
+
+    .dont-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-error);
+      margin-bottom: var(--space-md);
+    }
+
+    .dont-example {
+      padding: var(--space-lg);
+      background: var(--surface-elevated);
+      border-radius: var(--radius-md);
+      margin-bottom: var(--space-md);
+      text-align: center;
+    }
+
+    .dont-text {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+
+    /* ============================================
+       DARK MODE PREVIEW PANELS
+       ============================================ */
+    .mode-preview {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-lg);
+      margin-bottom: var(--space-xl);
+    }
+
+    .mode-preview-panel {
+      padding: var(--space-xl);
+      border-radius: var(--radius-lg);
+    }
+
+    .mode-preview-light {
+      background: var(--surface-page);
+      color: var(--text-primary);
+      border: 1px solid var(--surface-border);
+    }
+
+    .mode-preview-dark {
+      background: var(--surface-dark-base);
+      color: var(--text-dark-primary);
+      border: 1px solid var(--surface-dark-border);
+    }
+
+    .mode-label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: var(--space-md);
+      opacity: 0.6;
+    }
+
+    /* ============================================
+       TEXT SCALES
+       ============================================ */
+    .text-scale-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-lg);
+      margin-top: var(--space-lg);
+    }
+
+    .text-scale-panel {
+      padding: var(--space-xl);
+      border-radius: var(--radius-lg);
+    }
+
+    .text-scale-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: var(--space-sm) 0;
+      border-bottom: 1px solid;
+    }
+
+    .text-scale-sample {
+      font-size: 0.875rem;
+    }
+
+    .text-scale-meta {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* ============================================
+       DARK MODE (auto via prefers-color-scheme)
+       ============================================ */
+    @media (prefers-color-scheme: dark) {
+      body {
+        color: var(--text-dark-primary);
+        background-color: var(--surface-dark-base);
+      }
+
+      section { color: var(--text-dark-primary); }
+      .section-title { color: var(--text-dark-primary); }
+      .section-label { color: var(--color-primary-light); }
+      .section-description { color: var(--text-dark-secondary); }
+      .section-alt { background: var(--surface-dark-elevated); }
+
+      .hero-badge { background: var(--surface-dark-elevated); color: var(--color-primary-light); }
+      .hero-title { color: var(--text-dark-primary); }
+      .hero-subtitle { color: var(--text-dark-secondary); }
+
+      .archetype-card { background: var(--surface-dark-elevated); border-color: var(--surface-dark-border); }
+      .archetype-name { color: var(--text-dark-primary); }
+      .trait { background: var(--surface-dark-deep); color: var(--color-primary-light); }
+
+      .voice-card { background: var(--surface-dark-elevated); border-color: var(--surface-dark-border); }
+      .voice-card-text { color: var(--text-dark-secondary); }
+
+      .spectrum-label { color: var(--text-dark-tertiary); }
+      .spectrum-track { background: var(--surface-dark-border); }
+      .spectrum-marker { border-color: var(--surface-dark-elevated); }
+
+      .palette-group-title { color: var(--text-dark-primary); }
+      .swatch-info { background: var(--surface-dark-elevated); }
+      .swatch-name { color: var(--text-dark-primary); }
+      .swatch { border-color: var(--surface-dark-border); }
+      .swatch-hex { color: var(--text-dark-tertiary); }
+
+      .type-specimen { background: var(--surface-dark-elevated); border-color: var(--surface-dark-border); }
+      .type-specimen-sample { color: var(--text-dark-primary); }
+      .type-specimen-label { color: var(--color-primary-light); }
+      .type-scale-table th, .type-scale-table td { border-color: var(--surface-dark-border); color: var(--text-dark-primary); }
+      .type-scale-table th { color: var(--text-dark-tertiary); }
+      .type-scale-table td:first-child { color: var(--color-primary-light); }
+
+      .card { background: var(--surface-dark-elevated); border-color: var(--surface-dark-border); }
+      .card-title { color: var(--text-dark-primary); }
+      .card-text { color: var(--text-dark-secondary); }
+
+      .input { background: var(--surface-dark-elevated); border-color: var(--surface-dark-border); color: var(--text-dark-primary); }
+      .input-label { color: var(--text-dark-primary); }
+      .input-hint { color: var(--text-dark-tertiary); }
+
+      .btn-secondary { background: var(--surface-dark-elevated); color: var(--text-dark-primary); }
+      .btn-ghost { color: var(--text-dark-secondary); }
+      .btn-ghost:hover { background: var(--surface-dark-elevated); color: var(--text-dark-primary); }
+
+      .dont-card { background: color-mix(in srgb, var(--color-error) 5%, var(--surface-dark-elevated)); }
+      .dont-text { color: var(--text-dark-secondary); }
+      .dont-example { background: var(--surface-dark-deep); }
+
+      .do-card { background: color-mix(in srgb, var(--color-success) 5%, var(--surface-dark-elevated)); }
+      .dont-card-wm { background: color-mix(in srgb, var(--color-error) 5%, var(--surface-dark-elevated)); }
+      .do-dont-text { color: var(--text-dark-secondary); }
+      .do-dont-example { background: var(--surface-dark-deep); }
+
+      .clearspace-demo { background: var(--surface-dark-elevated); border-color: var(--surface-dark-border); }
+      .clearspace-wordmark { color: var(--text-dark-primary); border-color: var(--color-primary-light); }
+
+      .mode-preview-light {
+        background: var(--surface-page);
+        color: var(--text-primary);
+        border-color: var(--surface-border);
+      }
+    }
+
+    /* ============================================
+       RESPONSIVE
+       ============================================ */
+    @media (max-width: 768px) {
+      .sidebar { display: none; }
+      .content { margin-left: 0; }
+      .hero-title { font-size: 2.441rem; }
+      .mode-preview { grid-template-columns: 1fr; }
+      .wordmark-grid { grid-template-columns: 1fr; }
+      .do-dont-grid { grid-template-columns: 1fr; }
+      .text-scale-grid { grid-template-columns: 1fr; }
+      .spectrum { grid-template-columns: 5rem 1fr 5rem; }
+    }
+
+    /* ============================================
+       PRINT
+       ============================================ */
+    @media print {
+      .sidebar { display: none; }
+      .content { margin-left: 0; }
+      .skip-link { display: none; }
+      body { background: #fff; color: #000; }
+      body::after { display: none; }
+      .section-alt { background: #f5f5f5; color: #000; }
+      .mode-preview-dark { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <div class="layout">
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar" aria-label="Brandbook sections">
+      <div class="sidebar-logo" aria-label="Brandbook">Brandbook</div>
+      <ul class="sidebar-nav" role="list">
+        <li><a href="#cover" class="active"><span class="section-number">00</span> Cover</a></li>
+        <li><a href="#archetype"><span class="section-number">01</span> Archetype</a></li>
+        <li><a href="#wordmark"><span class="section-number">02</span> Wordmark</a></li>
+        <li><a href="#colors"><span class="section-number">03</span> Colors</a></li>
+        <li><a href="#typography"><span class="section-number">04</span> Typography</a></li>
+        <li><a href="#components"><span class="section-number">05</span> Components</a></li>
+        <li><a href="#dont"><span class="section-number">06</span> Don't</a></li>
+      </ul>
+      <div class="sidebar-credit">
+        <a href="https://x.com/diegoivo" target="_blank" rel="noopener noreferrer">Created by @diegoivo</a>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="content" id="main">
+
+      <!-- ============================================
+           00 — COVER
+           ============================================ -->
+      <section id="cover" class="hero">
+        <div class="hero-badge">
+          <span class="dot"></span>
+          Brand Guidelines
+        </div>
+        <h1 class="hero-title">
+          <span class="hero-wordmark">Ledg<span class="ledgr-gap" aria-hidden="true"></span>r</span>
+        </h1>
+        <p class="hero-subtitle">
+          Financial clarity for freelancers. Track invoices, taxes, and cash flow
+          in a dashboard built for the way independent professionals actually work.
+        </p>
+      </section>
+
+      <!-- ============================================
+           01 — ARCHETYPE
+           ============================================ -->
+      <div class="section-alt">
+        <section id="archetype">
+          <div class="section-inner">
+            <p class="section-label">01 — Archetype</p>
+            <h2 class="section-title">Brand Personality</h2>
+            <p class="section-description">
+              The archetype defines Ledgr's emotional tone, voice, and visual direction.
+              Every design choice flows from this foundation.
+            </p>
+
+            <div class="archetype-card">
+              <h3 class="archetype-name">The Sage + Explorer</h3>
+              <div class="traits">
+                <span class="trait">Analytical</span>
+                <span class="trait">Informed</span>
+                <span class="trait">Independent</span>
+                <span class="trait">Ambitious</span>
+              </div>
+              <p style="color: var(--text-secondary); margin-bottom: var(--space-lg); max-width: 60ch;">
+                Ledgr embodies the Sage's analytical depth with the Explorer's independent spirit.
+                It provides clear financial intelligence without talking down to its users, respecting
+                that freelancers already understand their work &mdash; they just need sharper tools
+                to see the numbers clearly.
+              </p>
+              <p style="color: var(--text-secondary); max-width: 60ch;">
+                The Sage drives 80% of visual decisions: clean grids, precise spacing, restrained palette,
+                and data-rich layouts. The Explorer adds ambition, forward motion, and a refusal to
+                look like yet another banking app.
+              </p>
+            </div>
+
+            <!-- Voice guidelines -->
+            <h3 class="palette-group-title" style="margin-top: var(--space-2xl);">Voice Guidelines</h3>
+            <div class="voice-guidelines">
+              <div class="voice-card">
+                <div class="voice-card-label">Tone</div>
+                <p class="voice-card-text">Direct and precise. Avoid filler words. Respect the user's time and intelligence.</p>
+              </div>
+              <div class="voice-card">
+                <div class="voice-card-label">Language</div>
+                <p class="voice-card-text">Use financial terms naturally, without jargon walls. Explain when context demands it, never when it doesn't.</p>
+              </div>
+              <div class="voice-card">
+                <div class="voice-card-label">Personality</div>
+                <p class="voice-card-text">A sharp colleague, not a corporate advisor. Confident without being condescending. Warm without being casual.</p>
+              </div>
+              <div class="voice-card">
+                <div class="voice-card-label">Never</div>
+                <p class="voice-card-text">Never use exclamation marks in UI copy. Never say "simple" or "easy" &mdash; let the interface prove it.</p>
+              </div>
+            </div>
+
+            <!-- Positioning spectrums -->
+            <h3 class="palette-group-title" style="margin-top: var(--space-2xl);">Positioning</h3>
+            <div class="spectrums">
+              <div class="spectrum">
+                <span class="spectrum-label">Premium</span>
+                <div class="spectrum-track">
+                  <div class="spectrum-marker" style="left: 40%;"></div>
+                </div>
+                <span class="spectrum-label spectrum-label-end">Accessible</span>
+              </div>
+              <div class="spectrum">
+                <span class="spectrum-label">Technical</span>
+                <div class="spectrum-track">
+                  <div class="spectrum-marker" style="left: 30%;"></div>
+                </div>
+                <span class="spectrum-label spectrum-label-end">Approachable</span>
+              </div>
+              <div class="spectrum">
+                <span class="spectrum-label">Bold</span>
+                <div class="spectrum-track">
+                  <div class="spectrum-marker" style="left: 65%;"></div>
+                </div>
+                <span class="spectrum-label spectrum-label-end">Subtle</span>
+              </div>
+              <div class="spectrum">
+                <span class="spectrum-label">Playful</span>
+                <div class="spectrum-track">
+                  <div class="spectrum-marker" style="left: 75%;"></div>
+                </div>
+                <span class="spectrum-label spectrum-label-end">Serious</span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- ============================================
+           02 — LOGO & WORDMARK
+           ============================================ -->
+      <section id="wordmark">
+        <p class="section-label">02 — Logo & Wordmark</p>
+        <h2 class="section-title">Wordmark Variants</h2>
+        <p class="section-description">
+          The Ledgr wordmark uses Outfit at 800 weight. The missing "e" is the identity
+          element &mdash; rendered as a subtle baseline marker in the primary color,
+          evoking a cursor or data entry point. The gap makes the name feel like shorthand,
+          a variable name, something that belongs in a code editor.
+        </p>
+
+        <!-- Three variants -->
+        <div class="wordmark-grid">
+          <div class="wordmark-variant-wrapper">
+            <div class="wordmark-variant wordmark-on-light">
+              Ledg<span class="ledgr-gap" aria-hidden="true"></span>r
+            </div>
+            <p class="wordmark-variant-label">On light</p>
+          </div>
+          <div class="wordmark-variant-wrapper">
+            <div class="wordmark-variant wordmark-on-dark">
+              Ledg<span class="ledgr-gap" aria-hidden="true" style="border-color: var(--color-primary-light);"></span>r
+            </div>
+            <p class="wordmark-variant-label">On dark</p>
+          </div>
+          <div class="wordmark-variant-wrapper">
+            <div class="wordmark-variant wordmark-on-brand">
+              Ledg<span class="ledgr-gap" aria-hidden="true" style="border-color: #fafcfb;"></span>r
+            </div>
+            <p class="wordmark-variant-label">On brand</p>
+          </div>
+        </div>
+
+        <!-- Clear space -->
+        <h3 class="palette-group-title" style="margin-top: var(--space-2xl);">Clear Space</h3>
+        <p class="section-description">
+          Maintain a minimum clear space equal to the cap-height of the wordmark on all sides.
+          This ensures the mark breathes and retains its presence in any layout context.
+        </p>
+        <div class="clearspace-demo">
+          <div class="clearspace-wordmark">
+            Ledg<span class="ledgr-gap" aria-hidden="true"></span>r
+            <span class="clearspace-label clearspace-label-top">cap-height</span>
+            <span class="clearspace-label clearspace-label-side">cap-height</span>
+          </div>
+        </div>
+
+        <!-- Do / Don't -->
+        <h3 class="palette-group-title" style="margin-top: var(--space-2xl);">Usage Rules</h3>
+        <div class="do-dont-grid">
+          <div class="do-card">
+            <div class="do-label">Do</div>
+            <div class="do-dont-example">
+              <span style="font-family: var(--font-display); font-weight: 800; font-size: 1.5rem; letter-spacing: -0.03em; color: var(--text-primary);">Ledg<span class="ledgr-gap" aria-hidden="true"></span>r</span>
+            </div>
+            <p class="do-dont-text">Use the wordmark at its original proportions with the identity gap visible.</p>
+          </div>
+
+          <div class="do-card">
+            <div class="do-label">Do</div>
+            <div class="do-dont-example">
+              <span style="font-family: var(--font-display); font-weight: 800; font-size: 1.5rem; letter-spacing: -0.03em; color: var(--text-primary);">Ledgr</span>
+            </div>
+            <p class="do-dont-text">In running text, write "Ledgr" without the visual gap &mdash; the spelling carries the identity.</p>
+          </div>
+
+          <div class="do-card">
+            <div class="do-label">Do</div>
+            <div class="do-dont-example" style="background: var(--surface-dark-base);">
+              <span style="font-family: var(--font-display); font-weight: 800; font-size: 1.5rem; letter-spacing: -0.03em; color: var(--text-dark-primary);">Ledg<span class="ledgr-gap" aria-hidden="true" style="border-color: var(--color-primary-light);"></span>r</span>
+            </div>
+            <p class="do-dont-text">On dark backgrounds, the gap marker uses primary-light for sufficient contrast.</p>
+          </div>
+
+          <div class="dont-card-wm">
+            <div class="dont-label-wm">Don't</div>
+            <div class="do-dont-example">
+              <span style="font-family: var(--font-display); font-weight: 800; font-size: 1.5rem; letter-spacing: -0.03em; transform: scaleX(1.3); display: inline-block; color: var(--text-primary);">Ledgr</span>
+            </div>
+            <p class="do-dont-text">Never stretch or distort the wordmark. Always preserve original proportions.</p>
+          </div>
+
+          <div class="dont-card-wm">
+            <div class="dont-label-wm">Don't</div>
+            <div class="do-dont-example">
+              <span style="font-family: var(--font-display); font-weight: 800; font-size: 1.5rem; letter-spacing: -0.03em; background: linear-gradient(135deg, var(--color-primary), var(--color-warm)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Ledgr</span>
+            </div>
+            <p class="do-dont-text">Never apply gradients to the wordmark. The logo must always use flat, solid colors.</p>
+          </div>
+
+          <div class="dont-card-wm">
+            <div class="dont-label-wm">Don't</div>
+            <div class="do-dont-example">
+              <span style="font-family: 'Comic Sans MS', cursive; font-weight: bold; font-size: 1.5rem; color: var(--text-primary);">Ledgr</span>
+            </div>
+            <p class="do-dont-text">Never substitute the typeface. The wordmark exclusively uses Outfit 800.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================
+           03 — COLOR PALETTE
+           ============================================ -->
+      <div class="section-alt">
+        <section id="colors">
+          <div class="section-inner">
+            <p class="section-label">03 — Color Palette</p>
+            <h2 class="section-title">Color System</h2>
+            <p class="section-description">
+              Built from a deep teal/petrol blue seed. Warm amber accents bring energy to financial data
+              without the aggression of red. Cool steel-blue provides a secondary axis for charts and links.
+            </p>
+
+            <!-- Core -->
+            <div class="palette-group">
+              <h3 class="palette-group-title">Core</h3>
+              <div class="swatches">
+                <div class="swatch">
+                  <div class="swatch-color" style="background: var(--color-primary-light);"></div>
+                  <div class="swatch-info">
+                    <div class="swatch-name">Primary Light</div>
+                    <div class="swatch-hex">#4db8ac</div>
+                    <div class="swatch-usage">Hover states, tints</div>
+                  </div>
+                </div>
+                <div class="swatch">
+                  <div class="swatch-color" style="background: var(--color-primary);"></div>
+                  <div class="swatch-info">
+                    <div class="swatch-name">Primary</div>
+                    <div class="swatch-hex">#1a7a72</div>
+                    <div class="swatch-usage">Buttons, links, identity</div>
+                  </div>
+                </div>
+                <div class="swatch">
+                  <div class="swatch-color" style="background: var(--color-primary-dark);"></div>
+                  <div class="swatch-info">
+                    <div class="swatch-name">Primary Dark</div>
+                    <div class="swatch-hex">#0e524d</div>
+                    <div class="swatch-usage">Pressed states, text on light</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Accents -->
+            <div class="palette-group">
+              <h3 class="palette-group-title">Accents</h3>
+              <div class="swatches">
+                <div class="swatch">
+                  <div class="swatch-color" style="background: var(--color-warm);"></div>
+                  <div class="swatch-info">
+                    <div class="swatch-name">Warm</div>
+                    <div class="swatch-hex">#c6872b</div>
+                    <div class="swatch-usage">CTAs, highlights</div>
+                  </div>
+                </div>
+                <div class="swatch">
+                  <div class="swatch-color" style="background: var(--color-warm-light);"></div>
+                  <div class="swatch-info">
+                    <div class="swatch-name">Warm Light</div>
+                    <div class="swatch-hex">#e5a94e</div>
+                    <div class="swatch-usage">Badges, indicators</div>
+                  </div>
+                </div>
+                <div class="swatch">
+                  <div class="swatch-color" style="background: var(--color-cool);"></div>
+                  <div class="swatch-info">
+                    <div class="swatch-name">Cool</div>
+                    <div class="swatch-hex">#3d7fc4</div>
+                    <div class="swatch-usage">Charts, data, links</div>
+                  </div>
+                </div>
+                <div class="swatch">
+                  <div class="swatch-color" style="background: var(--color-cool-light);"></div>
+                  <div class="swatch-info">
+                    <div class="swatch-name">Cool Light</div>
+                    <div class="swatch-hex">#6b9fd6</div>
+                    <div class="swatch-usage">Secondary data, info backgrounds</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Semantic -->
+            <div class="palette-group">
+              <h3 class="palette-group-title">Semantic</h3>
+              <div class="swatches">
+                <div class="swatch">
+                  <div class="swatch-color" style="background: var(--color-success);"></div>
+                  <div class="swatch-info">
+                    <div class="swatch-name">Success</div>
+                    <div class="swatch-hex">#1a8a52</div>
+                    <div class="swatch-usage">Paid, confirmed, positive</div>
+                  </div>
+                </div>
+                <div class="swatch">
+                  <div class="swatch-color" style="background: var(--color-warning);"></div>
+                  <div class="swatch-info">
+                    <div class="swatch-name">Warning</div>
+                    <div class="swatch-hex">#c6872b</div>
+                    <div class="swatch-usage">Pending, due soon</div>
+                  </div>
+                </div>
+                <div class="swatch">
+                  <div class="swatch-color" style="background: var(--color-error);"></div>
+                  <div class="swatch-info">
+                    <div class="swatch-name">Error</div>
+                    <div class="swatch-hex">#c43d3d</div>
+                    <div class="swatch-usage">Overdue, validation</div>
+                  </div>
+                </div>
+                <div class="swatch">
+                  <div class="swatch-color" style="background: var(--color-info);"></div>
+                  <div class="swatch-info">
+                    <div class="swatch-name">Info</div>
+                    <div class="swatch-hex">#3d6fc4</div>
+                    <div class="swatch-usage">Notices, tips</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Surfaces -->
+            <div class="palette-group">
+              <h3 class="palette-group-title">Surfaces</h3>
+              <div class="mode-preview">
+                <div class="mode-preview-panel mode-preview-light">
+                  <div class="mode-label">Light Mode</div>
+                  <div class="swatches" style="grid-template-columns: 1fr;">
+                    <div class="swatch">
+                      <div class="swatch-color" style="background: var(--surface-page); border: 1px solid var(--surface-border);"></div>
+                      <div class="swatch-info">
+                        <div class="swatch-name">Page</div>
+                        <div class="swatch-hex">#f7f9f8</div>
+                      </div>
+                    </div>
+                    <div class="swatch">
+                      <div class="swatch-color" style="background: var(--surface-card); border: 1px solid var(--surface-border);"></div>
+                      <div class="swatch-info">
+                        <div class="swatch-name">Card</div>
+                        <div class="swatch-hex">#f0f4f3</div>
+                      </div>
+                    </div>
+                    <div class="swatch">
+                      <div class="swatch-color" style="background: var(--surface-elevated);"></div>
+                      <div class="swatch-info">
+                        <div class="swatch-name">Elevated</div>
+                        <div class="swatch-hex">#e6ecea</div>
+                      </div>
+                    </div>
+                    <div class="swatch">
+                      <div class="swatch-color" style="background: var(--surface-border);"></div>
+                      <div class="swatch-info">
+                        <div class="swatch-name">Border</div>
+                        <div class="swatch-hex">#d0d9d7</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mode-preview-panel mode-preview-dark">
+                  <div class="mode-label">Dark Mode</div>
+                  <div class="swatches" style="grid-template-columns: 1fr;">
+                    <div class="swatch" style="border-color: var(--surface-dark-border);">
+                      <div class="swatch-color" style="background: var(--surface-dark-deep);"></div>
+                      <div class="swatch-info" style="background: var(--surface-dark-elevated);"><div class="swatch-name" style="color: var(--text-dark-primary);">Deep</div><div class="swatch-hex" style="color: var(--text-dark-tertiary);">#071614</div></div>
+                    </div>
+                    <div class="swatch" style="border-color: var(--surface-dark-border);">
+                      <div class="swatch-color" style="background: var(--surface-dark-base);"></div>
+                      <div class="swatch-info" style="background: var(--surface-dark-elevated);"><div class="swatch-name" style="color: var(--text-dark-primary);">Base</div><div class="swatch-hex" style="color: var(--text-dark-tertiary);">#0c201e</div></div>
+                    </div>
+                    <div class="swatch" style="border-color: var(--surface-dark-border);">
+                      <div class="swatch-color" style="background: var(--surface-dark-elevated);"></div>
+                      <div class="swatch-info" style="background: var(--surface-dark-elevated);"><div class="swatch-name" style="color: var(--text-dark-primary);">Elevated</div><div class="swatch-hex" style="color: var(--text-dark-tertiary);">#142e2b</div></div>
+                    </div>
+                    <div class="swatch" style="border-color: var(--surface-dark-border);">
+                      <div class="swatch-color" style="background: var(--surface-dark-border);"></div>
+                      <div class="swatch-info" style="background: var(--surface-dark-elevated);"><div class="swatch-name" style="color: var(--text-dark-primary);">Border</div><div class="swatch-hex" style="color: var(--text-dark-tertiary);">#1e3f3b</div></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Text Scales -->
+            <div class="palette-group">
+              <h3 class="palette-group-title">Text Scales</h3>
+              <div class="text-scale-grid">
+                <div class="text-scale-panel mode-preview-light" style="border: 1px solid var(--surface-border); padding: var(--space-xl); border-radius: var(--radius-lg);">
+                  <div class="mode-label">Light Mode</div>
+                  <div class="text-scale-row" style="border-color: var(--surface-border);">
+                    <span class="text-scale-sample" style="color: var(--text-primary);">Primary text</span>
+                    <span class="text-scale-meta" style="color: var(--text-tertiary);">#0e2421 &middot; 15.3:1</span>
+                  </div>
+                  <div class="text-scale-row" style="border-color: var(--surface-border);">
+                    <span class="text-scale-sample" style="color: var(--text-secondary);">Secondary text</span>
+                    <span class="text-scale-meta" style="color: var(--text-tertiary);">#3d5c58 &middot; 7.2:1</span>
+                  </div>
+                  <div class="text-scale-row" style="border-color: var(--surface-border);">
+                    <span class="text-scale-sample" style="color: var(--text-tertiary);">Tertiary text</span>
+                    <span class="text-scale-meta" style="color: var(--text-tertiary);">#6b8b86 &middot; 3.6:1</span>
+                  </div>
+                  <div class="text-scale-row" style="border-color: var(--surface-border);">
+                    <span class="text-scale-sample" style="color: var(--text-disabled);">Disabled text</span>
+                    <span class="text-scale-meta" style="color: var(--text-tertiary);">#99b3af &middot; 2.2:1</span>
+                  </div>
+                </div>
+                <div class="text-scale-panel mode-preview-dark" style="border: 1px solid var(--surface-dark-border); padding: var(--space-xl); border-radius: var(--radius-lg);">
+                  <div class="mode-label" style="color: var(--text-dark-tertiary);">Dark Mode</div>
+                  <div class="text-scale-row" style="border-color: var(--surface-dark-border);">
+                    <span class="text-scale-sample" style="color: var(--text-dark-primary);">Primary text</span>
+                    <span class="text-scale-meta" style="color: var(--text-dark-tertiary);">#e8f1ef &middot; 14.8:1</span>
+                  </div>
+                  <div class="text-scale-row" style="border-color: var(--surface-dark-border);">
+                    <span class="text-scale-sample" style="color: var(--text-dark-secondary);">Secondary text</span>
+                    <span class="text-scale-meta" style="color: var(--text-dark-tertiary);">#a8c4bf &middot; 8.1:1</span>
+                  </div>
+                  <div class="text-scale-row" style="border-color: var(--surface-dark-border);">
+                    <span class="text-scale-sample" style="color: var(--text-dark-tertiary);">Tertiary text</span>
+                    <span class="text-scale-meta" style="color: var(--text-dark-tertiary);">#6b8b86 &middot; 3.6:1</span>
+                  </div>
+                  <div class="text-scale-row" style="border-color: var(--surface-dark-border);">
+                    <span class="text-scale-sample" style="color: var(--text-dark-disabled);">Disabled text</span>
+                    <span class="text-scale-meta" style="color: var(--text-dark-tertiary);">#3d5c58 &middot; 2.0:1</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- ============================================
+           04 — TYPOGRAPHY
+           ============================================ -->
+      <section id="typography">
+        <p class="section-label">04 — Typography</p>
+        <h2 class="section-title">Type System</h2>
+        <p class="section-description">
+          Outfit handles display and headings &mdash; geometric and modern with enough character
+          to distinguish Ledgr from generic fintech. Manrope provides a humanist warmth for body text,
+          keeping long-form content readable. IBM Plex Mono grounds financial data in technical precision.
+        </p>
+
+        <!-- Display -->
+        <div class="type-specimen">
+          <div class="type-specimen-label">Display</div>
+          <div class="type-specimen-sample" style="font-family: var(--font-display); font-weight: 700; font-size: 3.052rem; line-height: 1.1; letter-spacing: -0.03em;">
+            Your money, your clarity
+          </div>
+          <dl class="type-specimen-meta">
+            <div><dt>Family</dt><dd>Outfit</dd></div>
+            <div><dt>Weight</dt><dd>700</dd></div>
+            <div><dt>Tracking</dt><dd>-0.03em</dd></div>
+            <div><dt>Line height</dt><dd>1.1</dd></div>
+          </dl>
+        </div>
+
+        <!-- Heading -->
+        <div class="type-specimen">
+          <div class="type-specimen-label">Heading</div>
+          <div class="type-specimen-sample" style="font-family: var(--font-heading); font-weight: 600; font-size: 1.953rem; line-height: 1.2; letter-spacing: -0.02em;">
+            Cash flow forecast for Q3 2026
+          </div>
+          <div class="type-specimen-sample" style="font-family: var(--font-heading); font-weight: 500; font-size: 1.25rem; line-height: 1.3; letter-spacing: -0.01em; margin-top: var(--space-md);">
+            Invoice breakdown by client
+          </div>
+          <dl class="type-specimen-meta">
+            <div><dt>Family</dt><dd>Outfit</dd></div>
+            <div><dt>Weight</dt><dd>500 &ndash; 700</dd></div>
+            <div><dt>Tracking</dt><dd>-0.01em to -0.02em</dd></div>
+            <div><dt>Line height</dt><dd>1.2 &ndash; 1.3</dd></div>
+          </dl>
+        </div>
+
+        <!-- Body -->
+        <div class="type-specimen">
+          <div class="type-specimen-label">Body</div>
+          <div class="type-specimen-sample" style="font-family: var(--font-body); font-size: 1rem; line-height: 1.6;">
+            Ledgr tracks every invoice from draft to paid. Set up recurring invoices, automate
+            payment reminders, and get a real-time view of your outstanding receivables. No
+            spreadsheet gymnastics required &mdash; your financial picture updates as the data comes in.
+          </div>
+          <dl class="type-specimen-meta">
+            <div><dt>Family</dt><dd>Manrope</dd></div>
+            <div><dt>Weight</dt><dd>400</dd></div>
+            <div><dt>Tracking</dt><dd>0</dd></div>
+            <div><dt>Line height</dt><dd>1.6</dd></div>
+          </dl>
+        </div>
+
+        <!-- Mono -->
+        <div class="type-specimen">
+          <div class="type-specimen-label">Mono</div>
+          <div class="type-specimen-sample" style="font-family: var(--font-mono); font-size: 0.875rem; line-height: 1.5; font-variant-numeric: tabular-nums;">
+            const invoice = { id: "INV-2026-0847", total: 4250.00 };<br>
+            tax_rate: 0.20 &middot; status: "paid" &middot; due: "2026-04-15"
+          </div>
+          <dl class="type-specimen-meta">
+            <div><dt>Family</dt><dd>IBM Plex Mono</dd></div>
+            <div><dt>Weight</dt><dd>400</dd></div>
+            <div><dt>Use</dt><dd>Financial data, labels, metadata, code</dd></div>
+          </dl>
+        </div>
+
+        <!-- Type Scale Table -->
+        <h3 class="palette-group-title" style="margin-top: var(--space-2xl);">Type Scale</h3>
+        <p class="section-description">Based on a 1.25 modular scale (major third) from a 16px base.</p>
+        <table class="type-scale-table">
+          <thead>
+            <tr>
+              <th>Token</th>
+              <th>Size</th>
+              <th>Rem</th>
+              <th>Use</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>6xl</td>
+              <td>61.04px</td>
+              <td>3.815rem</td>
+              <td>Hero headlines</td>
+            </tr>
+            <tr>
+              <td>5xl</td>
+              <td>48.83px</td>
+              <td>3.052rem</td>
+              <td>Section heroes</td>
+            </tr>
+            <tr>
+              <td>4xl</td>
+              <td>39.06px</td>
+              <td>2.441rem</td>
+              <td>Page titles</td>
+            </tr>
+            <tr>
+              <td>3xl</td>
+              <td>31.25px</td>
+              <td>1.953rem</td>
+              <td>Section headings (h2)</td>
+            </tr>
+            <tr>
+              <td>2xl</td>
+              <td>25.00px</td>
+              <td>1.563rem</td>
+              <td>Subsection headings (h3)</td>
+            </tr>
+            <tr>
+              <td>xl</td>
+              <td>20.00px</td>
+              <td>1.25rem</td>
+              <td>Lead text, large body</td>
+            </tr>
+            <tr>
+              <td>base</td>
+              <td>16.00px</td>
+              <td>1rem</td>
+              <td>Body text</td>
+            </tr>
+            <tr>
+              <td>sm</td>
+              <td>12.80px</td>
+              <td>0.8rem</td>
+              <td>Captions, labels</td>
+            </tr>
+            <tr>
+              <td>xs</td>
+              <td>10.24px</td>
+              <td>0.64rem</td>
+              <td>Fine print only</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ============================================
+           05 — COMPONENTS
+           ============================================ -->
+      <div class="section-alt">
+        <section id="components">
+          <div class="section-inner">
+            <p class="section-label">05 — Components</p>
+            <h2 class="section-title">UI Components</h2>
+            <p class="section-description">
+              Core interface elements styled with Ledgr's design tokens. Every component
+              is shown in both light and dark modes to ensure consistency across themes.
+            </p>
+
+            <!-- Buttons -->
+            <h3 class="palette-group-title">Buttons</h3>
+            <div class="mode-preview">
+              <div class="mode-preview-panel mode-preview-light">
+                <div class="mode-label">Light Mode</div>
+                <div class="component-row">
+                  <button type="button" class="btn btn-primary">Primary</button>
+                  <button type="button" class="btn btn-secondary">Secondary</button>
+                  <button type="button" class="btn btn-outline">Outline</button>
+                  <button type="button" class="btn btn-ghost">Ghost</button>
+                  <button type="button" class="btn btn-destructive">Delete</button>
+                </div>
+              </div>
+              <div class="mode-preview-panel mode-preview-dark">
+                <div class="mode-label">Dark Mode</div>
+                <div class="component-row">
+                  <button type="button" class="btn btn-primary">Primary</button>
+                  <button type="button" class="btn btn-secondary" style="background: var(--surface-dark-elevated); color: var(--text-dark-primary);">Secondary</button>
+                  <button type="button" class="btn btn-outline" style="color: var(--color-primary-light); border-color: var(--color-primary-light);">Outline</button>
+                  <button type="button" class="btn btn-ghost" style="color: var(--text-dark-secondary);">Ghost</button>
+                  <button type="button" class="btn btn-destructive">Delete</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Cards -->
+            <h3 class="palette-group-title" style="margin-top: var(--space-2xl);">Cards</h3>
+            <div class="mode-preview">
+              <div class="mode-preview-panel mode-preview-light">
+                <div class="mode-label">Light Mode</div>
+                <div class="card card-interactive" style="margin-bottom: var(--space-md);">
+                  <h4 class="card-title">Monthly Revenue</h4>
+                  <p class="card-text">Hover to see the elevation effect. Interactive cards respond to user focus to communicate affordance.</p>
+                </div>
+                <div class="card card-featured">
+                  <h4 class="card-title">Tax Estimate</h4>
+                  <p class="card-text">Featured cards use the primary color border to signal priority information within the dashboard.</p>
+                </div>
+              </div>
+              <div class="mode-preview-panel mode-preview-dark">
+                <div class="mode-label">Dark Mode</div>
+                <div class="card card-interactive" style="margin-bottom: var(--space-md); background: var(--surface-dark-elevated); border-color: var(--surface-dark-border);">
+                  <h4 class="card-title" style="color: var(--text-dark-primary);">Monthly Revenue</h4>
+                  <p class="card-text" style="color: var(--text-dark-secondary);">Hover to see the elevation effect. Interactive cards respond to user focus to communicate affordance.</p>
+                </div>
+                <div class="card card-featured" style="background: var(--surface-dark-elevated); border-color: var(--color-primary-light);">
+                  <h4 class="card-title" style="color: var(--text-dark-primary);">Tax Estimate</h4>
+                  <p class="card-text" style="color: var(--text-dark-secondary);">Featured cards use the primary color border to signal priority information within the dashboard.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Inputs -->
+            <h3 class="palette-group-title" style="margin-top: var(--space-2xl);">Inputs</h3>
+            <div class="mode-preview">
+              <div class="mode-preview-panel mode-preview-light">
+                <div class="mode-label">Light Mode</div>
+                <div class="input-group">
+                  <label for="input-default" class="input-label">Invoice amount</label>
+                  <input type="text" id="input-default" name="amount" class="input" placeholder="0.00" autocomplete="off">
+                  <p class="input-hint">Enter the total before tax</p>
+                </div>
+                <div class="input-group">
+                  <label for="input-err" class="input-label">Client email</label>
+                  <input type="email" id="input-err" name="email" class="input input-error" value="not-an-email" autocomplete="email">
+                  <p class="input-error-msg">Enter a valid email address</p>
+                </div>
+                <div class="input-group">
+                  <label for="input-dis" class="input-label">Account ID</label>
+                  <input type="text" id="input-dis" name="account" class="input" disabled value="LEDGR-0042" autocomplete="off">
+                </div>
+              </div>
+              <div class="mode-preview-panel mode-preview-dark">
+                <div class="mode-label">Dark Mode</div>
+                <div class="input-group">
+                  <label for="input-dark-default" class="input-label" style="color: var(--text-dark-primary);">Invoice amount</label>
+                  <input type="text" id="input-dark-default" name="dark-amount" class="input" style="background: var(--surface-dark-elevated); border-color: var(--surface-dark-border); color: var(--text-dark-primary);" placeholder="0.00" autocomplete="off">
+                  <p class="input-hint" style="color: var(--text-dark-tertiary);">Enter the total before tax</p>
+                </div>
+                <div class="input-group">
+                  <label for="input-dark-err" class="input-label" style="color: var(--text-dark-primary);">Client email</label>
+                  <input type="email" id="input-dark-err" name="dark-email" class="input input-error" style="background: var(--surface-dark-elevated); color: var(--text-dark-primary);" value="not-an-email" autocomplete="email">
+                  <p class="input-error-msg">Enter a valid email address</p>
+                </div>
+                <div class="input-group">
+                  <label for="input-dark-dis" class="input-label" style="color: var(--text-dark-primary);">Account ID</label>
+                  <input type="text" id="input-dark-dis" name="dark-account" class="input" style="background: var(--surface-dark-elevated); border-color: var(--surface-dark-border); color: var(--text-dark-primary);" disabled value="LEDGR-0042" autocomplete="off">
+                </div>
+              </div>
+            </div>
+
+            <!-- Textarea -->
+            <h3 class="palette-group-title" style="margin-top: var(--space-2xl);">Textarea</h3>
+            <div class="mode-preview">
+              <div class="mode-preview-panel mode-preview-light">
+                <div class="mode-label">Light Mode</div>
+                <div class="input-group" style="max-width: 100%;">
+                  <label for="textarea-default" class="input-label">Invoice notes</label>
+                  <textarea id="textarea-default" name="notes" class="input" rows="3" placeholder="Add payment terms or notes for your client..." autocomplete="off" style="resize: vertical;"></textarea>
+                </div>
+              </div>
+              <div class="mode-preview-panel mode-preview-dark">
+                <div class="mode-label">Dark Mode</div>
+                <div class="input-group" style="max-width: 100%;">
+                  <label for="textarea-dark" class="input-label" style="color: var(--text-dark-primary);">Invoice notes</label>
+                  <textarea id="textarea-dark" name="dark-notes" class="input" rows="3" placeholder="Add payment terms or notes for your client..." autocomplete="off" style="resize: vertical; background: var(--surface-dark-elevated); border-color: var(--surface-dark-border); color: var(--text-dark-primary);"></textarea>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tags -->
+            <h3 class="palette-group-title" style="margin-top: var(--space-2xl);">Tags & Badges</h3>
+            <div class="mode-preview">
+              <div class="mode-preview-panel mode-preview-light">
+                <div class="mode-label">Light Mode</div>
+                <div class="tags">
+                  <span class="tag tag-primary">Draft</span>
+                  <span class="tag tag-success">Paid</span>
+                  <span class="tag tag-warning">Pending</span>
+                  <span class="tag tag-error">Overdue</span>
+                  <span class="tag tag-info">Sent</span>
+                </div>
+              </div>
+              <div class="mode-preview-panel mode-preview-dark">
+                <div class="mode-label">Dark Mode</div>
+                <div class="tags">
+                  <span class="tag tag-primary">Draft</span>
+                  <span class="tag tag-success">Paid</span>
+                  <span class="tag tag-warning">Pending</span>
+                  <span class="tag tag-error">Overdue</span>
+                  <span class="tag tag-info">Sent</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Select -->
+            <h3 class="palette-group-title" style="margin-top: var(--space-2xl);">Select</h3>
+            <div class="mode-preview">
+              <div class="mode-preview-panel mode-preview-light">
+                <div class="mode-label">Light Mode</div>
+                <div class="input-group">
+                  <label for="select-default" class="input-label">Tax year</label>
+                  <select id="select-default" name="tax-year" class="input" autocomplete="off">
+                    <option value="">Select a year</option>
+                    <option value="2026">2025/2026</option>
+                    <option value="2025">2024/2025</option>
+                    <option value="2024">2023/2024</option>
+                  </select>
+                </div>
+              </div>
+              <div class="mode-preview-panel mode-preview-dark">
+                <div class="mode-label">Dark Mode</div>
+                <div class="input-group">
+                  <label for="select-dark" class="input-label" style="color: var(--text-dark-primary);">Tax year</label>
+                  <select id="select-dark" name="dark-tax-year" class="input" style="background: var(--surface-dark-elevated); border-color: var(--surface-dark-border); color: var(--text-dark-primary);" autocomplete="off">
+                    <option value="">Select a year</option>
+                    <option value="2026">2025/2026</option>
+                    <option value="2025">2024/2025</option>
+                    <option value="2024">2023/2024</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- ============================================
+           06 — DON'T
+           ============================================ -->
+      <section id="dont">
+        <p class="section-label">06 — Don't</p>
+        <h2 class="section-title">Negative Rules</h2>
+        <p class="section-description">
+          These are explicit violations of Ledgr's design system. Each pattern undermines
+          the brand's credibility in the financial space.
+        </p>
+
+        <div class="dont-grid">
+          <div class="dont-card">
+            <div class="dont-label">Don't</div>
+            <div class="dont-example">
+              <span style="font-family: var(--font-display); font-weight: 800; font-size: 1.5rem; transform: scaleX(1.3); display: inline-block; color: var(--text-primary);">Ledgr</span>
+            </div>
+            <p class="dont-text">Never stretch or distort the wordmark. A warped logo communicates carelessness &mdash; fatal for a finance product.</p>
+          </div>
+
+          <div class="dont-card">
+            <div class="dont-label">Don't</div>
+            <div class="dont-example">
+              <span style="font-family: var(--font-display); font-weight: 800; font-size: 1.5rem; background: linear-gradient(135deg, var(--color-primary), var(--color-warm)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Ledgr</span>
+            </div>
+            <p class="dont-text">Never apply gradients to the logo. The wordmark must always be a flat, solid color to work across all contexts.</p>
+          </div>
+
+          <div class="dont-card">
+            <div class="dont-label">Don't</div>
+            <div class="dont-example">
+              <span style="font-family: var(--font-display); font-weight: 800; font-size: 1.5rem; color: #c43d3d;">Ledgr</span>
+              <span style="font-family: var(--font-display); font-weight: 800; font-size: 1.5rem; color: #c43d3d; margin-left: 0.5em;">+</span>
+              <span style="font-family: var(--font-display); font-weight: 800; font-size: 1.5rem; background: #c43d3d; color: #fafcfb; padding: 0.1em 0.3em; border-radius: var(--radius-sm); margin-left: 0.5em;">Ledgr</span>
+            </div>
+            <p class="dont-text">Never use the error color for the brand mark. Red/error in finance implies loss, debt, or failure.</p>
+          </div>
+
+          <div class="dont-card">
+            <div class="dont-label">Don't</div>
+            <div class="dont-example">
+              <span style="font-family: var(--font-body); font-size: 10px; color: var(--text-primary);">Your quarterly tax estimate is based on projected income for the current fiscal period.</span>
+            </div>
+            <p class="dont-text">Never set body text below 14px (0.875rem). Financial data demands readability &mdash; small text erodes trust.</p>
+          </div>
+
+          <div class="dont-card">
+            <div class="dont-label">Don't</div>
+            <div class="dont-example">
+              <button type="button" style="padding: 0.5em 1em; background: var(--color-primary); color: #fafcfb; border: none; border-radius: var(--radius-md); font-family: var(--font-heading); font-size: 0.875rem; cursor: pointer; outline: none;" tabindex="-1">Send Invoice</button>
+            </div>
+            <p class="dont-text">Never remove focus indicators from interactive elements. Keyboard navigation is required for accessibility.</p>
+          </div>
+
+          <div class="dont-card">
+            <div class="dont-label">Don't</div>
+            <div class="dont-example">
+              <span style="font-family: var(--font-display); font-weight: 800; font-size: 4rem; letter-spacing: -0.04em; color: var(--text-primary); line-height: 1;">LEDGR</span>
+            </div>
+            <p class="dont-text">Never use the brand fonts at extreme decorative sizes or in all-caps for display. The wordmark has a specific form &mdash; respect it.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer style="padding: var(--space-2xl); text-align: center; background: var(--surface-elevated);">
+        <p style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-tertiary);">
+          Ledgr Brand Guidelines &middot; Generated with Brandbook Design System &middot; <span style="font-variant-numeric: tabular-nums;">2026</span>
+        </p>
+      </footer>
+    </main>
+  </div>
+
+  <!-- Scroll-based active section highlighting -->
+  <script>
+    (function () {
+      var navLinks = document.querySelectorAll('.sidebar-nav a');
+      var sections = document.querySelectorAll('section[id]');
+
+      if (!sections.length || !navLinks.length) return;
+
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            navLinks.forEach(function (link) { link.classList.remove('active'); });
+            var active = document.querySelector('.sidebar-nav a[href="#' + entry.target.id + '"]');
+            if (active) active.classList.add('active');
+          }
+        });
+      }, {
+        rootMargin: '-20% 0px -70% 0px',
+        threshold: 0
+      });
+
+      sections.forEach(function (section) { observer.observe(section); });
+    })();
+  </script>
+</body>
+</html>
