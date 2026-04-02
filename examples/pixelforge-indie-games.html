@@ -1,0 +1,2031 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#e6197a">
+  <title>PixelForge — Brandbook</title>
+
+  <!-- Preconnect to Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200;300;400;500;600;700;800;900&family=Manrope:wght@200;300;400;500;600;700;800&family=Fira+Code:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================
+       DESIGN TOKENS — PixelForge Brand System
+       ============================================ */
+    :root {
+      /* Core */
+      --color-primary-light: #f472b6;
+      --color-primary: #e6197a;
+      --color-primary-dark: #be185d;
+
+      /* Accents */
+      --color-warm: #d97706;
+      --color-warm-light: #f59e0b;
+      --color-cool: #0891b2;
+      --color-cool-light: #06b6d4;
+
+      /* Semantic */
+      --color-success: #16a34a;
+      --color-warning: #d97706;
+      --color-error: #dc2626;
+      --color-info: #2563eb;
+
+      /* Surfaces — Light */
+      --surface-page: #fdf6f9;
+      --surface-card: #fefafb;
+      --surface-elevated: #f8ecf1;
+      --surface-border: #ebd8e1;
+
+      /* Surfaces — Dark */
+      --surface-dark-deep: #0d0509;
+      --surface-dark-base: #150810;
+      --surface-dark-elevated: #22101b;
+      --surface-dark-border: #3d1a2d;
+
+      /* Text — Light */
+      --text-primary: #200d17;
+      --text-secondary: #5c3a4a;
+      --text-tertiary: #8c6b7a;
+      --text-disabled: #b69aaa;
+
+      /* Text — Dark */
+      --text-dark-primary: #f5ecf0;
+      --text-dark-secondary: #c4a8b5;
+      --text-dark-tertiary: #8c6b7a;
+      --text-dark-disabled: #5c3a4a;
+
+      /* Typography */
+      --font-display: 'Unbounded', 'Trebuchet MS', sans-serif;
+      --font-heading: 'Unbounded', 'Trebuchet MS', sans-serif;
+      --font-body: 'Manrope', system-ui, -apple-system, sans-serif;
+      --font-mono: 'Fira Code', 'Cascadia Code', monospace;
+
+      /* Spacing */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2rem;
+      --space-2xl: 3rem;
+      --space-3xl: 4rem;
+      --space-4xl: 6rem;
+
+      /* Radii — slightly sharp for Creator/tech feel, not fully rounded */
+      --radius-sm: 0.25rem;
+      --radius-md: 0.375rem;
+      --radius-lg: 0.5rem;
+      --radius-xl: 0.75rem;
+      --radius-full: 9999px;
+
+      /* Layout */
+      --sidebar-width: 240px;
+      --content-max: 960px;
+    }
+
+    /* ============================================
+       RESET & BASE
+       ============================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: clamp(15px, 1vw + 12px, 18px);
+      scroll-behavior: smooth;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    body {
+      font-family: var(--font-body);
+      font-weight: 400;
+      line-height: 1.6;
+      color: var(--text-primary);
+      background-color: var(--surface-page);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+
+    /* Noise texture overlay */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.035;
+      z-index: 9999;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* ============================================
+       SKIP LINK
+       ============================================ */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: var(--space-md);
+      padding: var(--space-sm) var(--space-md);
+      background: var(--color-primary);
+      color: #fff;
+      border-radius: var(--radius-md);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      text-decoration: none;
+      z-index: 10000;
+      transition: top 0.2s;
+    }
+
+    .skip-link:focus {
+      top: var(--space-md);
+    }
+
+    /* ============================================
+       FOCUS STYLES
+       ============================================ */
+    :focus-visible {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 2px;
+    }
+
+    /* ============================================
+       LAYOUT
+       ============================================ */
+    .layout {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* ============================================
+       SIDEBAR — own dark chrome, independent from brand content
+       ============================================ */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: var(--sidebar-width);
+      height: 100vh;
+      padding: var(--space-xl) var(--space-lg);
+      background: var(--surface-dark-base);
+      color: var(--text-dark-primary);
+      overflow-y: auto;
+      z-index: 100;
+      border-right: 1px solid var(--surface-dark-border);
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Logo — fluid gradient wordmark */
+    .sidebar-logo {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: 1.6rem;
+      letter-spacing: -0.02em;
+      margin-bottom: var(--space-2xl);
+      background: linear-gradient(135deg, var(--color-primary-light), var(--color-primary-dark));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .sidebar-nav {
+      list-style: none;
+    }
+
+    .sidebar-nav li {
+      margin-bottom: var(--space-xs);
+    }
+
+    .sidebar-nav a {
+      display: block;
+      padding: var(--space-sm) var(--space-md);
+      color: var(--text-dark-tertiary);
+      text-decoration: none;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.02em;
+      border-radius: var(--radius-md);
+      transition: color 0.15s;
+    }
+
+    .sidebar-nav a:hover,
+    .sidebar-nav a:focus-visible {
+      color: var(--text-dark-primary);
+    }
+
+    /* Active section — scroll-driven */
+    .sidebar-nav a.active {
+      color: var(--text-dark-primary);
+      background: var(--surface-dark-border);
+      border-radius: var(--radius-md) 0 0 var(--radius-md);
+      margin-right: calc(var(--space-lg) * -1);
+      padding-right: calc(var(--space-md) + var(--space-lg));
+    }
+
+    .sidebar-nav .section-number {
+      color: var(--color-primary-light);
+      margin-right: var(--space-sm);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .sidebar-credit {
+      margin-top: auto;
+      padding-top: var(--space-lg);
+    }
+
+    .sidebar-credit a {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: var(--text-dark-disabled);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: color 0.15s;
+    }
+
+    .sidebar-credit a:hover {
+      color: var(--text-dark-tertiary);
+    }
+
+    /* ============================================
+       CONTENT — uses brand tokens, never sidebar's dark
+       ============================================ */
+    .content {
+      margin-left: var(--sidebar-width);
+      flex: 1;
+      min-width: 0;
+    }
+
+    /* ============================================
+       SECTIONS — alternating rhythm via elevated bg
+       ============================================ */
+    section {
+      padding: var(--space-4xl) var(--space-2xl);
+      max-width: var(--content-max);
+      margin: 0 auto;
+      color: var(--text-primary);
+    }
+
+    /* Alternating section — uses brand's elevated surface */
+    .section-alt {
+      background: var(--surface-elevated);
+      max-width: none;
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    .section-alt > .section-inner {
+      max-width: var(--content-max);
+      margin: 0 auto;
+      padding: 0 var(--space-2xl);
+    }
+
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-primary-dark);
+      margin-bottom: var(--space-sm);
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 2.441rem;
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: var(--space-lg);
+      color: var(--text-primary);
+    }
+
+    .section-description {
+      color: var(--text-secondary);
+      max-width: 60ch;
+      margin-bottom: var(--space-2xl);
+    }
+
+    /* ============================================
+       HERO / COVER
+       ============================================ */
+    .hero {
+      padding: var(--space-4xl) var(--space-2xl);
+      max-width: var(--content-max);
+      margin: 0 auto;
+      min-height: 50vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+      padding: var(--space-xs) var(--space-md);
+      background: var(--surface-elevated);
+      border-radius: var(--radius-full);
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--color-primary-dark);
+      margin-bottom: var(--space-xl);
+      width: fit-content;
+    }
+
+    .hero-badge .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--color-primary);
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: 3.815rem;
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: var(--space-lg);
+      color: var(--text-primary);
+    }
+
+    .hero-wordmark {
+      font-family: var(--font-heading);
+      font-weight: 800;
+    }
+
+    /* Identity element highlight — the pixel block "o" */
+    .identity-element {
+      color: var(--color-primary);
+    }
+
+    /* Pixel block treatment for the "o" in Forge */
+    .pixel-o {
+      display: inline-block;
+      width: 0.65em;
+      height: 0.65em;
+      background: var(--color-primary);
+      border-radius: 2px;
+      vertical-align: baseline;
+      position: relative;
+      top: -0.05em;
+    }
+
+    .pixel-o-light {
+      background: var(--color-primary);
+    }
+
+    .pixel-o-dark {
+      background: var(--color-primary-light);
+    }
+
+    .pixel-o-brand {
+      background: #ffffff;
+    }
+
+    .hero-subtitle {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      max-width: 50ch;
+    }
+
+    /* ============================================
+       01 — ARCHETYPE
+       ============================================ */
+    .archetype-card {
+      background: var(--surface-card);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-2xl);
+      margin-bottom: var(--space-xl);
+    }
+
+    .archetype-name {
+      font-family: var(--font-display);
+      font-size: 1.953rem;
+      font-weight: 700;
+      margin-bottom: var(--space-sm);
+      color: var(--text-primary);
+    }
+
+    .traits {
+      display: flex;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+      margin-bottom: var(--space-lg);
+    }
+
+    .trait {
+      padding: var(--space-xs) var(--space-md);
+      background: var(--surface-elevated);
+      border-radius: var(--radius-full);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--color-primary-dark);
+    }
+
+    .voice-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--space-md);
+      margin-top: var(--space-lg);
+    }
+
+    .voice-item {
+      padding: var(--space-lg);
+      background: var(--surface-elevated);
+      border-radius: var(--radius-lg);
+    }
+
+    .voice-item-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-primary-dark);
+      margin-bottom: var(--space-sm);
+    }
+
+    .voice-item-text {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .positioning-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-md);
+      margin-top: var(--space-xl);
+    }
+
+    .positioning-item {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+
+    .positioning-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+    }
+
+    .positioning-bar {
+      position: relative;
+      height: 6px;
+      background: var(--surface-elevated);
+      border-radius: var(--radius-full);
+      overflow: hidden;
+    }
+
+    .positioning-fill {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      background: var(--color-primary);
+      border-radius: var(--radius-full);
+    }
+
+    .positioning-endpoints {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--text-tertiary);
+    }
+
+    /* ============================================
+       02 — WORDMARK
+       ============================================ */
+    .wordmark-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--space-lg);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .wordmark-variant {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-3xl) var(--space-xl);
+      border-radius: var(--radius-lg);
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 2rem;
+      letter-spacing: -0.02em;
+    }
+
+    .wordmark-on-light {
+      background: var(--surface-card);
+      border: 1px solid var(--surface-border);
+      color: var(--text-primary);
+    }
+
+    .wordmark-on-dark {
+      background: var(--surface-dark-base);
+      color: var(--text-dark-primary);
+    }
+
+    .wordmark-on-brand {
+      background: var(--color-primary);
+      color: #ffffff;
+    }
+
+    .wordmark-variant-label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      margin-bottom: var(--space-sm);
+    }
+
+    .wordmark-variant-wrapper {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .clearspace-note {
+      margin-top: var(--space-xl);
+      padding: var(--space-lg);
+      background: var(--surface-card);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius-lg);
+    }
+
+    .clearspace-note-title {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: var(--space-sm);
+      color: var(--text-primary);
+    }
+
+    .clearspace-note-text {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+
+    .clearspace-demo {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-xl);
+      margin-top: var(--space-md);
+      border: 2px dashed var(--color-primary-light);
+      border-radius: var(--radius-md);
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 1.5rem;
+      color: var(--text-primary);
+      position: relative;
+    }
+
+    /* Do / Don't for wordmark */
+    .do-dont-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: var(--space-md);
+      margin-top: var(--space-xl);
+    }
+
+    .do-card {
+      border: 1.5px solid var(--color-success);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      background: color-mix(in srgb, var(--color-success) 3%, var(--surface-card));
+    }
+
+    .do-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-success);
+      margin-bottom: var(--space-md);
+    }
+
+    .do-example {
+      padding: var(--space-lg);
+      background: var(--surface-elevated);
+      border-radius: var(--radius-md);
+      margin-bottom: var(--space-md);
+      text-align: center;
+    }
+
+    .do-text {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+
+    .dont-card-inline {
+      border: 1.5px solid var(--color-error);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      background: color-mix(in srgb, var(--color-error) 3%, var(--surface-card));
+    }
+
+    .dont-label-inline {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-error);
+      margin-bottom: var(--space-md);
+    }
+
+    .dont-example-inline {
+      padding: var(--space-lg);
+      background: var(--surface-elevated);
+      border-radius: var(--radius-md);
+      margin-bottom: var(--space-md);
+      text-align: center;
+    }
+
+    .dont-text-inline {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+
+    /* ============================================
+       03 — COLOR PALETTE
+       ============================================ */
+    .palette-group {
+      margin-bottom: var(--space-2xl);
+    }
+
+    .palette-group-title {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 1.25rem;
+      margin-bottom: var(--space-md);
+      color: var(--text-primary);
+    }
+
+    .swatches {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: var(--space-md);
+    }
+
+    .swatch {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--surface-border);
+    }
+
+    .swatch-color {
+      height: 80px;
+      display: flex;
+      align-items: flex-end;
+      padding: var(--space-sm);
+    }
+
+    .swatch-contrast {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      font-weight: 500;
+      padding: 2px 6px;
+      border-radius: var(--radius-sm);
+      background: rgba(0, 0, 0, 0.35);
+      color: #fff;
+    }
+
+    .swatch-info {
+      padding: var(--space-sm) var(--space-md);
+      background: var(--surface-card);
+    }
+
+    .swatch-name {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 0.8rem;
+      color: var(--text-primary);
+    }
+
+    .swatch-hex {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-tertiary);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .swatch-usage {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: var(--text-tertiary);
+      margin-top: 2px;
+    }
+
+    /* ============================================
+       04 — TYPOGRAPHY
+       ============================================ */
+    .type-specimen {
+      margin-bottom: var(--space-2xl);
+      padding: var(--space-2xl);
+      background: var(--surface-card);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius-lg);
+    }
+
+    .type-specimen-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-primary-dark);
+      margin-bottom: var(--space-md);
+    }
+
+    .type-specimen-sample {
+      margin-bottom: var(--space-md);
+      color: var(--text-primary);
+    }
+
+    .type-specimen-meta {
+      display: flex;
+      gap: var(--space-lg);
+      flex-wrap: wrap;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-tertiary);
+    }
+
+    .type-specimen-meta dt {
+      color: var(--text-secondary);
+    }
+
+    .type-specimen-meta dd {
+      font-variant-numeric: tabular-nums;
+    }
+
+    .type-scale-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: var(--space-xl);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+    }
+
+    .type-scale-table th {
+      text-align: left;
+      padding: var(--space-sm) var(--space-md);
+      border-bottom: 2px solid var(--surface-border);
+      font-weight: 600;
+      color: var(--text-primary);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      font-size: 0.65rem;
+    }
+
+    .type-scale-table td {
+      padding: var(--space-sm) var(--space-md);
+      border-bottom: 1px solid var(--surface-border);
+      color: var(--text-secondary);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .type-scale-table td:first-child {
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    /* ============================================
+       05 — COMPONENTS
+       ============================================ */
+    .component-row {
+      display: flex;
+      gap: var(--space-md);
+      flex-wrap: wrap;
+      align-items: center;
+      margin-bottom: var(--space-xl);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-sm) var(--space-lg);
+      border-radius: var(--radius-md);
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 0.875rem;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.1s, box-shadow 0.1s;
+      text-decoration: none;
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+    .btn:active { transform: translateY(0); }
+
+    .btn-primary {
+      background: var(--color-primary);
+      color: #ffffff;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.08);
+    }
+    .btn-primary:hover {
+      background: var(--color-primary-dark);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+    }
+
+    .btn-secondary {
+      background: var(--surface-elevated);
+      color: var(--text-primary);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--color-primary);
+      border: 1.5px solid var(--color-primary);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-secondary);
+    }
+    .btn-ghost:hover {
+      background: var(--surface-elevated);
+      color: var(--text-primary);
+    }
+
+    .btn-destructive {
+      background: var(--color-error);
+      color: #ffffff;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--surface-card);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+
+    .card-interactive:hover {
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      transform: translateY(-2px);
+    }
+
+    .card-featured {
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 1px var(--color-primary);
+    }
+
+    .card-title {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-bottom: var(--space-sm);
+      color: var(--text-primary);
+    }
+
+    .card-text {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+    }
+
+    /* Inputs */
+    .input-group {
+      margin-bottom: var(--space-lg);
+      max-width: 400px;
+    }
+
+    .input-label {
+      display: block;
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 0.8rem;
+      margin-bottom: var(--space-xs);
+      color: var(--text-primary);
+    }
+
+    .input {
+      width: 100%;
+      padding: var(--space-sm) var(--space-md);
+      border: 1.5px solid var(--surface-border);
+      border-radius: var(--radius-md);
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      color: var(--text-primary);
+      background: var(--surface-card);
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    .input:focus {
+      outline: none;
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 20%, transparent);
+    }
+
+    .input-error { border-color: var(--color-error); }
+    .input-error:focus { box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-error) 20%, transparent); }
+    .input:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .input-hint {
+      font-size: 0.75rem;
+      margin-top: var(--space-xs);
+      color: var(--text-tertiary);
+    }
+
+    .input-error-msg {
+      font-size: 0.75rem;
+      margin-top: var(--space-xs);
+      color: var(--color-error);
+    }
+
+    /* Textarea */
+    .textarea {
+      width: 100%;
+      padding: var(--space-sm) var(--space-md);
+      border: 1.5px solid var(--surface-border);
+      border-radius: var(--radius-md);
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      color: var(--text-primary);
+      background: var(--surface-card);
+      transition: border-color 0.15s, box-shadow 0.15s;
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .textarea:focus {
+      outline: none;
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 20%, transparent);
+    }
+
+    /* Select */
+    .select {
+      width: 100%;
+      padding: var(--space-sm) var(--space-md);
+      border: 1.5px solid var(--surface-border);
+      border-radius: var(--radius-md);
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      color: var(--text-primary);
+      background: var(--surface-card);
+      transition: border-color 0.15s, box-shadow 0.15s;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%235c3a4a' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      padding-right: 36px;
+    }
+
+    .select:focus {
+      outline: none;
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 20%, transparent);
+    }
+
+    /* Tags */
+    .tags {
+      display: flex;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+    }
+
+    .tag-primary { background: color-mix(in srgb, var(--color-primary) 15%, transparent); color: var(--color-primary-dark); }
+    .tag-success { background: color-mix(in srgb, var(--color-success) 15%, transparent); color: var(--color-success); }
+    .tag-warning { background: color-mix(in srgb, var(--color-warning) 15%, transparent); color: var(--color-warning); }
+    .tag-error   { background: color-mix(in srgb, var(--color-error) 15%, transparent);   color: var(--color-error); }
+    .tag-info    { background: color-mix(in srgb, var(--color-info) 15%, transparent);    color: var(--color-info); }
+
+    /* ============================================
+       06 — DON'T RULES
+       ============================================ */
+    .dont-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--space-lg);
+    }
+
+    .dont-card {
+      border: 1.5px solid var(--color-error);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      background: color-mix(in srgb, var(--color-error) 3%, var(--surface-card));
+    }
+
+    .dont-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-error);
+      margin-bottom: var(--space-md);
+    }
+
+    .dont-example {
+      padding: var(--space-lg);
+      background: var(--surface-elevated);
+      border-radius: var(--radius-md);
+      margin-bottom: var(--space-md);
+      text-align: center;
+    }
+
+    .dont-text {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+
+    /* ============================================
+       DARK MODE PREVIEW PANELS (within components)
+       ============================================ */
+    .mode-preview {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-lg);
+      margin-bottom: var(--space-xl);
+    }
+
+    .mode-preview-panel {
+      padding: var(--space-xl);
+      border-radius: var(--radius-lg);
+    }
+
+    .mode-preview-light {
+      background: var(--surface-page);
+      color: var(--text-primary);
+      border: 1px solid var(--surface-border);
+    }
+
+    .mode-preview-dark {
+      background: var(--surface-dark-base);
+      color: var(--text-dark-primary);
+      border: 1px solid var(--surface-dark-border);
+    }
+
+    .mode-label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: var(--space-md);
+      opacity: 0.6;
+    }
+
+    /* ============================================
+       DARK MODE (auto via prefers-color-scheme)
+       ============================================ */
+    @media (prefers-color-scheme: dark) {
+      body {
+        color: var(--text-dark-primary);
+        background-color: var(--surface-dark-base);
+      }
+
+      section { color: var(--text-dark-primary); }
+      .section-title { color: var(--text-dark-primary); }
+      .section-label { color: var(--color-primary-light); }
+      .section-description { color: var(--text-dark-secondary); }
+      .section-alt { background: var(--surface-dark-elevated); }
+
+      .hero-badge { background: var(--surface-dark-elevated); color: var(--color-primary-light); }
+      .hero-title { color: var(--text-dark-primary); }
+      .hero-subtitle { color: var(--text-dark-secondary); }
+
+      .archetype-card { background: var(--surface-dark-elevated); border-color: var(--surface-dark-border); }
+      .archetype-name { color: var(--text-dark-primary); }
+      .trait { background: var(--surface-dark-deep); color: var(--color-primary-light); }
+
+      .voice-item { background: var(--surface-dark-deep); }
+      .voice-item-label { color: var(--color-primary-light); }
+      .voice-item-text { color: var(--text-dark-secondary); }
+
+      .positioning-label { color: var(--text-dark-tertiary); }
+      .positioning-bar { background: var(--surface-dark-elevated); }
+      .positioning-endpoints { color: var(--text-dark-tertiary); }
+
+      .palette-group-title { color: var(--text-dark-primary); }
+      .swatch-info { background: var(--surface-dark-elevated); }
+      .swatch-name { color: var(--text-dark-primary); }
+      .swatch { border-color: var(--surface-dark-border); }
+      .swatch-hex { color: var(--text-dark-tertiary); }
+      .swatch-usage { color: var(--text-dark-tertiary); }
+
+      .type-specimen { background: var(--surface-dark-elevated); border-color: var(--surface-dark-border); }
+      .type-specimen-sample { color: var(--text-dark-primary); }
+      .type-specimen-label { color: var(--color-primary-light); }
+
+      .type-scale-table th { color: var(--text-dark-primary); border-color: var(--surface-dark-border); }
+      .type-scale-table td { color: var(--text-dark-secondary); border-color: var(--surface-dark-border); }
+      .type-scale-table td:first-child { color: var(--text-dark-primary); }
+
+      .card { background: var(--surface-dark-elevated); border-color: var(--surface-dark-border); }
+      .card-title { color: var(--text-dark-primary); }
+      .card-text { color: var(--text-dark-secondary); }
+
+      .input { background: var(--surface-dark-elevated); border-color: var(--surface-dark-border); color: var(--text-dark-primary); }
+      .input-label { color: var(--text-dark-primary); }
+      .input-hint { color: var(--text-dark-tertiary); }
+      .textarea { background: var(--surface-dark-elevated); border-color: var(--surface-dark-border); color: var(--text-dark-primary); }
+      .select { background: var(--surface-dark-elevated); border-color: var(--surface-dark-border); color: var(--text-dark-primary); }
+
+      .btn-secondary { background: var(--surface-dark-elevated); color: var(--text-dark-primary); }
+      .btn-ghost { color: var(--text-dark-secondary); }
+      .btn-ghost:hover { background: var(--surface-dark-elevated); color: var(--text-dark-primary); }
+
+      .dont-card { background: color-mix(in srgb, var(--color-error) 5%, var(--surface-dark-elevated)); }
+      .dont-text { color: var(--text-dark-secondary); }
+      .dont-example { background: var(--surface-dark-deep); }
+
+      .do-card { background: color-mix(in srgb, var(--color-success) 5%, var(--surface-dark-elevated)); }
+      .do-text { color: var(--text-dark-secondary); }
+      .do-example { background: var(--surface-dark-deep); }
+      .dont-card-inline { background: color-mix(in srgb, var(--color-error) 5%, var(--surface-dark-elevated)); }
+      .dont-text-inline { color: var(--text-dark-secondary); }
+      .dont-example-inline { background: var(--surface-dark-deep); }
+
+      .wordmark-on-light {
+        background: var(--surface-card);
+        color: var(--text-primary);
+        border-color: var(--surface-border);
+      }
+
+      .clearspace-note { background: var(--surface-dark-elevated); border-color: var(--surface-dark-border); }
+      .clearspace-note-title { color: var(--text-dark-primary); }
+      .clearspace-note-text { color: var(--text-dark-secondary); }
+      .clearspace-demo { border-color: var(--color-primary-light); color: var(--text-dark-primary); }
+
+      /* Keep the light/dark preview panels explicitly styled so they don't shift */
+      .mode-preview-light {
+        background: var(--surface-page);
+        color: var(--text-primary);
+        border-color: var(--surface-border);
+      }
+    }
+
+    /* ============================================
+       RESPONSIVE
+       ============================================ */
+    @media (max-width: 768px) {
+      .sidebar { display: none; }
+      .content { margin-left: 0; }
+      .hero-title { font-size: 2.441rem; }
+      .mode-preview { grid-template-columns: 1fr; }
+      .wordmark-grid { grid-template-columns: 1fr; }
+      .positioning-grid { grid-template-columns: 1fr; }
+      .do-dont-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ============================================
+       PRINT
+       ============================================ */
+    @media print {
+      .sidebar { display: none; }
+      .content { margin-left: 0; }
+      .skip-link { display: none; }
+      body { background: #fff; color: #1a1025; }
+      body::after { display: none; }
+      .section-alt { background: #f5f5f5; color: #1a1025; }
+      .mode-preview-dark { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <div class="layout">
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar" aria-label="Brandbook sections">
+      <div class="sidebar-logo" aria-label="Brandbook">Brandbook</div>
+      <ul class="sidebar-nav" role="list">
+        <li><a href="#cover" class="active"><span class="section-number">00</span> Cover</a></li>
+        <li><a href="#archetype"><span class="section-number">01</span> Archetype</a></li>
+        <li><a href="#wordmark"><span class="section-number">02</span> Wordmark</a></li>
+        <li><a href="#colors"><span class="section-number">03</span> Colors</a></li>
+        <li><a href="#typography"><span class="section-number">04</span> Typography</a></li>
+        <li><a href="#components"><span class="section-number">05</span> Components</a></li>
+        <li><a href="#dont"><span class="section-number">06</span> Don't</a></li>
+      </ul>
+      <div class="sidebar-credit">
+        <a href="https://x.com/diegoivo" target="_blank" rel="noopener noreferrer">Created by @diegoivo</a>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="content" id="main">
+      <!-- 00 — Cover -->
+      <section id="cover" class="hero">
+        <div class="hero-badge">
+          <span class="dot"></span>
+          Brand Identity System
+        </div>
+        <h1 class="hero-title">
+          <span class="hero-wordmark">Pixel<span class="identity-element">F<span class="pixel-o pixel-o-light" role="img" aria-label="pixel block replacing the letter o"></span>rge</span></span>
+        </h1>
+        <p class="hero-subtitle">
+          Narrative-driven pixel art RPGs forged by hand. A visual identity for the studio that turns 8-bit nostalgia into modern storytelling.
+        </p>
+      </section>
+
+      <!-- 01 — Archetype -->
+      <div class="section-alt">
+        <section id="archetype">
+          <div class="section-inner">
+            <p class="section-label">01 — Archetype</p>
+            <h2 class="section-title">Brand Personality</h2>
+            <p class="section-description">
+              PixelForge embodies the Creator archetype with Jester influence -- inventive and artistic at the core, with a playful irreverence that keeps things from getting too serious.
+            </p>
+
+            <div class="archetype-card">
+              <h3 class="archetype-name">The Creator + Jester</h3>
+              <div class="traits">
+                <span class="trait">Inventive</span>
+                <span class="trait">Artistic</span>
+                <span class="trait">Playful</span>
+                <span class="trait">Irreverent</span>
+              </div>
+              <p style="color: var(--text-secondary); margin-bottom: var(--space-lg);">
+                Creator brands build things that didn't exist before. They value self-expression, experimentation, and the craft of making. The Jester influence adds humor and wit -- PixelForge doesn't take itself too seriously even when the work is serious. The brand speaks to those who see games as an art form worth defending.
+              </p>
+
+              <div class="voice-grid">
+                <div class="voice-item">
+                  <div class="voice-item-label">Tone</div>
+                  <div class="voice-item-text">Confident but never arrogant. Casual like talking to a friend who happens to be ridiculously talented at making games.</div>
+                </div>
+                <div class="voice-item">
+                  <div class="voice-item-label">Language</div>
+                  <div class="voice-item-text">Technical when it matters, irreverent by default. Avoids corporate jargon. Speaks in the language of its community.</div>
+                </div>
+                <div class="voice-item">
+                  <div class="voice-item-label">Emotion</div>
+                  <div class="voice-item-text">Nostalgic warmth mixed with rebellious energy. The feeling of discovering a secret level at 2 a.m.</div>
+                </div>
+              </div>
+            </div>
+
+            <h3 class="palette-group-title" style="margin-top: var(--space-xl);">Positioning</h3>
+            <div class="positioning-grid">
+              <div class="positioning-item">
+                <div class="positioning-label">Premium vs Accessible</div>
+                <div class="positioning-bar"><div class="positioning-fill" style="width: 30%;"></div></div>
+                <div class="positioning-endpoints"><span>Premium</span><span>Accessible</span></div>
+              </div>
+              <div class="positioning-item">
+                <div class="positioning-label">Technical vs Approachable</div>
+                <div class="positioning-bar"><div class="positioning-fill" style="width: 40%;"></div></div>
+                <div class="positioning-endpoints"><span>Technical</span><span>Approachable</span></div>
+              </div>
+              <div class="positioning-item">
+                <div class="positioning-label">Bold vs Subtle</div>
+                <div class="positioning-bar"><div class="positioning-fill" style="width: 80%;"></div></div>
+                <div class="positioning-endpoints"><span>Bold</span><span>Subtle</span></div>
+              </div>
+              <div class="positioning-item">
+                <div class="positioning-label">Playful vs Serious</div>
+                <div class="positioning-bar"><div class="positioning-fill" style="width: 75%;"></div></div>
+                <div class="positioning-endpoints"><span>Playful</span><span>Serious</span></div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- 02 — Wordmark -->
+      <section id="wordmark">
+        <p class="section-label">02 — Logo & Wordmark</p>
+        <h2 class="section-title">Wordmark Variants</h2>
+        <p class="section-description">
+          The PixelForge wordmark uses Unbounded at 800 weight. The "o" in "Forge" is replaced with a solid pixel block in the primary color -- a nod to the studio's pixel art craft. This block is the core identity element.
+        </p>
+
+        <div class="wordmark-grid">
+          <div class="wordmark-variant-wrapper">
+            <div class="wordmark-variant-label">On Light</div>
+            <div class="wordmark-variant wordmark-on-light">
+              Pixel<span style="color: var(--color-primary);">F<span class="pixel-o pixel-o-light"></span>rge</span>
+            </div>
+          </div>
+          <div class="wordmark-variant-wrapper">
+            <div class="wordmark-variant-label">On Dark</div>
+            <div class="wordmark-variant wordmark-on-dark">
+              Pixel<span style="color: var(--color-primary-light);">F<span class="pixel-o pixel-o-dark"></span>rge</span>
+            </div>
+          </div>
+          <div class="wordmark-variant-wrapper">
+            <div class="wordmark-variant-label">On Brand</div>
+            <div class="wordmark-variant wordmark-on-brand">
+              Pixel<span>F<span class="pixel-o pixel-o-brand"></span>rge</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Clear Space -->
+        <div class="clearspace-note">
+          <h3 class="clearspace-note-title">Clear Space</h3>
+          <p class="clearspace-note-text">
+            Maintain a minimum clear space equal to the cap-height of the "P" in "Pixel" on all sides of the wordmark. This ensures the mark has breathing room and never feels crowded by surrounding elements.
+          </p>
+          <div class="clearspace-demo">
+            PixelF<span class="pixel-o pixel-o-light" style="width: 0.5em; height: 0.5em;"></span>rge
+          </div>
+        </div>
+
+        <!-- Do / Don't -->
+        <h3 class="palette-group-title" style="margin-top: var(--space-2xl);">Usage Rules</h3>
+        <div class="do-dont-grid">
+          <div class="do-card">
+            <div class="do-label">Do</div>
+            <div class="do-example">
+              <span style="font-family: var(--font-heading); font-weight: 800; font-size: 1.5rem; color: var(--text-primary);">Pixel<span style="color: var(--color-primary);">F<span class="pixel-o pixel-o-light" style="width: 0.55em; height: 0.55em;"></span>rge</span></span>
+            </div>
+            <p class="do-text">Use the wordmark at its original proportions with the pixel block in brand color.</p>
+          </div>
+          <div class="do-card">
+            <div class="do-label">Do</div>
+            <div class="do-example" style="background: var(--surface-dark-base);">
+              <span style="font-family: var(--font-heading); font-weight: 800; font-size: 1.5rem; color: var(--text-dark-primary);">Pixel<span style="color: var(--color-primary-light);">F<span class="pixel-o pixel-o-dark" style="width: 0.55em; height: 0.55em;"></span>rge</span></span>
+            </div>
+            <p class="do-text">On dark backgrounds, use the light variant of the primary for the identity element.</p>
+          </div>
+          <div class="do-card">
+            <div class="do-label">Do</div>
+            <div class="do-example">
+              <span style="font-family: var(--font-heading); font-weight: 800; font-size: 1.5rem; color: var(--text-primary);">Pixel<span style="color: var(--color-primary);">F<span class="pixel-o pixel-o-light" style="width: 0.55em; height: 0.55em;"></span>rge</span></span>
+              <span style="display: block; font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-tertiary); margin-top: var(--space-sm); letter-spacing: 0.1em; text-transform: uppercase;">Indie Game Studio</span>
+            </div>
+            <p class="do-text">Pair the wordmark with the tagline in mono, separated by clear vertical space.</p>
+          </div>
+          <div class="dont-card-inline">
+            <div class="dont-label-inline">Don't</div>
+            <div class="dont-example-inline">
+              <span style="font-family: var(--font-heading); font-weight: 800; font-size: 1.5rem; transform: scaleX(1.3); display: inline-block; color: var(--text-primary);">PixelForge</span>
+            </div>
+            <p class="dont-text-inline">Never stretch or distort the wordmark horizontally or vertically.</p>
+          </div>
+          <div class="dont-card-inline">
+            <div class="dont-label-inline">Don't</div>
+            <div class="dont-example-inline">
+              <span style="font-family: var(--font-heading); font-weight: 800; font-size: 1.5rem; background: linear-gradient(135deg, var(--color-primary), var(--color-cool)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">PixelForge</span>
+            </div>
+            <p class="dont-text-inline">Never apply gradients to the wordmark. The logo uses flat, solid colors only.</p>
+          </div>
+          <div class="dont-card-inline">
+            <div class="dont-label-inline">Don't</div>
+            <div class="dont-example-inline">
+              <span style="font-family: 'Comic Sans MS', cursive; font-weight: bold; font-size: 1.5rem; color: var(--text-primary);">PixelForge</span>
+            </div>
+            <p class="dont-text-inline">Never substitute the typeface. The wordmark must always use Unbounded 800.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 03 — Colors -->
+      <div class="section-alt">
+        <section id="colors">
+          <div class="section-inner">
+            <p class="section-label">03 — Color Palette</p>
+            <h2 class="section-title">Color System</h2>
+            <p class="section-description">
+              Electric magenta anchors the palette -- bold and unapologetically vibrant. Neon cyan provides contrast for data and interactive states. Amber adds warmth for highlights and calls to action.
+            </p>
+
+            <!-- Core -->
+            <div class="palette-group">
+              <h3 class="palette-group-title">Core</h3>
+              <div class="swatches">
+                <div class="swatch">
+                  <div class="swatch-color" style="background: var(--color-primary-light);">
+                    <span class="swatch-contrast">3.2:1</span>
+                  </div>
+                  <div class="swatch-info">
+                    <div class="swatch-name">Primary Light</div>
+                    <div class="swatch-hex">#f472b6</div>
+                    <div class="swatch-usage">Hover states, backgrounds</div>
+                  </div>
+                </div>
+                <div class="swatch">
+                  <div class="swatch-color" style="background: var(--color-primary);">
+                    <span class="swatch-contrast">4.8:1</span>
+                  </div>
+                  <div class="swatch-info">
+                    <div class="swatch-name">Primary</div>
+                    <div class="swatch-hex">#e6197a</div>
+                    <div class="swatch-usage">CTAs, brand mark</div>
+                  </div>
+                </div>
+                <div class="swatch">
+                  <div class="swatch-color" style="background: var(--color-primary-dark);">
+                    <span class="swatch-contrast">6.4:1</span>
+                  </div>
+                  <div class="swatch-info">
+                    <div class="swatch-name">Primary Dark</div>
+                    <div class="swatch-hex">#be185d</div>
+                    <div class="swatch-usage">Pressed states, text on light</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Accents -->
+            <div class="palette-group">
+              <h3 class="palette-group-title">Accents</h3>
+              <div class="swatches">
+                <div class="swatch">
+                  <div class="swatch-color" style="background: var(--color-warm);">
+                    <span class="swatch-contrast">4.0:1</span>
+                  </div>
+                  <div class="swatch-info">
+                    <div class="swatch-name">Warm</div>
+                    <div class="swatch-hex">#d97706</div>
+                    <div class="swatch-usage">Highlights, XP bars</div>
+                  </div>
+                </div>
+                <div class="swatch">
+                  <div class="swatch-color" style="background: var(--color-warm-light);">
+                    <span class="swatch-contrast">2.8:1</span>
+                  </div>
+                  <div class="swatch-info">
+                    <div class="swatch-name">Warm Light</div>
+                    <div class="swatch-hex">#f59e0b</div>
+                    <div class="swatch-usage">Badges, hover accents</div>
+                  </div>
+                </div>
+                <div class="swatch">
+                  <div class="swatch-color" style="background: var(--color-cool);">
+                    <span class="swatch-contrast">4.6:1</span>
+                  </div>
+                  <div class="swatch-info">
+                    <div class="swatch-name">Cool</div>
+                    <div class="swatch-hex">#0891b2</div>
+                    <div class="swatch-usage">Links, data, metrics</div>
+                  </div>
+                </div>
+                <div class="swatch">
+                  <div class="swatch-color" style="background: var(--color-cool-light);">
+                    <span class="swatch-contrast">3.5:1</span>
+                  </div>
+                  <div class="swatch-info">
+                    <div class="swatch-name">Cool Light</div>
+                    <div class="swatch-hex">#06b6d4</div>
+                    <div class="swatch-usage">Neon accents, interactive</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Semantic -->
+            <div class="palette-group">
+              <h3 class="palette-group-title">Semantic</h3>
+              <div class="swatches">
+                <div class="swatch">
+                  <div class="swatch-color" style="background: var(--color-success);">
+                    <span class="swatch-contrast">4.5:1</span>
+                  </div>
+                  <div class="swatch-info">
+                    <div class="swatch-name">Success</div>
+                    <div class="swatch-hex">#16a34a</div>
+                    <div class="swatch-usage">Quest complete, valid</div>
+                  </div>
+                </div>
+                <div class="swatch">
+                  <div class="swatch-color" style="background: var(--color-warning);">
+                    <span class="swatch-contrast">4.0:1</span>
+                  </div>
+                  <div class="swatch-info">
+                    <div class="swatch-name">Warning</div>
+                    <div class="swatch-hex">#d97706</div>
+                    <div class="swatch-usage">Low HP, caution</div>
+                  </div>
+                </div>
+                <div class="swatch">
+                  <div class="swatch-color" style="background: var(--color-error);">
+                    <span class="swatch-contrast">5.2:1</span>
+                  </div>
+                  <div class="swatch-info">
+                    <div class="swatch-name">Error</div>
+                    <div class="swatch-hex">#dc2626</div>
+                    <div class="swatch-usage">Critical, game over</div>
+                  </div>
+                </div>
+                <div class="swatch">
+                  <div class="swatch-color" style="background: var(--color-info);">
+                    <span class="swatch-contrast">5.7:1</span>
+                  </div>
+                  <div class="swatch-info">
+                    <div class="swatch-name">Info</div>
+                    <div class="swatch-hex">#2563eb</div>
+                    <div class="swatch-usage">Tooltips, patch notes</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Surfaces — Light/Dark side by side -->
+            <div class="palette-group">
+              <h3 class="palette-group-title">Surfaces</h3>
+              <div class="mode-preview">
+                <div class="mode-preview-panel mode-preview-light">
+                  <div class="mode-label">Light Mode</div>
+                  <div class="swatches" style="grid-template-columns: 1fr;">
+                    <div class="swatch">
+                      <div class="swatch-color" style="background: var(--surface-page); border: 1px solid var(--surface-border);"></div>
+                      <div class="swatch-info"><div class="swatch-name">Page</div><div class="swatch-hex">#fdf6f9</div></div>
+                    </div>
+                    <div class="swatch">
+                      <div class="swatch-color" style="background: var(--surface-card); border: 1px solid var(--surface-border);"></div>
+                      <div class="swatch-info"><div class="swatch-name">Card</div><div class="swatch-hex">#fefafb</div></div>
+                    </div>
+                    <div class="swatch">
+                      <div class="swatch-color" style="background: var(--surface-elevated);"></div>
+                      <div class="swatch-info"><div class="swatch-name">Elevated</div><div class="swatch-hex">#f8ecf1</div></div>
+                    </div>
+                    <div class="swatch">
+                      <div class="swatch-color" style="background: var(--surface-border);"></div>
+                      <div class="swatch-info"><div class="swatch-name">Border</div><div class="swatch-hex">#ebd8e1</div></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mode-preview-panel mode-preview-dark">
+                  <div class="mode-label">Dark Mode</div>
+                  <div class="swatches" style="grid-template-columns: 1fr;">
+                    <div class="swatch" style="border-color: var(--surface-dark-border);">
+                      <div class="swatch-color" style="background: var(--surface-dark-deep);"></div>
+                      <div class="swatch-info" style="background: var(--surface-dark-elevated);"><div class="swatch-name" style="color: var(--text-dark-primary);">Deep</div><div class="swatch-hex" style="color: var(--text-dark-tertiary);">#0d0509</div></div>
+                    </div>
+                    <div class="swatch" style="border-color: var(--surface-dark-border);">
+                      <div class="swatch-color" style="background: var(--surface-dark-base);"></div>
+                      <div class="swatch-info" style="background: var(--surface-dark-elevated);"><div class="swatch-name" style="color: var(--text-dark-primary);">Base</div><div class="swatch-hex" style="color: var(--text-dark-tertiary);">#150810</div></div>
+                    </div>
+                    <div class="swatch" style="border-color: var(--surface-dark-border);">
+                      <div class="swatch-color" style="background: var(--surface-dark-elevated);"></div>
+                      <div class="swatch-info" style="background: var(--surface-dark-elevated);"><div class="swatch-name" style="color: var(--text-dark-primary);">Elevated</div><div class="swatch-hex" style="color: var(--text-dark-tertiary);">#22101b</div></div>
+                    </div>
+                    <div class="swatch" style="border-color: var(--surface-dark-border);">
+                      <div class="swatch-color" style="background: var(--surface-dark-border);"></div>
+                      <div class="swatch-info" style="background: var(--surface-dark-elevated);"><div class="swatch-name" style="color: var(--text-dark-primary);">Border</div><div class="swatch-hex" style="color: var(--text-dark-tertiary);">#3d1a2d</div></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Text scales -->
+            <div class="palette-group">
+              <h3 class="palette-group-title">Text</h3>
+              <div class="mode-preview">
+                <div class="mode-preview-panel mode-preview-light">
+                  <div class="mode-label">Light Mode</div>
+                  <div style="display: flex; flex-direction: column; gap: var(--space-md);">
+                    <div><span style="color: var(--text-primary); font-weight: 600;">Primary</span> <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-tertiary);">#200d17</span></div>
+                    <div><span style="color: var(--text-secondary);">Secondary</span> <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-tertiary);">#5c3a4a</span></div>
+                    <div><span style="color: var(--text-tertiary);">Tertiary</span> <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-tertiary);">#8c6b7a</span></div>
+                    <div><span style="color: var(--text-disabled);">Disabled</span> <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-tertiary);">#b69aaa</span></div>
+                  </div>
+                </div>
+                <div class="mode-preview-panel mode-preview-dark">
+                  <div class="mode-label">Dark Mode</div>
+                  <div style="display: flex; flex-direction: column; gap: var(--space-md);">
+                    <div><span style="color: var(--text-dark-primary); font-weight: 600;">Primary</span> <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-dark-tertiary);">#f5ecf0</span></div>
+                    <div><span style="color: var(--text-dark-secondary);">Secondary</span> <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-dark-tertiary);">#c4a8b5</span></div>
+                    <div><span style="color: var(--text-dark-tertiary);">Tertiary</span> <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-dark-tertiary);">#8c6b7a</span></div>
+                    <div><span style="color: var(--text-dark-disabled);">Disabled</span> <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-dark-tertiary);">#5c3a4a</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- 04 — Typography -->
+      <section id="typography">
+        <p class="section-label">04 — Typography</p>
+        <h2 class="section-title">Type System</h2>
+        <p class="section-description">
+          Unbounded brings the bold, rounded energy of game UI to headlines and display text. Manrope handles body copy with geometric warmth. Fira Code adds developer-friendly monospace with ligatures for labels and metadata.
+        </p>
+
+        <!-- Display -->
+        <div class="type-specimen">
+          <div class="type-specimen-label">Display</div>
+          <div class="type-specimen-sample" style="font-family: var(--font-display); font-weight: 800; font-size: 3.052rem; line-height: 1.1; letter-spacing: -0.02em;">
+            Forge Your Story
+          </div>
+          <dl class="type-specimen-meta">
+            <div><dt>Family</dt><dd>Unbounded</dd></div>
+            <div><dt>Weight</dt><dd>800</dd></div>
+            <div><dt>Tracking</dt><dd>-0.02em</dd></div>
+            <div><dt>Line height</dt><dd>1.1</dd></div>
+          </dl>
+        </div>
+
+        <!-- Heading -->
+        <div class="type-specimen">
+          <div class="type-specimen-label">Heading</div>
+          <div class="type-specimen-sample" style="font-family: var(--font-heading); font-weight: 700; font-size: 1.953rem; line-height: 1.2; letter-spacing: -0.01em;">
+            Every pixel tells a story
+          </div>
+          <div class="type-specimen-sample" style="font-family: var(--font-heading); font-weight: 600; font-size: 1.563rem; line-height: 1.25; letter-spacing: -0.01em; margin-top: var(--space-md);">
+            Hand-crafted worlds deserve hand-crafted code
+          </div>
+          <div class="type-specimen-sample" style="font-family: var(--font-heading); font-weight: 500; font-size: 1.25rem; line-height: 1.3; margin-top: var(--space-md);">
+            From 8 bits to infinite possibilities
+          </div>
+          <dl class="type-specimen-meta">
+            <div><dt>Family</dt><dd>Unbounded</dd></div>
+            <div><dt>Weight</dt><dd>500 / 600 / 700</dd></div>
+            <div><dt>Tracking</dt><dd>-0.01em</dd></div>
+            <div><dt>Line height</dt><dd>1.2 -- 1.3</dd></div>
+          </dl>
+        </div>
+
+        <!-- Body -->
+        <div class="type-specimen">
+          <div class="type-specimen-label">Body</div>
+          <div class="type-specimen-sample" style="font-family: var(--font-body); font-size: 1rem; line-height: 1.6;">
+            PixelForge builds narrative-driven RPGs that merge retro pixel art with modern storytelling. Each game is a handcrafted world where every tile, every dialogue branch, and every encounter is designed to resonate long after the credits roll. We believe games are the most powerful storytelling medium of our time.
+          </div>
+          <dl class="type-specimen-meta">
+            <div><dt>Family</dt><dd>Manrope</dd></div>
+            <div><dt>Weight</dt><dd>400</dd></div>
+            <div><dt>Tracking</dt><dd>0</dd></div>
+            <div><dt>Line height</dt><dd>1.6</dd></div>
+          </dl>
+        </div>
+
+        <!-- Mono -->
+        <div class="type-specimen">
+          <div class="type-specimen-label">Mono</div>
+          <div class="type-specimen-sample" style="font-family: var(--font-mono); font-size: 0.875rem; line-height: 1.5;">
+            const studio = { name: "PixelForge", genre: "RPG" };<br>
+            const hp = player.stats.health; // => 42<br>
+            font-variant-numeric: tabular-nums;
+          </div>
+          <dl class="type-specimen-meta">
+            <div><dt>Family</dt><dd>Fira Code</dd></div>
+            <div><dt>Weight</dt><dd>400</dd></div>
+            <div><dt>Features</dt><dd>Ligatures, tabular-nums</dd></div>
+            <div><dt>Use</dt><dd>Labels, metadata, code, stats</dd></div>
+          </dl>
+        </div>
+
+        <!-- Type Scale Table -->
+        <h3 class="palette-group-title" style="margin-top: var(--space-xl);">Type Scale</h3>
+        <table class="type-scale-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Size (rem)</th>
+              <th>Size (px)</th>
+              <th>Use</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>6xl</td>
+              <td>3.815</td>
+              <td>61.04</td>
+              <td>Hero headlines</td>
+            </tr>
+            <tr>
+              <td>5xl</td>
+              <td>3.052</td>
+              <td>48.83</td>
+              <td>Section heroes</td>
+            </tr>
+            <tr>
+              <td>4xl</td>
+              <td>2.441</td>
+              <td>39.06</td>
+              <td>Page titles</td>
+            </tr>
+            <tr>
+              <td>3xl</td>
+              <td>1.953</td>
+              <td>31.25</td>
+              <td>Section headings</td>
+            </tr>
+            <tr>
+              <td>2xl</td>
+              <td>1.563</td>
+              <td>25.00</td>
+              <td>Subsection headings</td>
+            </tr>
+            <tr>
+              <td>xl</td>
+              <td>1.25</td>
+              <td>20.00</td>
+              <td>Lead text, large body</td>
+            </tr>
+            <tr>
+              <td>base</td>
+              <td>1.0</td>
+              <td>16.00</td>
+              <td>Body text</td>
+            </tr>
+            <tr>
+              <td>sm</td>
+              <td>0.875</td>
+              <td>14.00</td>
+              <td>Captions, secondary</td>
+            </tr>
+            <tr>
+              <td>xs</td>
+              <td>0.75</td>
+              <td>12.00</td>
+              <td>Labels, metadata</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- 05 — Components -->
+      <div class="section-alt">
+        <section id="components">
+          <div class="section-inner">
+            <p class="section-label">05 — Components</p>
+            <h2 class="section-title">UI Components</h2>
+            <p class="section-description">
+              Core components styled with the PixelForge brand system, shown in both light and dark modes. Components use slightly sharper radii to match the technical/pixel art feel.
+            </p>
+
+            <!-- Buttons -->
+            <h3 class="palette-group-title">Buttons</h3>
+            <div class="mode-preview">
+              <div class="mode-preview-panel mode-preview-light">
+                <div class="mode-label">Light Mode</div>
+                <div class="component-row">
+                  <button type="button" class="btn btn-primary">Primary</button>
+                  <button type="button" class="btn btn-secondary">Secondary</button>
+                  <button type="button" class="btn btn-outline">Outline</button>
+                  <button type="button" class="btn btn-ghost">Ghost</button>
+                  <button type="button" class="btn btn-destructive">Delete</button>
+                </div>
+              </div>
+              <div class="mode-preview-panel mode-preview-dark">
+                <div class="mode-label">Dark Mode</div>
+                <div class="component-row">
+                  <button type="button" class="btn btn-primary">Primary</button>
+                  <button type="button" class="btn btn-secondary" style="background: var(--surface-dark-elevated); color: var(--text-dark-primary);">Secondary</button>
+                  <button type="button" class="btn btn-outline" style="color: var(--color-primary-light); border-color: var(--color-primary-light);">Outline</button>
+                  <button type="button" class="btn btn-ghost" style="color: var(--text-dark-secondary);">Ghost</button>
+                  <button type="button" class="btn btn-destructive">Delete</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Cards -->
+            <h3 class="palette-group-title" style="margin-top: var(--space-2xl);">Cards</h3>
+            <div class="mode-preview">
+              <div class="mode-preview-panel mode-preview-light">
+                <div class="mode-label">Light Mode</div>
+                <div class="card" style="margin-bottom: var(--space-md);">
+                  <h4 class="card-title" style="color: var(--text-primary);">Default Card</h4>
+                  <p class="card-text" style="color: var(--text-secondary);">Standard content container using surface-card with a subtle border. Used for non-interactive content blocks.</p>
+                </div>
+                <div class="card card-interactive" style="margin-bottom: var(--space-md);">
+                  <h4 class="card-title" style="color: var(--text-primary);">Interactive Card</h4>
+                  <p class="card-text" style="color: var(--text-secondary);">Hover to see the elevation effect. Responds to mouse interaction with lift and shadow.</p>
+                </div>
+                <div class="card card-featured">
+                  <h4 class="card-title" style="color: var(--text-primary);">Featured Card</h4>
+                  <p class="card-text" style="color: var(--text-secondary);">Highlighted with the primary color border to draw attention to promoted content.</p>
+                </div>
+              </div>
+              <div class="mode-preview-panel mode-preview-dark">
+                <div class="mode-label">Dark Mode</div>
+                <div class="card" style="margin-bottom: var(--space-md); background: var(--surface-dark-elevated); border-color: var(--surface-dark-border);">
+                  <h4 class="card-title" style="color: var(--text-dark-primary);">Default Card</h4>
+                  <p class="card-text" style="color: var(--text-dark-secondary);">Standard content container using the dark elevated surface with a dark border token.</p>
+                </div>
+                <div class="card card-interactive" style="margin-bottom: var(--space-md); background: var(--surface-dark-elevated); border-color: var(--surface-dark-border);">
+                  <h4 class="card-title" style="color: var(--text-dark-primary);">Interactive Card</h4>
+                  <p class="card-text" style="color: var(--text-dark-secondary);">Hover to see the elevation effect on dark surfaces. Shadow becomes a subtle glow.</p>
+                </div>
+                <div class="card card-featured" style="background: var(--surface-dark-elevated); border-color: var(--color-primary-light);">
+                  <h4 class="card-title" style="color: var(--text-dark-primary);">Featured Card</h4>
+                  <p class="card-text" style="color: var(--text-dark-secondary);">Highlighted with the primary-light border on dark backgrounds for better visibility.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Inputs -->
+            <h3 class="palette-group-title" style="margin-top: var(--space-2xl);">Inputs</h3>
+            <div class="mode-preview">
+              <div class="mode-preview-panel mode-preview-light">
+                <div class="mode-label">Light Mode</div>
+                <div class="input-group">
+                  <label for="input-text" class="input-label" style="color: var(--text-primary);">Text Input</label>
+                  <input type="text" id="input-text" name="text" class="input" placeholder="Enter player name" autocomplete="off">
+                  <p class="input-hint" style="color: var(--text-tertiary);">3-20 characters, alphanumeric</p>
+                </div>
+                <div class="input-group">
+                  <label for="input-select" class="input-label" style="color: var(--text-primary);">Select</label>
+                  <select id="input-select" name="select" class="select" autocomplete="off">
+                    <option value="">Choose class...</option>
+                    <option value="warrior">Warrior</option>
+                    <option value="mage">Mage</option>
+                    <option value="rogue">Rogue</option>
+                  </select>
+                </div>
+                <div class="input-group">
+                  <label for="input-textarea" class="input-label" style="color: var(--text-primary);">Textarea</label>
+                  <textarea id="input-textarea" name="textarea" class="textarea" placeholder="Describe your character..." autocomplete="off"></textarea>
+                </div>
+                <div class="input-group">
+                  <label for="input-err" class="input-label" style="color: var(--text-primary);">Error State</label>
+                  <input type="text" id="input-err" name="error" class="input input-error" value="Invalid guild tag" autocomplete="off">
+                  <p class="input-error-msg">Guild tag must be 2-5 uppercase letters</p>
+                </div>
+                <div class="input-group">
+                  <label for="input-dis" class="input-label" style="color: var(--text-primary);">Disabled</label>
+                  <input type="text" id="input-dis" name="disabled" class="input" disabled value="Locked during combat" autocomplete="off">
+                </div>
+              </div>
+              <div class="mode-preview-panel mode-preview-dark">
+                <div class="mode-label">Dark Mode</div>
+                <div class="input-group">
+                  <label for="input-dark-text" class="input-label" style="color: var(--text-dark-primary);">Text Input</label>
+                  <input type="text" id="input-dark-text" name="dark-text" class="input" style="background: var(--surface-dark-elevated); border-color: var(--surface-dark-border); color: var(--text-dark-primary);" placeholder="Enter player name" autocomplete="off">
+                  <p class="input-hint" style="color: var(--text-dark-tertiary);">3-20 characters, alphanumeric</p>
+                </div>
+                <div class="input-group">
+                  <label for="input-dark-select" class="input-label" style="color: var(--text-dark-primary);">Select</label>
+                  <select id="input-dark-select" name="dark-select" class="select" style="background-color: var(--surface-dark-elevated); border-color: var(--surface-dark-border); color: var(--text-dark-primary);" autocomplete="off">
+                    <option value="">Choose class...</option>
+                    <option value="warrior">Warrior</option>
+                    <option value="mage">Mage</option>
+                  </select>
+                </div>
+                <div class="input-group">
+                  <label for="input-dark-textarea" class="input-label" style="color: var(--text-dark-primary);">Textarea</label>
+                  <textarea id="input-dark-textarea" name="dark-textarea" class="textarea" style="background: var(--surface-dark-elevated); border-color: var(--surface-dark-border); color: var(--text-dark-primary);" placeholder="Describe your character..." autocomplete="off"></textarea>
+                </div>
+                <div class="input-group">
+                  <label for="input-dark-err" class="input-label" style="color: var(--text-dark-primary);">Error State</label>
+                  <input type="text" id="input-dark-err" name="dark-error" class="input input-error" style="background: var(--surface-dark-elevated); color: var(--text-dark-primary);" value="Invalid guild tag" autocomplete="off">
+                  <p class="input-error-msg">Guild tag must be 2-5 uppercase letters</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tags -->
+            <h3 class="palette-group-title" style="margin-top: var(--space-2xl);">Tags & Badges</h3>
+            <div class="mode-preview">
+              <div class="mode-preview-panel mode-preview-light">
+                <div class="mode-label">Light Mode</div>
+                <div class="tags">
+                  <span class="tag tag-primary">Featured</span>
+                  <span class="tag tag-success">Released</span>
+                  <span class="tag tag-warning">Early Access</span>
+                  <span class="tag tag-error">Deprecated</span>
+                  <span class="tag tag-info">Update v2.1</span>
+                </div>
+              </div>
+              <div class="mode-preview-panel mode-preview-dark">
+                <div class="mode-label">Dark Mode</div>
+                <div class="tags">
+                  <span class="tag tag-primary">Featured</span>
+                  <span class="tag tag-success">Released</span>
+                  <span class="tag tag-warning">Early Access</span>
+                  <span class="tag tag-error">Deprecated</span>
+                  <span class="tag tag-info">Update v2.1</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- 06 — Don't -->
+      <section id="dont">
+        <p class="section-label">06 — Don't</p>
+        <h2 class="section-title">Negative Rules</h2>
+        <p class="section-description">
+          These are explicit violations of the PixelForge brand system. Each rule protects the brand's integrity and consistency.
+        </p>
+
+        <div class="dont-grid">
+          <div class="dont-card">
+            <div class="dont-label">Don't</div>
+            <div class="dont-example">
+              <span style="font-family: var(--font-heading); font-weight: 800; font-size: 1.5rem; transform: scaleX(1.3); display: inline-block; color: var(--text-primary);">PixelForge</span>
+            </div>
+            <p class="dont-text">Never stretch or distort the wordmark. Always use it at its original proportions.</p>
+          </div>
+
+          <div class="dont-card">
+            <div class="dont-label">Don't</div>
+            <div class="dont-example">
+              <span style="font-family: var(--font-heading); font-weight: 800; font-size: 1.5rem; background: linear-gradient(135deg, var(--color-primary), var(--color-cool)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">PixelForge</span>
+            </div>
+            <p class="dont-text">Never apply gradients to the wordmark. The logo must always use flat, solid colors.</p>
+          </div>
+
+          <div class="dont-card">
+            <div class="dont-label">Don't</div>
+            <div class="dont-example">
+              <span style="font-family: 'Comic Sans MS', cursive; font-weight: bold; font-size: 1.5rem; color: var(--text-primary);">PixelForge</span>
+            </div>
+            <p class="dont-text">Never use unapproved fonts for the wordmark. It must always use Unbounded 800.</p>
+          </div>
+
+          <div class="dont-card">
+            <div class="dont-label">Don't</div>
+            <div class="dont-example">
+              <span style="font-family: var(--font-body); font-size: 10px; color: var(--text-primary);">This text is far too small to read comfortably on any screen.</span>
+            </div>
+            <p class="dont-text">Never set body text below 14px (0.875rem). Readability is non-negotiable, even in pixel art.</p>
+          </div>
+
+          <div class="dont-card">
+            <div class="dont-label">Don't</div>
+            <div class="dont-example">
+              <span style="font-family: var(--font-heading); font-weight: 800; font-size: 1.5rem; color: var(--color-warm);">Pixel</span><span style="font-family: var(--font-heading); font-weight: 800; font-size: 1.5rem; color: var(--color-cool);">Forge</span>
+            </div>
+            <p class="dont-text">Never use unapproved color combinations on the wordmark. Only the defined variants are allowed.</p>
+          </div>
+
+          <div class="dont-card">
+            <div class="dont-label">Don't</div>
+            <div class="dont-example">
+              <button type="button" style="font-family: var(--font-heading); font-weight: 600; font-size: 0.875rem; padding: 8px 20px; background: var(--color-primary); color: #fff; border: none; border-radius: var(--radius-md); outline: none;" tabindex="-1">No Focus Ring</button>
+            </div>
+            <p class="dont-text">Never remove focus indicators from interactive elements. Keyboard users depend on visible focus rings.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer style="padding: var(--space-2xl); text-align: center; background: var(--surface-elevated);">
+        <p style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-tertiary);">
+          PixelForge Brand System &middot; Generated with Brandbook Design System &middot; <span style="font-variant-numeric: tabular-nums;">2026</span>
+        </p>
+      </footer>
+    </main>
+  </div>
+
+  <!-- Scroll-based active section highlighting -->
+  <script>
+    (function () {
+      var navLinks = document.querySelectorAll('.sidebar-nav a');
+      var sections = document.querySelectorAll('section[id]');
+
+      if (!sections.length || !navLinks.length) return;
+
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            navLinks.forEach(function (link) { link.classList.remove('active'); });
+            var active = document.querySelector('.sidebar-nav a[href="#' + entry.target.id + '"]');
+            if (active) active.classList.add('active');
+          }
+        });
+      }, {
+        rootMargin: '-20% 0px -70% 0px',
+        threshold: 0
+      });
+
+      sections.forEach(function (section) { observer.observe(section); });
+    })();
+  </script>
+</body>
+</html>

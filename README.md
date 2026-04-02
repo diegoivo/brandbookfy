@@ -18,13 +18,26 @@ Type `/brandbookfy` in any Claude Code session and it interviews you about your 
 
 Three brandbooks generated with Brandbookfy — same skill, completely different results:
 
-| [Maison.](examples/maison-luxury-realestate.html) | [VAULTKEY](examples/vaultkey-cybersecurity.html) | [stillpoint](examples/stillpoint-wellness.html) |
+| [Maison.](examples/maison-luxury-realestate.html) | [VAULTKEY](examples/vaultkey-cybersecurity.html) | [PixelForge](examples/pixelforge-indie-games.html) |
 |:---:|:---:|:---:|
-| ![Maison.](assets/screenshots/maison-luxury-realestate.png) | ![VAULTKEY](assets/screenshots/vaultkey-cybersecurity.png) | ![stillpoint](assets/screenshots/stillpoint-wellness.png) |
-| Luxury real estate | Cybersecurity | Meditation app |
-| Charcoal + gold, editorial serif | Terminal green on black, mono-heavy | Warm stone + olive, airy serif |
+| ![Maison.](assets/screenshots/maison-luxury-realestate.png) | ![VAULTKEY](assets/screenshots/vaultkey-cybersecurity.png) | ![PixelForge](assets/screenshots/pixelforge-indie-games.png) |
+| Luxury real estate | Cybersecurity | Indie game studio |
+| Charcoal + gold, Cormorant serif | Terminal green on black, Cabinet Grotesk | Electric magenta + cyan, Unbounded |
 
 > Click the brand name to open the full HTML brandbook.
+
+### All examples generated during testing
+
+- **NutriPlan** — Meal planning app. Sage green, Fraunces serif, Caregiver archetype
+- **PixelForge** — Indie game studio. Electric magenta + cyan, Unbounded, Creator archetype
+- **Ledgr** — Fintech dashboard. Deep teal + amber, Outfit sans, Sage archetype
+- **Maison.** — Luxury real estate. Charcoal + gold, Cormorant serif, Ruler archetype
+- **stillpoint** — Meditation app. Warm stone + olive, Cormorant serif, Innocent archetype
+- **VAULTKEY** — Cybersecurity platform. Terminal green on black, Cabinet Grotesk, Hero archetype
+- **Torrefazione Nera** — Artisan coffee roaster. Espresso brown + copper, Playfair Display, Lover archetype
+- **< CodePath />** — Coding bootcamp. Deep indigo + chartreuse, Fira Code mono, Magician archetype
+- **re:thread** — Sustainable fashion. Clay terracotta + forest green, Outfit sans, Explorer archetype
+- **Lex§** — Legal tech SaaS. Deep navy + bronze, DM Serif Display, Sage archetype
 
 ## Install
 
